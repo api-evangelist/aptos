@@ -1,0 +1,90 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Aptos
+providerId: aptos
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - Blockchain
+  - Web3
+  - Move
+  - Layer 1
+  - Rate Limiting
+description: >-
+  Aptos Labs provides limited anonymous access to the Fullnode REST, Indexer GraphQL, and
+  Transaction Stream APIs on a per-IP basis without an API key. Authenticated access via a
+  Geomi API key grants significantly higher limits, metered in compute units (CU). A deprecated
+  per-5-minute CU system limit has been replaced with granular HTTP-level request limits that
+  vary by subscription status (no payment method vs. payment method attached). Throttled
+  requests receive HTTP 429 responses.
+sources:
+  - https://aptos.dev/en/build/apis
+  - https://geomi.dev/docs/admin/billing
+  - https://geomi.dev/pricing
+responseCodes:
+  throttled: 429
+limits:
+  - name: Anonymous per-IP access
+    scope: ip_address
+    metric: requests_per_period
+    limit: -1
+    notes: >-
+      Aptos Labs provides limited free access without an API key, throttled per source IP.
+      Exact per-minute or per-second caps are not published; meaningfully lower than
+      authenticated access.
+  - name: Geomi free tier (no payment method) — compute units
+    scope: api_key
+    metric: compute_units_per_month
+    limit: -1
+    notes: >-
+      Organizations without a payment method receive $10/month in free CU credits. Service
+      pauses when the monthly credit is exhausted. Exact CU-per-request values vary by
+      endpoint type.
+  - name: Geomi paid tier (payment method attached) — compute units
+    scope: api_key
+    metric: compute_units_per_month
+    limit: -1
+    notes: >-
+      Organizations with a payment method receive $100/month in free CU credits and then pay
+      overages at $0.0012059575 per 1,000 CU. No hard cap; scaled to budget.
+  - name: System HTTP rate limit (no payment method)
+    scope: api_key
+    metric: requests_per_period
+    limit: -1
+    notes: >-
+      HTTP request rate limits exist per 5-minute window for organizations without a payment
+      method. Specific numbers are tier-specific and set by Geomi admins; not publicly
+      documented.
+  - name: System HTTP rate limit (payment method attached)
+    scope: api_key
+    metric: requests_per_period
+    limit: -1
+    notes: >-
+      Higher default HTTP rate limits apply when a payment method is attached. Organizations
+      may receive custom limit bumps from Geomi admins.
+policies:
+  - name: API Key Authentication
+    description: >-
+      Obtain an API key from geomi.dev to authenticate requests with significantly higher
+      limits than anonymous per-IP access. Pass key in request headers as documented.
+  - name: Exponential Backoff on 429
+    description: >-
+      On HTTP 429 responses, apply exponential backoff with jitter before retrying. Respect
+      any Retry-After header value returned by the server.
+  - name: Compute Unit Budgeting
+    description: >-
+      Monitor CU consumption via the Geomi real-time dashboard. Set budget alerts to avoid
+      unexpected service interruption at free-tier limits or unexpected overage charges.
+  - name: Self-Hosting Option
+    description: >-
+      For workloads requiring very high throughput, operators can self-host the Aptos fullnode
+      and indexer to avoid shared rate limits entirely.
+  - name: SDK Rate Limit Handling
+    description: >-
+      The official Aptos TypeScript SDK automatically handles rate limits when accessing the
+      Indexer API. Prefer SDK usage over raw HTTP for built-in retry logic.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

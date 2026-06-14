@@ -1,0 +1,132 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Aptos
+providerId: aptos
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - Blockchain
+  - Web3
+  - Move
+  - Layer 1
+  - FinOps
+  - FOCUS
+description: >-
+  FinOps view of the Aptos API platform (via Geomi). Aptos Labs provides limited free anonymous
+  access per IP, and authenticated metered access via Geomi API keys. Billing is consumption-based
+  in compute units (CU) with $10-$100/month free credit depending on whether a payment method is
+  attached. Overages are charged at granular per-unit rates across compute, storage, writes, and
+  streaming dimensions. Gas Station costs fluctuate with the APT token price. Budget owners should
+  tag API keys per workload, monitor CU burn in the Geomi dashboard, and plan for Gas Station
+  variability separately.
+sources:
+  - https://geomi.dev/pricing
+  - https://geomi.dev/docs/admin/billing
+  - https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Aptos Labs / Geomi
+serviceCategory: Blockchain
+billingModel:
+  pricingCategory: Consumption
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Adjustment
+focusColumns:
+  ServiceName: Aptos API Platform
+  ServiceCategory: Blockchain
+  ProviderName: Aptos Labs
+  PublisherName: Aptos Labs / Geomi
+  InvoiceIssuerName: Geomi
+  BillingCurrency: USD
+  ChargeCategory: Usage
+meters:
+  - name: compute_units
+    description: >-
+      Primary usage meter for API requests (Fullnode REST, Indexer GraphQL, Analytics).
+      Charged at $0.0012059575 per 1,000 CU above the monthly free credit.
+    unit: per_1000_CU
+    aggregation: sum
+    dimensions:
+      - api_key
+      - api_type
+      - network
+  - name: processor_time
+    description: >-
+      CPU time consumed by custom indexer processors. Charged at $0.05842037994 per hour
+      above the monthly free credit.
+    unit: hour
+    aggregation: sum
+    dimensions:
+      - api_key
+      - processor_id
+  - name: processor_storage
+    description: >-
+      Storage consumed by custom indexer processor state. Charged at $0.0005341446144 per
+      GiB-hour above the monthly free credit.
+    unit: gib_hour
+    aggregation: sum
+    dimensions:
+      - api_key
+      - processor_id
+  - name: processor_writes
+    description: >-
+      Data write volume from custom indexer processors. Charged at $0.39111546109952 per MiB
+      above the monthly free credit.
+    unit: mib
+    aggregation: sum
+    dimensions:
+      - api_key
+      - processor_id
+  - name: transaction_stream
+    description: >-
+      gRPC Transaction Stream data volume. Charged at $0.00255455674112 per GiB above the
+      monthly free credit.
+    unit: gib
+    aggregation: sum
+    dimensions:
+      - api_key
+      - network
+  - name: gas_station
+    description: >-
+      Sponsored transaction costs via Gas Station. Priced based on gas consumed and APT token
+      price at previous UTC close-of-day. Variable; budget separately from CU costs.
+    unit: gas_unit
+    aggregation: sum
+    dimensions:
+      - api_key
+      - transaction_hash
+principles:
+  - name: Visibility
+    description: >-
+      Assign a distinct Geomi API key per workload or application so that the real-time usage
+      dashboard surfaces per-workload CU consumption accurately.
+  - name: Allocation
+    description: >-
+      Allocate CU costs to product teams using API key tagging. Gas Station charges should be
+      allocated separately as they fluctuate with APT price and gas usage per transaction.
+  - name: Optimization
+    description: >-
+      Prefer the Aptos TypeScript SDK (built-in rate-limit handling) over raw HTTP polling.
+      Cache read responses where consistency permits to reduce CU burn. Use the Indexer GraphQL
+      API for batch reads instead of looping Fullnode REST calls.
+  - name: Accountability
+    description: >-
+      Assign a billing owner to the Geomi organization account. Set spend alerts in the Geomi
+      dashboard before monthly free credit is exhausted to prevent service interruption.
+  - name: Forecasting
+    description: >-
+      Model CU costs by multiplying expected monthly request volume by the per-endpoint CU
+      weight. Budget Gas Station costs as a separate variable line item pegged to expected
+      transaction volume and a conservative APT price estimate.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

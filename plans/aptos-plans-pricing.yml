@@ -1,0 +1,174 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Aptos
+providerId: aptos
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - Blockchain
+  - Web3
+  - Move
+  - Layer 1
+  - Plans
+description: >-
+  Aptos Labs provides public endpoints for the Fullnode REST API, Indexer GraphQL API, and
+  Transaction Stream gRPC on a per-IP anonymous basis for free. For significantly higher rate
+  limits, developers register at Geomi (geomi.dev), which uses a consumption-based model
+  charged in compute units (CU). There are no locked tiers — all users get $10/month free
+  credit by default, or $100/month free credit when a payment method is attached, with
+  pay-as-you-go overages billed at $0.0012059575 per 1,000 CU.
+notes: >-
+  Pricing is via Geomi (formerly the Aptos Labs Developer Portal). CU rates and free credit
+  amounts should be re-verified at geomi.dev/pricing. Gas Station billing varies based on
+  APT price at previous UTC close-of-day.
+sources:
+  - https://geomi.dev/pricing
+  - https://geomi.dev/docs/admin/billing
+  - https://aptos.dev/en/build/apis
+plans:
+  - id: aptos-anonymous
+    name: Anonymous (Per-IP)
+    type: free
+    description: >-
+      Default free access limited per source IP address without requiring an API key. Suitable
+      for early exploration and testing. Exact rate limits are not published; significantly
+      lower than authenticated access.
+    entries:
+      - label: Monthly cost
+        name: anonymous_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: No API key required
+      - name: Per-IP rate limiting
+      - name: Mainnet, testnet, devnet access
+  - id: aptos-geomi-free
+    name: Geomi Free Credit (No Payment Method)
+    type: freemium
+    description: >-
+      Register at Geomi, generate an API key, and receive $10/month in free compute unit
+      credits automatically. Access to Fullnode REST, Indexer GraphQL, and Analytics APIs.
+    entries:
+      - label: Monthly free credit
+        name: geomi_free_credit_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Free credit value
+        name: geomi_free_cu_value
+        type: quota
+        metric: usd_credit_per_month
+        limit: 10
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: API key authentication
+      - name: $10/month compute unit credit
+      - name: Fullnode REST API access
+      - name: Indexer GraphQL API access
+      - name: Analytics API access
+      - name: Service pauses if credit exhausted without payment method
+  - id: aptos-geomi-paid
+    name: Geomi Pay-as-you-go (Payment Method Attached)
+    type: payg
+    description: >-
+      Attach a payment method to Geomi to receive $100/month in free compute unit credits
+      at no charge. Overages are billed at published per-unit rates. No locked tiers — usage
+      scales automatically. Includes access to Gas Station for sponsored transactions.
+    entries:
+      - label: Monthly free credit
+        name: geomi_paid_free_credit_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Free credit value
+        name: geomi_paid_cu_value
+        type: quota
+        metric: usd_credit_per_month
+        limit: 100
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Compute units overage
+        name: geomi_compute_units
+        type: usage
+        metric: compute_units
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: '0.0012059575'
+        userMultiplied: false
+      - label: Processor time overage
+        name: geomi_processor_time
+        type: usage
+        metric: processor_hours
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.05842037994'
+        userMultiplied: false
+      - label: Processor storage overage
+        name: geomi_processor_storage
+        type: usage
+        metric: gib_hours
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.0005341446144'
+        userMultiplied: false
+      - label: Processor writes overage
+        name: geomi_processor_writes
+        type: usage
+        metric: mib_writes
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.39111546109952'
+        userMultiplied: false
+      - label: Transaction stream overage
+        name: geomi_transaction_stream
+        type: usage
+        metric: gib_transferred
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00255455674112'
+        userMultiplied: false
+    elements:
+      - name: $100/month free compute unit credit
+      - name: Pay-as-you-go overages
+      - name: Gas Station (sponsored transactions)
+      - name: Real-time usage monitoring dashboard
+      - name: No hidden fees or locked tiers
+      - name: Full API access across all networks
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
