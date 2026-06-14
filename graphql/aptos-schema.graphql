@@ -1,0 +1,720 @@
+# Aptos Indexer GraphQL Schema
+# Source: Live introspection of https://indexer.mainnet.aptoslabs.com/v1/graphql
+# Introspected: 2026-06-14
+
+scalar bigint
+scalar jsonb
+scalar numeric
+scalar timestamp
+
+# ─── Account & Auth ─────────────────────────────────────────────────────────
+
+type account_transactions {
+  account_address: String!
+  delegated_staking_activities: [delegated_staking_activities!]!
+  fungible_asset_activities: [fungible_asset_activities!]!
+  token_activities_v2: [token_activities_v2!]!
+  token_activities_v2_aggregate: token_activities_v2_aggregate!
+  transaction_version: bigint!
+  user_transaction: user_transactions
+}
+
+type auth_key_account_addresses {
+  account_address: String!
+  auth_key: String!
+  is_auth_key_used: Boolean!
+  last_transaction_version: bigint!
+}
+
+type public_key_auth_keys {
+  account_public_key: String
+  auth_key: String!
+  is_public_key_used: Boolean!
+  last_transaction_version: bigint!
+  public_key: String!
+  public_key_type: String!
+  signature_type: String!
+}
+
+# ─── Transactions ────────────────────────────────────────────────────────────
+
+type user_transactions {
+  block_height: bigint!
+  entry_function_contract_address: String
+  entry_function_function_name: String
+  entry_function_id_str: String!
+  entry_function_module_name: String
+  epoch: bigint!
+  expiration_timestamp_secs: timestamp!
+  gas_unit_price: numeric!
+  max_gas_amount: numeric!
+  parent_signature_type: String!
+  sender: String!
+  sequence_number: bigint
+  signature: signatures
+  timestamp: timestamp!
+  version: bigint!
+}
+
+type block_metadata_transactions {
+  block_height: bigint!
+  epoch: bigint!
+  failed_proposer_indices: jsonb!
+  id: String!
+  previous_block_votes_bitvec: jsonb!
+  proposer: String!
+  round: bigint!
+  timestamp: timestamp!
+  version: bigint!
+}
+
+type signatures {
+  any_signature_type: String
+  function_info: String
+  is_sender_primary: Boolean!
+  multi_agent_index: bigint!
+  multi_sig_index: bigint!
+  public_key: String!
+  public_key_indices: jsonb!
+  public_key_type: String
+  signature: String!
+  signer: String!
+  threshold: bigint!
+  transaction_block_height: bigint!
+  transaction_version: bigint!
+  type: String!
+}
+
+# ─── Fungible Assets ─────────────────────────────────────────────────────────
+
+type current_fungible_asset_balances {
+  amount: numeric!
+  amount_v1: numeric
+  amount_v2: numeric
+  asset_type: String!
+  asset_type_v1: String
+  asset_type_v2: String
+  is_frozen: Boolean!
+  is_primary: Boolean!
+  last_transaction_timestamp: timestamp
+  last_transaction_timestamp_v1: timestamp
+  last_transaction_timestamp_v2: timestamp
+  last_transaction_version: bigint
+  last_transaction_version_v1: bigint
+  last_transaction_version_v2: bigint
+  metadata: fungible_asset_metadata
+  owner_address: String!
+  storage_id: String!
+  token_standard: String!
+}
+
+type fungible_asset_activities {
+  amount: numeric
+  asset_type: String
+  block_height: bigint!
+  entry_function_id_str: String
+  event_index: bigint!
+  gas_fee_payer_address: String
+  is_frozen: Boolean
+  is_gas_fee: Boolean!
+  is_transaction_success: Boolean!
+  metadata: fungible_asset_metadata
+  owner_address: String
+  owner_aptos_names: [current_aptos_names!]!
+  owner_aptos_names_aggregate: current_aptos_names_aggregate!
+  storage_id: String!
+  storage_refund_amount: numeric!
+  token_standard: String!
+  transaction_timestamp: timestamp!
+  transaction_version: bigint!
+  type: String!
+}
+
+type fungible_asset_metadata {
+  asset_type: String!
+  creator_address: String!
+  decimals: Int!
+  icon_uri: String
+  last_transaction_timestamp: timestamp!
+  last_transaction_version: bigint!
+  maximum_v2: numeric
+  name: String!
+  project_uri: String
+  supply_aggregator_table_handle_v1: String
+  supply_aggregator_table_key_v1: String
+  supply_v2: numeric
+  symbol: String!
+  token_standard: String!
+}
+
+type confidential_asset_activities {
+  amount: numeric
+  asset_type: String
+  block_height: bigint!
+  counterparty_address: String
+  counterparty_aptos_names: [current_aptos_names!]!
+  counterparty_aptos_names_aggregate: current_aptos_names_aggregate!
+  entry_function_id_str: String
+  event_data: jsonb!
+  event_data_version: String!
+  event_index: bigint!
+  event_type: String!
+  is_transaction_success: Boolean!
+  metadata: fungible_asset_metadata
+  owner_address: String!
+  owner_aptos_names: [current_aptos_names!]!
+  owner_aptos_names_aggregate: current_aptos_names_aggregate!
+  transaction_timestamp: timestamp!
+  transaction_version: bigint!
+}
+
+# ─── NFT / Tokens ────────────────────────────────────────────────────────────
+
+type current_token_ownerships_v2 {
+  amount: numeric!
+  composed_nfts: [current_token_ownerships_v2!]!
+  composed_nfts_aggregate: current_token_ownerships_v2_aggregate!
+  current_token_data: current_token_datas_v2
+  is_fungible_v2: Boolean
+  is_soulbound_v2: Boolean
+  last_transaction_timestamp: timestamp!
+  last_transaction_version: bigint!
+  non_transferrable_by_owner: Boolean
+  owner_address: String!
+  property_version_v1: numeric!
+  storage_id: String!
+  table_type_v1: String
+  token_data_id: String!
+  token_properties_mutated_v1: jsonb
+  token_standard: String!
+}
+
+type current_token_datas_v2 {
+  aptos_name: current_aptos_names
+  cdn_asset_uris: nft_metadata_crawler_parsed_asset_uris
+  collection_id: String!
+  current_collection: current_collections_v2
+  current_royalty_v1: current_token_royalty_v1
+  current_token_ownerships: [current_token_ownerships_v2!]!
+  current_token_ownerships_aggregate: current_token_ownerships_v2_aggregate!
+  decimals: bigint
+  description: String!
+  is_deleted_v2: Boolean
+  is_fungible_v2: Boolean
+  largest_property_version_v1: numeric
+  last_transaction_timestamp: timestamp!
+  last_transaction_version: bigint!
+  maximum: numeric
+  supply: numeric
+  token_data_id: String!
+  token_name: String!
+  token_properties: jsonb!
+  token_standard: String!
+  token_uri: String!
+}
+
+type current_collections_v2 {
+  cdn_asset_uris: nft_metadata_crawler_parsed_asset_uris
+  collection_id: String!
+  collection_name: String!
+  collection_properties: jsonb
+  creator_address: String!
+  current_supply: numeric!
+  description: String!
+  last_transaction_timestamp: timestamp!
+  last_transaction_version: bigint!
+  max_supply: numeric
+  mutable_description: Boolean
+  mutable_uri: Boolean
+  table_handle_v1: String
+  token_standard: String!
+  total_minted_v2: numeric
+  uri: String!
+}
+
+type token_activities_v2 {
+  after_value: String
+  aptos_names_from: [current_aptos_names!]!
+  aptos_names_from_aggregate: current_aptos_names_aggregate!
+  aptos_names_to: [current_aptos_names!]!
+  aptos_names_to_aggregate: current_aptos_names_aggregate!
+  before_value: String
+  current_token_data: current_token_datas_v2
+  entry_function_id_str: String
+  event_account_address: String!
+  event_index: bigint!
+  from_address: String
+  is_fungible_v2: Boolean
+  property_version_v1: numeric!
+  to_address: String
+  token_amount: numeric!
+  token_data_id: String!
+  token_standard: String!
+  transaction_timestamp: timestamp!
+  transaction_version: bigint!
+  type: String!
+}
+
+type current_token_pending_claims {
+  amount: numeric!
+  collection_data_id_hash: String!
+  collection_id: String!
+  collection_name: String!
+  creator_address: String!
+  current_collection_v2: current_collections_v2
+  current_token_data_v2: current_token_datas_v2
+  from_address: String!
+  last_transaction_timestamp: timestamp!
+  last_transaction_version: bigint!
+  name: String!
+  property_version: numeric!
+  table_handle: String!
+  to_address: String!
+  token_data_id: String!
+  token_data_id_hash: String!
+}
+
+type current_token_royalty_v1 {
+  last_transaction_timestamp: timestamp!
+  last_transaction_version: bigint!
+  payee_address: String!
+  royalty_points_denominator: numeric!
+  royalty_points_numerator: numeric!
+  token_data_id: String!
+}
+
+type current_collection_ownership_v2_view {
+  collection_id: String
+  collection_name: String
+  collection_uri: String
+  creator_address: String
+  current_collection: current_collections_v2
+  distinct_tokens: bigint
+  last_transaction_version: bigint
+  owner_address: String
+  single_token_uri: String
+}
+
+type nft_metadata_crawler_parsed_asset_uris {
+  animation_optimizer_retry_count: Int!
+  asset_uri: String!
+  cdn_animation_uri: String
+  cdn_image_uri: String
+  cdn_json_uri: String
+  image_optimizer_retry_count: Int!
+  json_parser_retry_count: Int!
+  raw_animation_uri: String
+  raw_image_uri: String
+}
+
+# ─── Aptos Name Service (ANS) ────────────────────────────────────────────────
+
+type current_aptos_names {
+  domain: String
+  domain_expiration_timestamp: timestamp
+  domain_with_suffix: String
+  expiration_timestamp: timestamp
+  is_active: Boolean
+  is_domain_owner: current_aptos_names
+  is_primary: Boolean
+  last_transaction_version: bigint
+  owner_address: String
+  registered_address: String
+  subdomain: String
+  subdomain_expiration_policy: bigint
+  token_name: String
+  token_standard: String
+}
+
+type current_ans_lookup_v2 {
+  domain: String!
+  expiration_timestamp: timestamp!
+  is_deleted: Boolean!
+  last_transaction_version: bigint!
+  registered_address: String
+  subdomain: String!
+  token_name: String
+  token_standard: String!
+}
+
+# ─── Move Objects ────────────────────────────────────────────────────────────
+
+type current_objects {
+  allow_ungated_transfer: Boolean!
+  is_deleted: Boolean!
+  last_guid_creation_num: numeric!
+  last_transaction_version: bigint!
+  object_address: String!
+  owner_address: String!
+  state_key_hash: String!
+}
+
+# ─── Table Items ─────────────────────────────────────────────────────────────
+
+type table_items {
+  decoded_key: jsonb!
+  decoded_value: jsonb
+  key: String!
+  table_handle: String!
+  transaction_version: bigint!
+  write_set_change_index: bigint!
+}
+
+type current_table_items {
+  decoded_key: jsonb!
+  decoded_value: jsonb
+  is_deleted: Boolean!
+  key: String!
+  key_hash: String!
+  last_transaction_version: bigint!
+  table_handle: String!
+}
+
+type table_metadatas {
+  handle: String!
+  key_type: String!
+  value_type: String!
+}
+
+# ─── Staking & Delegation ────────────────────────────────────────────────────
+
+type current_delegated_staking_pool_balances {
+  active_table_handle: String!
+  inactive_table_handle: String!
+  last_transaction_version: bigint!
+  operator_commission_percentage: numeric!
+  staking_pool_address: String!
+  total_coins: numeric!
+  total_shares: numeric!
+}
+
+type current_delegated_voter {
+  delegation_pool_address: String!
+  delegator_address: String!
+  last_transaction_timestamp: timestamp!
+  last_transaction_version: bigint!
+  pending_voter: String
+  table_handle: String
+  voter: String
+}
+
+type current_delegator_balances {
+  current_pool_balance: current_delegated_staking_pool_balances
+  delegator_address: String!
+  last_transaction_version: bigint!
+  parent_table_handle: String!
+  pool_address: String!
+  pool_type: String!
+  shares: numeric!
+  staking_pool_metadata: current_staking_pool_voter
+  table_handle: String!
+}
+
+type current_staking_pool_voter {
+  last_transaction_version: bigint!
+  operator_address: String!
+  operator_aptos_name: [current_aptos_names!]!
+  operator_aptos_name_aggregate: current_aptos_names_aggregate!
+  staking_pool_address: String!
+  voter_address: String!
+}
+
+type delegated_staking_activities {
+  amount: numeric!
+  delegator_address: String!
+  event_index: bigint!
+  event_type: String!
+  pool_address: String!
+  transaction_version: bigint!
+}
+
+type delegated_staking_pool_balances {
+  active_table_handle: String!
+  inactive_table_handle: String!
+  operator_commission_percentage: numeric!
+  staking_pool_address: String!
+  total_coins: numeric!
+  total_shares: numeric!
+  transaction_version: bigint!
+}
+
+type delegated_staking_pools {
+  current_staking_pool: current_staking_pool_voter
+  first_transaction_version: bigint!
+  staking_pool_address: String!
+}
+
+type delegator_distinct_pool {
+  current_pool_balance: current_delegated_staking_pool_balances
+  delegator_address: String
+  pool_address: String
+  staking_pool_metadata: current_staking_pool_voter
+}
+
+type num_active_delegator_per_pool {
+  num_active_delegator: bigint
+  pool_address: String
+}
+
+# ─── Governance ──────────────────────────────────────────────────────────────
+
+type proposal_votes {
+  num_votes: numeric!
+  proposal_id: bigint!
+  should_pass: Boolean!
+  staking_pool_address: String!
+  transaction_timestamp: timestamp!
+  transaction_version: bigint!
+  voter_address: String!
+}
+
+# ─── Ledger / Processor State ────────────────────────────────────────────────
+
+type ledger_infos {
+  chain_id: bigint!
+}
+
+type processor_status {
+  last_success_version: bigint!
+  last_transaction_timestamp: timestamp
+  last_updated: timestamp!
+  processor: String!
+}
+
+# ─── Aggregate Types (representative) ───────────────────────────────────────
+
+type current_aptos_names_aggregate {
+  aggregate: current_aptos_names_aggregate_fields
+  nodes: [current_aptos_names!]!
+}
+
+type current_aptos_names_aggregate_fields {
+  count: Int!
+}
+
+type current_fungible_asset_balances_aggregate {
+  aggregate: current_fungible_asset_balances_aggregate_fields
+  nodes: [current_fungible_asset_balances!]!
+}
+
+type current_fungible_asset_balances_aggregate_fields {
+  count: Int!
+}
+
+type current_token_ownerships_v2_aggregate {
+  aggregate: current_token_ownerships_v2_aggregate_fields
+  nodes: [current_token_ownerships_v2!]!
+}
+
+type current_token_ownerships_v2_aggregate_fields {
+  count: Int!
+}
+
+type token_activities_v2_aggregate {
+  aggregate: token_activities_v2_aggregate_fields
+  nodes: [token_activities_v2!]!
+}
+
+type token_activities_v2_aggregate_fields {
+  count: Int!
+}
+
+type current_collection_ownership_v2_view_aggregate {
+  aggregate: current_collection_ownership_v2_view_aggregate_fields
+  nodes: [current_collection_ownership_v2_view!]!
+}
+
+type current_collection_ownership_v2_view_aggregate_fields {
+  count: Int!
+}
+
+type account_transactions_aggregate {
+  aggregate: account_transactions_aggregate_fields
+  nodes: [account_transactions!]!
+}
+
+type account_transactions_aggregate_fields {
+  count: Int!
+}
+
+type auth_key_account_addresses_aggregate {
+  aggregate: auth_key_account_addresses_aggregate_fields
+  nodes: [auth_key_account_addresses!]!
+}
+
+type auth_key_account_addresses_aggregate_fields {
+  count: Int!
+}
+
+type public_key_auth_keys_aggregate {
+  aggregate: public_key_auth_keys_aggregate_fields
+  nodes: [public_key_auth_keys!]!
+}
+
+type public_key_auth_keys_aggregate_fields {
+  count: Int!
+}
+
+type proposal_votes_aggregate {
+  aggregate: proposal_votes_aggregate_fields
+  nodes: [proposal_votes!]!
+}
+
+type proposal_votes_aggregate_fields {
+  count: Int!
+}
+
+type delegated_staking_pool_balances_aggregate {
+  aggregate: delegated_staking_pool_balances_aggregate_fields
+  nodes: [delegated_staking_pool_balances!]!
+}
+
+type delegated_staking_pool_balances_aggregate_fields {
+  count: Int!
+}
+
+type delegator_distinct_pool_aggregate {
+  aggregate: delegator_distinct_pool_aggregate_fields
+  nodes: [delegator_distinct_pool!]!
+}
+
+type delegator_distinct_pool_aggregate_fields {
+  count: Int!
+}
+
+# ─── Root Types ──────────────────────────────────────────────────────────────
+
+type query_root {
+  account_transactions(limit: Int, offset: Int, order_by: [account_transactions_order_by!], where: account_transactions_bool_exp): [account_transactions!]!
+  account_transactions_aggregate(where: account_transactions_bool_exp): account_transactions_aggregate!
+  account_transactions_by_pk(account_address: String!, transaction_version: bigint!): account_transactions
+  auth_key_account_addresses(limit: Int, offset: Int, where: auth_key_account_addresses_bool_exp): [auth_key_account_addresses!]!
+  auth_key_account_addresses_aggregate(where: auth_key_account_addresses_bool_exp): auth_key_account_addresses_aggregate!
+  auth_key_account_addresses_by_pk(account_address: String!): auth_key_account_addresses
+  block_metadata_transactions(limit: Int, offset: Int, where: block_metadata_transactions_bool_exp): [block_metadata_transactions!]!
+  block_metadata_transactions_by_pk(version: bigint!): block_metadata_transactions
+  confidential_asset_activities(limit: Int, offset: Int, where: confidential_asset_activities_bool_exp): [confidential_asset_activities!]!
+  confidential_asset_activities_by_pk(event_index: bigint!, transaction_version: bigint!): confidential_asset_activities
+  current_ans_lookup_v2(limit: Int, offset: Int, where: current_ans_lookup_v2_bool_exp): [current_ans_lookup_v2!]!
+  current_ans_lookup_v2_by_pk(domain: String!, subdomain: String!): current_ans_lookup_v2
+  current_aptos_names(limit: Int, offset: Int, where: current_aptos_names_bool_exp): [current_aptos_names!]!
+  current_aptos_names_aggregate(where: current_aptos_names_bool_exp): current_aptos_names_aggregate!
+  current_collection_ownership_v2_view(limit: Int, offset: Int, where: current_collection_ownership_v2_view_bool_exp): [current_collection_ownership_v2_view!]!
+  current_collection_ownership_v2_view_aggregate(where: current_collection_ownership_v2_view_bool_exp): current_collection_ownership_v2_view_aggregate!
+  current_collections_v2(limit: Int, offset: Int, where: current_collections_v2_bool_exp): [current_collections_v2!]!
+  current_collections_v2_by_pk(collection_id: String!): current_collections_v2
+  current_delegated_staking_pool_balances(limit: Int, offset: Int, where: current_delegated_staking_pool_balances_bool_exp): [current_delegated_staking_pool_balances!]!
+  current_delegated_staking_pool_balances_by_pk(staking_pool_address: String!): current_delegated_staking_pool_balances
+  current_delegated_voter(limit: Int, offset: Int, where: current_delegated_voter_bool_exp): [current_delegated_voter!]!
+  current_delegated_voter_by_pk(delegation_pool_address: String!, delegator_address: String!): current_delegated_voter
+  current_delegator_balances(limit: Int, offset: Int, where: current_delegator_balances_bool_exp): [current_delegator_balances!]!
+  current_delegator_balances_by_pk(delegator_address: String!, pool_address: String!, pool_type: String!, table_handle: String!): current_delegator_balances
+  current_fungible_asset_balances(limit: Int, offset: Int, where: current_fungible_asset_balances_bool_exp): [current_fungible_asset_balances!]!
+  current_fungible_asset_balances_aggregate(where: current_fungible_asset_balances_bool_exp): current_fungible_asset_balances_aggregate!
+  current_fungible_asset_balances_by_pk(storage_id: String!): current_fungible_asset_balances
+  current_objects(limit: Int, offset: Int, where: current_objects_bool_exp): [current_objects!]!
+  current_objects_by_pk(object_address: String!): current_objects
+  current_staking_pool_voter(limit: Int, offset: Int, where: current_staking_pool_voter_bool_exp): [current_staking_pool_voter!]!
+  current_staking_pool_voter_by_pk(staking_pool_address: String!): current_staking_pool_voter
+  current_table_items(limit: Int, offset: Int, where: current_table_items_bool_exp): [current_table_items!]!
+  current_table_items_by_pk(key_hash: String!, table_handle: String!): current_table_items
+  current_token_datas_v2(limit: Int, offset: Int, where: current_token_datas_v2_bool_exp): [current_token_datas_v2!]!
+  current_token_datas_v2_by_pk(token_data_id: String!): current_token_datas_v2
+  current_token_ownerships_v2(limit: Int, offset: Int, where: current_token_ownerships_v2_bool_exp): [current_token_ownerships_v2!]!
+  current_token_ownerships_v2_aggregate(where: current_token_ownerships_v2_bool_exp): current_token_ownerships_v2_aggregate!
+  current_token_ownerships_v2_by_pk(owner_address: String!, property_version_v1: numeric!, storage_id: String!, token_data_id: String!): current_token_ownerships_v2
+  current_token_pending_claims(limit: Int, offset: Int, where: current_token_pending_claims_bool_exp): [current_token_pending_claims!]!
+  current_token_pending_claims_by_pk(from_address: String!, property_version: numeric!, to_address: String!, token_data_id: String!): current_token_pending_claims
+  current_token_royalty_v1(limit: Int, offset: Int, where: current_token_royalty_v1_bool_exp): [current_token_royalty_v1!]!
+  current_token_royalty_v1_by_pk(token_data_id: String!): current_token_royalty_v1
+  delegated_staking_activities(limit: Int, offset: Int, where: delegated_staking_activities_bool_exp): [delegated_staking_activities!]!
+  delegated_staking_activities_by_pk(delegator_address: String!, event_index: bigint!, pool_address: String!, transaction_version: bigint!): delegated_staking_activities
+  delegated_staking_pool_balances(limit: Int, offset: Int, where: delegated_staking_pool_balances_bool_exp): [delegated_staking_pool_balances!]!
+  delegated_staking_pool_balances_aggregate(where: delegated_staking_pool_balances_bool_exp): delegated_staking_pool_balances_aggregate!
+  delegated_staking_pool_balances_by_pk(staking_pool_address: String!, transaction_version: bigint!): delegated_staking_pool_balances
+  delegated_staking_pools(limit: Int, offset: Int, where: delegated_staking_pools_bool_exp): [delegated_staking_pools!]!
+  delegated_staking_pools_by_pk(staking_pool_address: String!): delegated_staking_pools
+  delegator_distinct_pool(limit: Int, offset: Int, where: delegator_distinct_pool_bool_exp): [delegator_distinct_pool!]!
+  delegator_distinct_pool_aggregate(where: delegator_distinct_pool_bool_exp): delegator_distinct_pool_aggregate!
+  fungible_asset_activities(limit: Int, offset: Int, where: fungible_asset_activities_bool_exp): [fungible_asset_activities!]!
+  fungible_asset_activities_by_pk(event_index: bigint!, transaction_version: bigint!): fungible_asset_activities
+  fungible_asset_metadata(limit: Int, offset: Int, where: fungible_asset_metadata_bool_exp): [fungible_asset_metadata!]!
+  fungible_asset_metadata_by_pk(asset_type: String!): fungible_asset_metadata
+  ledger_infos(limit: Int, offset: Int, where: ledger_infos_bool_exp): [ledger_infos!]!
+  ledger_infos_by_pk(chain_id: bigint!): ledger_infos
+  nft_metadata_crawler_parsed_asset_uris(limit: Int, offset: Int, where: nft_metadata_crawler_parsed_asset_uris_bool_exp): [nft_metadata_crawler_parsed_asset_uris!]!
+  nft_metadata_crawler_parsed_asset_uris_by_pk(asset_uri: String!): nft_metadata_crawler_parsed_asset_uris
+  num_active_delegator_per_pool(limit: Int, offset: Int, where: num_active_delegator_per_pool_bool_exp): [num_active_delegator_per_pool!]!
+  processor_status(limit: Int, offset: Int, where: processor_status_bool_exp): [processor_status!]!
+  processor_status_by_pk(processor: String!): processor_status
+  proposal_votes(limit: Int, offset: Int, where: proposal_votes_bool_exp): [proposal_votes!]!
+  proposal_votes_aggregate(where: proposal_votes_bool_exp): proposal_votes_aggregate!
+  proposal_votes_by_pk(proposal_id: bigint!, staking_pool_address: String!, transaction_version: bigint!): proposal_votes
+  public_key_auth_keys(limit: Int, offset: Int, where: public_key_auth_keys_bool_exp): [public_key_auth_keys!]!
+  public_key_auth_keys_aggregate(where: public_key_auth_keys_bool_exp): public_key_auth_keys_aggregate!
+  public_key_auth_keys_by_pk(auth_key: String!, public_key: String!, public_key_type: String!): public_key_auth_keys
+  signatures(limit: Int, offset: Int, where: signatures_bool_exp): [signatures!]!
+  signatures_by_pk(multi_agent_index: bigint!, multi_sig_index: bigint!, transaction_version: bigint!): signatures
+  table_items(limit: Int, offset: Int, where: table_items_bool_exp): [table_items!]!
+  table_items_by_pk(table_handle: String!, transaction_version: bigint!, write_set_change_index: bigint!): table_items
+  table_metadatas(limit: Int, offset: Int, where: table_metadatas_bool_exp): [table_metadatas!]!
+  table_metadatas_by_pk(handle: String!): table_metadatas
+  token_activities_v2(limit: Int, offset: Int, where: token_activities_v2_bool_exp): [token_activities_v2!]!
+  token_activities_v2_aggregate(where: token_activities_v2_bool_exp): token_activities_v2_aggregate!
+  token_activities_v2_by_pk(event_account_address: String!, event_index: bigint!, transaction_version: bigint!): token_activities_v2
+  user_transactions(limit: Int, offset: Int, where: user_transactions_bool_exp): [user_transactions!]!
+  user_transactions_by_pk(version: bigint!): user_transactions
+}
+
+type subscription_root {
+  account_transactions(limit: Int, offset: Int, where: account_transactions_bool_exp): [account_transactions!]!
+  account_transactions_aggregate(where: account_transactions_bool_exp): account_transactions_aggregate!
+  block_metadata_transactions(limit: Int, offset: Int, where: block_metadata_transactions_bool_exp): [block_metadata_transactions!]!
+  confidential_asset_activities(limit: Int, offset: Int, where: confidential_asset_activities_bool_exp): [confidential_asset_activities!]!
+  current_ans_lookup_v2(limit: Int, offset: Int, where: current_ans_lookup_v2_bool_exp): [current_ans_lookup_v2!]!
+  current_aptos_names(limit: Int, offset: Int, where: current_aptos_names_bool_exp): [current_aptos_names!]!
+  current_aptos_names_aggregate(where: current_aptos_names_bool_exp): current_aptos_names_aggregate!
+  current_collection_ownership_v2_view(limit: Int, offset: Int, where: current_collection_ownership_v2_view_bool_exp): [current_collection_ownership_v2_view!]!
+  current_collection_ownership_v2_view_aggregate(where: current_collection_ownership_v2_view_bool_exp): current_collection_ownership_v2_view_aggregate!
+  current_collections_v2(limit: Int, offset: Int, where: current_collections_v2_bool_exp): [current_collections_v2!]!
+  current_delegated_staking_pool_balances(limit: Int, offset: Int, where: current_delegated_staking_pool_balances_bool_exp): [current_delegated_staking_pool_balances!]!
+  current_delegated_voter(limit: Int, offset: Int, where: current_delegated_voter_bool_exp): [current_delegated_voter!]!
+  current_delegator_balances(limit: Int, offset: Int, where: current_delegator_balances_bool_exp): [current_delegator_balances!]!
+  current_fungible_asset_balances(limit: Int, offset: Int, where: current_fungible_asset_balances_bool_exp): [current_fungible_asset_balances!]!
+  current_fungible_asset_balances_aggregate(where: current_fungible_asset_balances_bool_exp): current_fungible_asset_balances_aggregate!
+  current_objects(limit: Int, offset: Int, where: current_objects_bool_exp): [current_objects!]!
+  current_staking_pool_voter(limit: Int, offset: Int, where: current_staking_pool_voter_bool_exp): [current_staking_pool_voter!]!
+  current_table_items(limit: Int, offset: Int, where: current_table_items_bool_exp): [current_table_items!]!
+  current_token_datas_v2(limit: Int, offset: Int, where: current_token_datas_v2_bool_exp): [current_token_datas_v2!]!
+  current_token_ownerships_v2(limit: Int, offset: Int, where: current_token_ownerships_v2_bool_exp): [current_token_ownerships_v2!]!
+  current_token_ownerships_v2_aggregate(where: current_token_ownerships_v2_bool_exp): current_token_ownerships_v2_aggregate!
+  current_token_pending_claims(limit: Int, offset: Int, where: current_token_pending_claims_bool_exp): [current_token_pending_claims!]!
+  current_token_royalty_v1(limit: Int, offset: Int, where: current_token_royalty_v1_bool_exp): [current_token_royalty_v1!]!
+  delegated_staking_activities(limit: Int, offset: Int, where: delegated_staking_activities_bool_exp): [delegated_staking_activities!]!
+  delegated_staking_pool_balances(limit: Int, offset: Int, where: delegated_staking_pool_balances_bool_exp): [delegated_staking_pool_balances!]!
+  delegated_staking_pool_balances_aggregate(where: delegated_staking_pool_balances_bool_exp): delegated_staking_pool_balances_aggregate!
+  delegated_staking_pools(limit: Int, offset: Int, where: delegated_staking_pools_bool_exp): [delegated_staking_pools!]!
+  delegator_distinct_pool(limit: Int, offset: Int, where: delegator_distinct_pool_bool_exp): [delegator_distinct_pool!]!
+  delegator_distinct_pool_aggregate(where: delegator_distinct_pool_bool_exp): delegator_distinct_pool_aggregate!
+  fungible_asset_activities(limit: Int, offset: Int, where: fungible_asset_activities_bool_exp): [fungible_asset_activities!]!
+  fungible_asset_metadata(limit: Int, offset: Int, where: fungible_asset_metadata_bool_exp): [fungible_asset_metadata!]!
+  ledger_infos(limit: Int, offset: Int, where: ledger_infos_bool_exp): [ledger_infos!]!
+  nft_metadata_crawler_parsed_asset_uris(limit: Int, offset: Int, where: nft_metadata_crawler_parsed_asset_uris_bool_exp): [nft_metadata_crawler_parsed_asset_uris!]!
+  num_active_delegator_per_pool(limit: Int, offset: Int, where: num_active_delegator_per_pool_bool_exp): [num_active_delegator_per_pool!]!
+  processor_status(limit: Int, offset: Int, where: processor_status_bool_exp): [processor_status!]!
+  proposal_votes(limit: Int, offset: Int, where: proposal_votes_bool_exp): [proposal_votes!]!
+  proposal_votes_aggregate(where: proposal_votes_bool_exp): proposal_votes_aggregate!
+  public_key_auth_keys(limit: Int, offset: Int, where: public_key_auth_keys_bool_exp): [public_key_auth_keys!]!
+  public_key_auth_keys_aggregate(where: public_key_auth_keys_bool_exp): public_key_auth_keys_aggregate!
+  signatures(limit: Int, offset: Int, where: signatures_bool_exp): [signatures!]!
+  table_items(limit: Int, offset: Int, where: table_items_bool_exp): [table_items!]!
+  table_metadatas(limit: Int, offset: Int, where: table_metadatas_bool_exp): [table_metadatas!]!
+  token_activities_v2(limit: Int, offset: Int, where: token_activities_v2_bool_exp): [token_activities_v2!]!
+  token_activities_v2_aggregate(where: token_activities_v2_bool_exp): token_activities_v2_aggregate!
+  user_transactions(limit: Int, offset: Int, where: user_transactions_bool_exp): [user_transactions!]!
+}
+
+schema {
+  query: query_root
+  subscription: subscription_root
+}

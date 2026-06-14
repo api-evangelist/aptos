@@ -2,13 +2,12 @@ aid: aptos
 name: Aptos
 url: https://raw.githubusercontent.com/api-evangelist/aptos/refs/heads/main/apis.yml
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-description: >-
-  Aptos is a Move-based Layer 1 blockchain platform that exposes a REST API for reading on-chain
-  state and submitting transactions, a GraphQL Indexer API for high-level queries over processed
-  blockchain data (NFTs, objects, custom Move contracts), and a gRPC Transaction Stream for
-  real-time and historical event feeds. Public endpoints are provided by Aptos Labs for mainnet,
-  testnet, and devnet; enhanced rate limits are available through Geomi (formerly Aptos Labs
-  Developer Portal).
+description: Aptos is a Move-based Layer 1 blockchain platform that exposes a REST
+  API for reading on-chain state and submitting transactions, a GraphQL Indexer API
+  for high-level queries over processed blockchain data (NFTs, objects, custom Move
+  contracts), and a gRPC Transaction Stream for real-time and historical event feeds.
+  Public endpoints are provided by Aptos Labs for mainnet, testnet, and devnet; enhanced
+  rate limits are available through Geomi (formerly Aptos Labs Developer Portal).
 specificationVersion: '0.19'
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -18,178 +17,190 @@ x-type: company
 x-tier: 2
 x-tier-reason: manually-cataloged
 tags:
-  - Blockchain
-  - Web3
-  - Move
-  - Layer 1
-  - Cryptocurrency
-  - NFT
-  - Smart Contracts
-  - DeFi
-  - Transactions
-  - Accounts
-  - GraphQL
-  - gRPC
+- Blockchain
+- Web3
+- Move
+- Layer 1
+- Cryptocurrency
+- NFT
+- Smart Contracts
+- DeFi
+- Transactions
+- Accounts
+- GraphQL
+- gRPC
 apis:
-  - aid: aptos:fullnode-rest-api
-    name: Aptos Fullnode REST API
-    description: >-
-      Low-latency REST API for reading on-chain state and submitting transactions to the Aptos
-      blockchain. Endpoints cover accounts (authentication key, sequence number, resources,
-      modules, balances), blocks (by height or ledger version), events, transactions (read,
-      submit, simulate), table items, Move view functions, and node health/info. Available on
-      mainnet, testnet, and devnet.
-    humanURL: https://aptos.dev/en/build/apis/fullnode-rest-api
-    baseURL: https://api.mainnet.aptoslabs.com/v1
-    tags:
-      - Accounts
-      - Transactions
-      - Blocks
-      - Events
-      - Modules
-      - Resources
-      - Move
-      - REST
-    properties:
-      - type: Documentation
-        url: https://aptos.dev/en/build/apis/fullnode-rest-api
-      - type: APIReference
-        url: https://api.mainnet.aptoslabs.com/v1/spec
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml
-      - type: Authentication
-        url: https://geomi.dev/docs/api-keys
-      - type: Sandbox
-        url: https://api.testnet.aptoslabs.com/v1
-  - aid: aptos:indexer-graphql-api
-    name: Aptos Indexer GraphQL API
-    description: >-
-      High-level GraphQL API backed by the Aptos Indexer, providing opinionated access to
-      processed blockchain data. Optimized for querying NFTs, Aptos Objects, token balances,
-      fungible assets, custom Move contract events, and account activities. Available on mainnet
-      and testnet with optional API key from Geomi for elevated rate limits.
-    humanURL: https://aptos.dev/en/build/indexer/indexer-api
-    baseURL: https://api.mainnet.aptoslabs.com/v1/graphql
-    tags:
-      - GraphQL
-      - NFT
-      - Objects
-      - Tokens
-      - Fungible Assets
-      - Indexer
-    properties:
-      - type: Documentation
-        url: https://aptos.dev/en/build/indexer/indexer-api
-      - type: APIReference
-        url: https://aptos.dev/en/build/indexer/indexer-api/indexer-reference
-      - type: Authentication
-        url: https://geomi.dev/docs/api-keys
-      - type: Sandbox
-        url: https://api.testnet.aptoslabs.com/v1/graphql
-  - aid: aptos:transaction-stream-api
-    name: Aptos Transaction Stream API
-    description: >-
-      gRPC streaming API that delivers historical and real-time transaction data from the Aptos
-      blockchain. Used to power the Aptos Core Indexer and to build custom app-specific
-      real-time event processors. Available on mainnet, testnet, and devnet via grpc endpoints.
-    humanURL: https://aptos.dev/en/build/apis
-    baseURL: https://grpc.mainnet.aptoslabs.com
-    tags:
-      - gRPC
-      - Streaming
-      - Transactions
-      - Real-time
-      - Indexer
-    properties:
-      - type: Documentation
-        url: https://aptos.dev/en/build/apis
-      - type: Authentication
-        url: https://geomi.dev/docs/api-keys
-  - aid: aptos:faucet-api
-    name: Aptos Faucet API
-    description: >-
-      Testnet and devnet faucet that distributes APT test tokens for development and testing.
-      Available programmatically on devnet; testnet faucet is accessible via the mint page.
-      Not available on mainnet.
-    humanURL: https://aptos.dev/en/network/nodes/networks
-    baseURL: https://faucet.devnet.aptoslabs.com
-    tags:
-      - Faucet
-      - Testnet
-      - Devnet
-      - Test Tokens
-    properties:
-      - type: Documentation
-        url: https://aptos.dev/en/network/nodes/networks
-common:
-  - type: Portal
-    url: https://aptos.dev
+- aid: aptos:fullnode-rest-api
+  name: Aptos Fullnode REST API
+  description: Low-latency REST API for reading on-chain state and submitting transactions
+    to the Aptos blockchain. Endpoints cover accounts (authentication key, sequence
+    number, resources, modules, balances), blocks (by height or ledger version), events,
+    transactions (read, submit, simulate), table items, Move view functions, and node
+    health/info. Available on mainnet, testnet, and devnet.
+  humanURL: https://aptos.dev/en/build/apis/fullnode-rest-api
+  baseURL: https://api.mainnet.aptoslabs.com/v1
+  tags:
+  - Accounts
+  - Transactions
+  - Blocks
+  - Events
+  - Modules
+  - Resources
+  - Move
+  - REST
+  properties:
   - type: Documentation
-    url: https://aptos.dev/en/build/apis
+    url: https://aptos.dev/en/build/apis/fullnode-rest-api
   - type: APIReference
     url: https://api.mainnet.aptoslabs.com/v1/spec
-  - type: GettingStarted
-    url: https://aptos.dev/en/build/get-started
-  - type: SignUp
-    url: https://geomi.dev/
-  - type: Pricing
-    url: https://geomi.dev/pricing
-  - type: RateLimiting
-    url: https://geomi.dev/docs/admin/billing
-  - type: Networks
-    url: https://aptos.dev/en/network/nodes/networks
-  - type: Blog
-    url: https://aptoslabs.medium.com
-  - type: TermsOfService
-    url: https://aptoslabs.com/terms
-  - type: PrivacyPolicy
-    url: https://aptoslabs.com/privacy
-  - type: GitHubOrganization
-    url: https://github.com/aptos-labs
   - type: OpenAPI
     url: https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml
-  - type: SDK
-    url: https://github.com/aptos-labs/aptos-ts-sdk
-    title: TypeScript / JavaScript SDK
-  - type: SDK
-    url: https://github.com/aptos-labs/aptos-python-sdk
-    title: Python SDK
-  - type: SDK
-    url: https://github.com/aptos-labs/aptos-go-sdk
-    title: Go SDK
-  - type: SDK
-    url: https://github.com/aptos-labs/aptos-core/tree/main/sdk
-    title: Rust SDK
-  - type: Plans
-    url: plans/aptos-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/aptos-rate-limits.yml
-  - type: FinOps
-    url: finops/aptos-finops.yml
-  - type: Features
-    data:
-      - name: Move-based smart contracts
-        description: Aptos uses the Move language for safe, resource-oriented smart contracts and on-chain modules.
-      - name: REST and GraphQL APIs
-        description: Dual API surface — low-level REST for nodes and high-level GraphQL for indexed blockchain data.
-      - name: gRPC transaction streaming
-        description: Real-time and historical transaction event feeds via gRPC for custom indexers and processors.
-      - name: Multi-network support
-        description: Public mainnet, testnet, and devnet endpoints with consistent API surfaces across all three.
-      - name: Usage-based API access via Geomi
-        description: Compute-unit metered access with $10-$100/month free credit; no locked tiers.
-  - type: UseCases
-    data:
-      - name: DeFi protocol development
-        description: Query account balances, fungible asset positions, and submit swap/liquidity transactions on-chain.
-      - name: NFT marketplace integration
-        description: Use the Indexer GraphQL API to surface token collections, ownership history, and transfer events.
-      - name: Custom blockchain indexers
-        description: Subscribe to the Transaction Stream gRPC feed to build application-specific event processors.
-      - name: Wallet and portfolio apps
-        description: Fetch account resources, module states, and transaction history via the Fullnode REST API.
-      - name: Testing and prototyping
-        description: Use testnet and devnet endpoints with faucet funding before deploying to mainnet.
+  - type: Authentication
+    url: https://geomi.dev/docs/api-keys
+  - type: Sandbox
+    url: https://api.testnet.aptoslabs.com/v1
+  - url: graphql/aptos-graphql.md
+    type: GraphQL
+- aid: aptos:indexer-graphql-api
+  name: Aptos Indexer GraphQL API
+  description: High-level GraphQL API backed by the Aptos Indexer, providing opinionated
+    access to processed blockchain data. Optimized for querying NFTs, Aptos Objects,
+    token balances, fungible assets, custom Move contract events, and account activities.
+    Available on mainnet and testnet with optional API key from Geomi for elevated
+    rate limits.
+  humanURL: https://aptos.dev/en/build/indexer/indexer-api
+  baseURL: https://api.mainnet.aptoslabs.com/v1/graphql
+  tags:
+  - GraphQL
+  - NFT
+  - Objects
+  - Tokens
+  - Fungible Assets
+  - Indexer
+  properties:
+  - type: Documentation
+    url: https://aptos.dev/en/build/indexer/indexer-api
+  - type: APIReference
+    url: https://aptos.dev/en/build/indexer/indexer-api/indexer-reference
+  - type: Authentication
+    url: https://geomi.dev/docs/api-keys
+  - type: Sandbox
+    url: https://api.testnet.aptoslabs.com/v1/graphql
+  - url: graphql/aptos-graphql.md
+    type: GraphQL
+- aid: aptos:transaction-stream-api
+  name: Aptos Transaction Stream API
+  description: gRPC streaming API that delivers historical and real-time transaction
+    data from the Aptos blockchain. Used to power the Aptos Core Indexer and to build
+    custom app-specific real-time event processors. Available on mainnet, testnet,
+    and devnet via grpc endpoints.
+  humanURL: https://aptos.dev/en/build/apis
+  baseURL: https://grpc.mainnet.aptoslabs.com
+  tags:
+  - gRPC
+  - Streaming
+  - Transactions
+  - Real-time
+  - Indexer
+  properties:
+  - type: Documentation
+    url: https://aptos.dev/en/build/apis
+  - type: Authentication
+    url: https://geomi.dev/docs/api-keys
+- aid: aptos:faucet-api
+  name: Aptos Faucet API
+  description: Testnet and devnet faucet that distributes APT test tokens for development
+    and testing. Available programmatically on devnet; testnet faucet is accessible
+    via the mint page. Not available on mainnet.
+  humanURL: https://aptos.dev/en/network/nodes/networks
+  baseURL: https://faucet.devnet.aptoslabs.com
+  tags:
+  - Faucet
+  - Testnet
+  - Devnet
+  - Test Tokens
+  properties:
+  - type: Documentation
+    url: https://aptos.dev/en/network/nodes/networks
+common:
+- type: Portal
+  url: https://aptos.dev
+- type: Documentation
+  url: https://aptos.dev/en/build/apis
+- type: APIReference
+  url: https://api.mainnet.aptoslabs.com/v1/spec
+- type: GettingStarted
+  url: https://aptos.dev/en/build/get-started
+- type: SignUp
+  url: https://geomi.dev/
+- type: Pricing
+  url: https://geomi.dev/pricing
+- type: RateLimiting
+  url: https://geomi.dev/docs/admin/billing
+- type: Networks
+  url: https://aptos.dev/en/network/nodes/networks
+- type: Blog
+  url: https://aptoslabs.medium.com
+- type: TermsOfService
+  url: https://aptoslabs.com/terms
+- type: PrivacyPolicy
+  url: https://aptoslabs.com/privacy
+- type: GitHubOrganization
+  url: https://github.com/aptos-labs
+- type: OpenAPI
+  url: https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml
+- type: SDK
+  url: https://github.com/aptos-labs/aptos-ts-sdk
+  title: TypeScript / JavaScript SDK
+- type: SDK
+  url: https://github.com/aptos-labs/aptos-python-sdk
+  title: Python SDK
+- type: SDK
+  url: https://github.com/aptos-labs/aptos-go-sdk
+  title: Go SDK
+- type: SDK
+  url: https://github.com/aptos-labs/aptos-core/tree/main/sdk
+  title: Rust SDK
+- type: Plans
+  url: plans/aptos-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/aptos-rate-limits.yml
+- type: FinOps
+  url: finops/aptos-finops.yml
+- type: Features
+  data:
+  - name: Move-based smart contracts
+    description: Aptos uses the Move language for safe, resource-oriented smart contracts
+      and on-chain modules.
+  - name: REST and GraphQL APIs
+    description: Dual API surface — low-level REST for nodes and high-level GraphQL
+      for indexed blockchain data.
+  - name: gRPC transaction streaming
+    description: Real-time and historical transaction event feeds via gRPC for custom
+      indexers and processors.
+  - name: Multi-network support
+    description: Public mainnet, testnet, and devnet endpoints with consistent API
+      surfaces across all three.
+  - name: Usage-based API access via Geomi
+    description: Compute-unit metered access with $10-$100/month free credit; no locked
+      tiers.
+- type: UseCases
+  data:
+  - name: DeFi protocol development
+    description: Query account balances, fungible asset positions, and submit swap/liquidity
+      transactions on-chain.
+  - name: NFT marketplace integration
+    description: Use the Indexer GraphQL API to surface token collections, ownership
+      history, and transfer events.
+  - name: Custom blockchain indexers
+    description: Subscribe to the Transaction Stream gRPC feed to build application-specific
+      event processors.
+  - name: Wallet and portfolio apps
+    description: Fetch account resources, module states, and transaction history via
+      the Fullnode REST API.
+  - name: Testing and prototyping
+    description: Use testnet and devnet endpoints with faucet funding before deploying
+      to mainnet.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
