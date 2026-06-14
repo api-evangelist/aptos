@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/WriteSetChange_DeleteTableItem.json",
+  "title": "WriteSetChange_DeleteTableItem",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "delete_table_item"
+          ],
+          "example": "delete_table_item"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/DeleteTableItem"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/TransactionSignature.json",
+  "title": "TransactionSignature",
+  "type": "object",
+  "description": "An enum representing the different transaction signatures available",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/TransactionSignature_Ed25519Signature"
+    },
+    {
+      "$ref": "#/components/schemas/TransactionSignature_MultiEd25519Signature"
+    },
+    {
+      "$ref": "#/components/schemas/TransactionSignature_MultiAgentSignature"
+    },
+    {
+      "$ref": "#/components/schemas/TransactionSignature_FeePayerSignature"
+    },
+    {
+      "$ref": "#/components/schemas/TransactionSignature_AccountSignature"
+    },
+    {
+      "$ref": "#/components/schemas/TransactionSignature_NoAccountSignature"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "ed25519_signature": "#/components/schemas/TransactionSignature_Ed25519Signature",
+      "multi_ed25519_signature": "#/components/schemas/TransactionSignature_MultiEd25519Signature",
+      "multi_agent_signature": "#/components/schemas/TransactionSignature_MultiAgentSignature",
+      "fee_payer_signature": "#/components/schemas/TransactionSignature_FeePayerSignature",
+      "single_sender": "#/components/schemas/TransactionSignature_AccountSignature",
+      "no_account_signature": "#/components/schemas/TransactionSignature_NoAccountSignature"
+    }
+  }
+}

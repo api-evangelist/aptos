@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MultisigPayload.json",
+  "title": "MultisigPayload",
+  "type": "object",
+  "description": "A multisig transaction that allows an owner of a multisig account to execute a pre-approved\ntransaction as the multisig account.",
+  "required": [
+    "multisig_address"
+  ],
+  "properties": {
+    "multisig_address": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "transaction_payload": {
+      "$ref": "#/components/schemas/MultisigTransactionPayload"
+    }
+  }
+}

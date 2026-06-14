@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/DelegationPoolDelegatorLimitsRequest.json",
+  "title": "DelegationPoolDelegatorLimitsRequest",
+  "type": "object",
+  "description": "A higher-limits request backed by a delegation pool the fee payer delegates\nto.",
+  "required": [
+    "pool_address",
+    "multipliers"
+  ],
+  "properties": {
+    "pool_address": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "multipliers": {
+      "$ref": "#/components/schemas/RequestedMultipliers"
+    }
+  }
+}

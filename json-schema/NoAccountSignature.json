@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/NoAccountSignature.json",
+  "title": "NoAccountSignature",
+  "type": "object",
+  "description": "A placeholder to represent the absence of account signature"
+}

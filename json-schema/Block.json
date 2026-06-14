@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Block.json",
+  "title": "Block",
+  "type": "object",
+  "description": "A Block with or without transactions\n\nThis contains the information about a transactions along with\nassociated transactions if requested",
+  "required": [
+    "block_height",
+    "block_hash",
+    "block_timestamp",
+    "first_version",
+    "last_version"
+  ],
+  "properties": {
+    "block_height": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "block_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "block_timestamp": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "first_version": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "last_version": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "transactions": {
+      "type": "array",
+      "description": "The transactions in the block in sequential order",
+      "items": {
+        "$ref": "#/components/schemas/Transaction"
+      }
+    }
+  }
+}

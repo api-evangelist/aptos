@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MoveStructGenericTypeParam.json",
+  "title": "MoveStructGenericTypeParam",
+  "type": "object",
+  "description": "Move generic type param",
+  "required": [
+    "constraints"
+  ],
+  "properties": {
+    "constraints": {
+      "type": "array",
+      "description": "Move abilities tied to the generic type param and associated with the type that uses it",
+      "items": {
+        "$ref": "#/components/schemas/MoveAbility"
+      }
+    }
+  }
+}

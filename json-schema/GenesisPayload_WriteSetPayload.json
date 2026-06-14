@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/GenesisPayload_WriteSetPayload.json",
+  "title": "GenesisPayload_WriteSetPayload",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "write_set_payload"
+          ],
+          "example": "write_set_payload"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/WriteSetPayload"
+    }
+  ]
+}

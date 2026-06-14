@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ReplayProtector_string(U64).json",
+  "title": "ReplayProtector_string(U64)",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "sequence_number"
+          ],
+          "example": "sequence_number"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/U64"
+    }
+  ]
+}

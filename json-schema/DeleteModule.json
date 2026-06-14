@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/DeleteModule.json",
+  "title": "DeleteModule",
+  "type": "object",
+  "description": "Delete a module",
+  "required": [
+    "address",
+    "state_key_hash",
+    "module"
+  ],
+  "properties": {
+    "address": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "state_key_hash": {
+      "type": "string",
+      "description": "State key hash"
+    },
+    "module": {
+      "$ref": "#/components/schemas/MoveModuleId"
+    }
+  }
+}

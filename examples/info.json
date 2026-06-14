@@ -1,0 +1,22 @@
+{
+  "method": "GET",
+  "path": "/info",
+  "operationId": "info",
+  "summary": "Show some basic info of the node.",
+  "description": "",
+  "tags": [
+    "General"
+  ],
+  "parameters": [],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "additionalProperties": {}
+      },
+      "example": {}
+    }
+  }
+}

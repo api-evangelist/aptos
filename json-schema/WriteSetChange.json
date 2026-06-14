@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/WriteSetChange.json",
+  "title": "WriteSetChange",
+  "type": "object",
+  "description": "A final state change of a transaction on a resource or module",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/WriteSetChange_DeleteModule"
+    },
+    {
+      "$ref": "#/components/schemas/WriteSetChange_DeleteResource"
+    },
+    {
+      "$ref": "#/components/schemas/WriteSetChange_DeleteTableItem"
+    },
+    {
+      "$ref": "#/components/schemas/WriteSetChange_WriteModule"
+    },
+    {
+      "$ref": "#/components/schemas/WriteSetChange_WriteResource"
+    },
+    {
+      "$ref": "#/components/schemas/WriteSetChange_WriteTableItem"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "delete_module": "#/components/schemas/WriteSetChange_DeleteModule",
+      "delete_resource": "#/components/schemas/WriteSetChange_DeleteResource",
+      "delete_table_item": "#/components/schemas/WriteSetChange_DeleteTableItem",
+      "write_module": "#/components/schemas/WriteSetChange_WriteModule",
+      "write_resource": "#/components/schemas/WriteSetChange_WriteResource",
+      "write_table_item": "#/components/schemas/WriteSetChange_WriteTableItem"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/WriteTableItem.json",
+  "title": "WriteTableItem",
+  "type": "object",
+  "description": "Change set to write a table item",
+  "required": [
+    "state_key_hash",
+    "handle",
+    "key",
+    "value"
+  ],
+  "properties": {
+    "state_key_hash": {
+      "type": "string"
+    },
+    "handle": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    },
+    "key": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    },
+    "value": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    },
+    "data": {
+      "$ref": "#/components/schemas/DecodedTableData"
+    }
+  }
+}

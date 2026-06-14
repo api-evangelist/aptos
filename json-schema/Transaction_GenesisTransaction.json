@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Transaction_GenesisTransaction.json",
+  "title": "Transaction_GenesisTransaction",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "genesis_transaction"
+          ],
+          "example": "genesis_transaction"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/GenesisTransaction"
+    }
+  ]
+}

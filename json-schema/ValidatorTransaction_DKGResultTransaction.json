@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ValidatorTransaction_DKGResultTransaction.json",
+  "title": "ValidatorTransaction_DKGResultTransaction",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "validator_transaction_type"
+      ],
+      "properties": {
+        "validator_transaction_type": {
+          "type": "string",
+          "enum": [
+            "dkg_result"
+          ],
+          "example": "dkg_result"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/DKGResultTransaction"
+    }
+  ]
+}

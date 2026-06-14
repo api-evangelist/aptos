@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/IndexedSignature.json",
+  "title": "IndexedSignature",
+  "type": "object",
+  "required": [
+    "index",
+    "signature"
+  ],
+  "properties": {
+    "index": {
+      "type": "integer",
+      "format": "uint8"
+    },
+    "signature": {
+      "$ref": "#/components/schemas/Signature"
+    }
+  }
+}

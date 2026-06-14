@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Transaction_UserTransaction.json",
+  "title": "Transaction_UserTransaction",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "user_transaction"
+          ],
+          "example": "user_transaction"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/UserTransaction"
+    }
+  ]
+}

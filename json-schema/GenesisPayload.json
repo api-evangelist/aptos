@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/GenesisPayload.json",
+  "title": "GenesisPayload",
+  "type": "object",
+  "description": "The writeset payload of the Genesis transaction",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/GenesisPayload_WriteSetPayload"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "write_set_payload": "#/components/schemas/GenesisPayload_WriteSetPayload"
+    }
+  }
+}

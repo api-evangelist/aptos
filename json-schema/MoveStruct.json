@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MoveStruct.json",
+  "title": "MoveStruct",
+  "type": "object",
+  "description": "A move struct",
+  "required": [
+    "name",
+    "is_native",
+    "is_event",
+    "is_enum",
+    "abilities",
+    "generic_type_params",
+    "fields",
+    "variants"
+  ],
+  "properties": {
+    "name": {
+      "$ref": "#/components/schemas/IdentifierWrapper"
+    },
+    "is_native": {
+      "type": "boolean",
+      "description": "Whether the struct is a native struct of Move"
+    },
+    "is_event": {
+      "type": "boolean",
+      "description": "Whether the struct is marked with the #[event] annotation"
+    },
+    "is_enum": {
+      "type": "boolean",
+      "description": "Whether the struct is an enum (i.e. enum MyEnum vs struct MyStruct)."
+    },
+    "abilities": {
+      "type": "array",
+      "description": "Abilities associated with the struct",
+      "items": {
+        "$ref": "#/components/schemas/MoveAbility"
+      }
+    },
+    "generic_type_params": {
+      "type": "array",
+      "description": "Generic types associated with the struct",
+      "items": {
+        "$ref": "#/components/schemas/MoveStructGenericTypeParam"
+      }
+    },
+    "fields": {
+      "type": "array",
+      "description": "Fields associated with the struct",
+      "items": {
+        "$ref": "#/components/schemas/MoveStructField"
+      }
+    },
+    "variants": {
+      "type": "array",
+      "description": "Variants of the enum. Only populated when `is_enum` is true.",
+      "items": {
+        "$ref": "#/components/schemas/MoveStructVariant"
+      }
+    }
+  }
+}

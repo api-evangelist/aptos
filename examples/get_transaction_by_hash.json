@@ -1,0 +1,73 @@
+{
+  "method": "GET",
+  "path": "/transactions/by_hash/{txn_hash}",
+  "operationId": "get_transaction_by_hash",
+  "summary": "Get transaction by hash",
+  "description": "Look up a transaction by its hash. This is the same hash that is returned\nby the API when submitting a transaction (see PendingTransaction).\n\nWhen given a transaction hash, the server first looks for the transaction\nin storage (on-chain, committed). If no on-chain transaction is found, it\nlooks the transaction up by hash in the mempool (pending, not yet committed).\n\nTo create a transaction hash by yourself, do the following:\n1. Hash message bytes: \"RawTransaction\" bytes + BCS bytes of [Transaction](https://aptos-labs.github.io/aptos-core/aptos_types/transaction/enum.Transaction.html).\n2. Apply hash algorithm `SHA3-256` to the hash message bytes.\n3. Hex-encode the hash bytes with `0x` prefix.",
+  "tags": [
+    "Transactions"
+  ],
+  "parameters": [
+    {
+      "name": "txn_hash",
+      "in": "path",
+      "required": true,
+      "description": "Hash of transaction to retrieve",
+      "schema": {
+        "$ref": "#/components/schemas/HashValue"
+      }
+    }
+  ],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/Transaction"
+      },
+      "example": {}
+    },
+    "400": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "403": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "404": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "410": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

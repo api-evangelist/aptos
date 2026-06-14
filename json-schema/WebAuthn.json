@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/WebAuthn.json",
+  "title": "WebAuthn",
+  "type": "object",
+  "required": [
+    "value"
+  ],
+  "properties": {
+    "value": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    }
+  }
+}

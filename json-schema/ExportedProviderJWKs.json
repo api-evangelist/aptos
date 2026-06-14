@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ExportedProviderJWKs.json",
+  "title": "ExportedProviderJWKs",
+  "type": "object",
+  "description": "A more API-friendly representation of the on-chain `aptos_types::jwks::ProviderJWKs`.",
+  "required": [
+    "issuer",
+    "version",
+    "jwks"
+  ],
+  "properties": {
+    "issuer": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer",
+      "format": "uint64"
+    },
+    "jwks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/JWK"
+      }
+    }
+  }
+}

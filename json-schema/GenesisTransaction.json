@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/GenesisTransaction.json",
+  "title": "GenesisTransaction",
+  "type": "object",
+  "description": "The genesis transaction\n\nThis only occurs at the genesis transaction (version 0)",
+  "required": [
+    "version",
+    "hash",
+    "state_change_hash",
+    "event_root_hash",
+    "gas_used",
+    "success",
+    "vm_status",
+    "accumulator_root_hash",
+    "changes",
+    "payload",
+    "events"
+  ],
+  "properties": {
+    "version": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "state_change_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "event_root_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "state_checkpoint_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "gas_used": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "success": {
+      "type": "boolean",
+      "description": "Whether the transaction was successful"
+    },
+    "vm_status": {
+      "type": "string",
+      "description": "The VM status of the transaction, can tell useful information in a failure"
+    },
+    "accumulator_root_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "changes": {
+      "type": "array",
+      "description": "Final state of resources changed by the transaction",
+      "items": {
+        "$ref": "#/components/schemas/WriteSetChange"
+      }
+    },
+    "payload": {
+      "$ref": "#/components/schemas/GenesisPayload"
+    },
+    "events": {
+      "type": "array",
+      "description": "Events emitted during genesis",
+      "items": {
+        "$ref": "#/components/schemas/Event"
+      }
+    }
+  }
+}

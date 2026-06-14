@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/GasEstimation.json",
+  "title": "GasEstimation",
+  "type": "object",
+  "description": "Struct holding the outputs of the estimate gas API",
+  "required": [
+    "gas_estimate"
+  ],
+  "properties": {
+    "deprioritized_gas_estimate": {
+      "type": "integer",
+      "format": "uint64",
+      "description": "The deprioritized estimate for the gas unit price"
+    },
+    "gas_estimate": {
+      "type": "integer",
+      "format": "uint64",
+      "description": "The current estimate for the gas unit price"
+    },
+    "prioritized_gas_estimate": {
+      "type": "integer",
+      "format": "uint64",
+      "description": "The prioritized estimate for the gas unit price"
+    }
+  }
+}

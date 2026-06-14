@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/TransactionSignature_MultiAgentSignature.json",
+  "title": "TransactionSignature_MultiAgentSignature",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "multi_agent_signature"
+          ],
+          "example": "multi_agent_signature"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/MultiAgentSignature"
+    }
+  ]
+}

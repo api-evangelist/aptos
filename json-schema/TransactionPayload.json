@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/TransactionPayload.json",
+  "title": "TransactionPayload",
+  "type": "object",
+  "description": "An enum of the possible transaction payloads",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/TransactionPayload_EntryFunctionPayload"
+    },
+    {
+      "$ref": "#/components/schemas/TransactionPayload_ScriptPayload"
+    },
+    {
+      "$ref": "#/components/schemas/TransactionPayload_DeprecatedModuleBundlePayload"
+    },
+    {
+      "$ref": "#/components/schemas/TransactionPayload_MultisigPayload"
+    },
+    {
+      "$ref": "#/components/schemas/TransactionPayload_EncryptedTransactionPayload"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "entry_function_payload": "#/components/schemas/TransactionPayload_EntryFunctionPayload",
+      "script_payload": "#/components/schemas/TransactionPayload_ScriptPayload",
+      "module_bundle_payload": "#/components/schemas/TransactionPayload_DeprecatedModuleBundlePayload",
+      "multisig_payload": "#/components/schemas/TransactionPayload_MultisigPayload",
+      "encrypted_transaction_payload": "#/components/schemas/TransactionPayload_EncryptedTransactionPayload"
+    }
+  }
+}

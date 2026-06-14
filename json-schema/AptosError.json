@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/AptosError.json",
+  "title": "AptosError",
+  "type": "object",
+  "description": "This is the generic struct we use for all API errors, it contains a string\nmessage and an Aptos API specific error code.",
+  "required": [
+    "message",
+    "error_code"
+  ],
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "A message describing the error"
+    },
+    "error_code": {
+      "$ref": "#/components/schemas/AptosErrorCode"
+    },
+    "vm_error_code": {
+      "type": "integer",
+      "format": "uint64",
+      "description": "A code providing VM error details when submitting transactions to the VM"
+    }
+  }
+}

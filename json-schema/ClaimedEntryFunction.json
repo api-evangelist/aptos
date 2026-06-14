@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ClaimedEntryFunction.json",
+  "title": "ClaimedEntryFunction",
+  "type": "object",
+  "description": "An encrypted payload's claim about the entry function. Specifies at least the module address,\nand optionally the specific entry funtion.",
+  "required": [
+    "module"
+  ],
+  "properties": {
+    "module": {
+      "$ref": "#/components/schemas/MoveModuleId"
+    },
+    "name": {
+      "$ref": "#/components/schemas/IdentifierWrapper"
+    }
+  }
+}

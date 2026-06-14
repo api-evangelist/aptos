@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/UserTxnLimitsRequest_DelegatedVoterLimitsRequest.json",
+  "title": "UserTxnLimitsRequest_DelegatedVoterLimitsRequest",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "delegated_voter"
+          ],
+          "example": "delegated_voter"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/DelegatedVoterLimitsRequest"
+    }
+  ]
+}

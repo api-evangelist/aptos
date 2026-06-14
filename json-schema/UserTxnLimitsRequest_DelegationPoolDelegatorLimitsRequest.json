@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/UserTxnLimitsRequest_DelegationPoolDelegatorLimitsRequest.json",
+  "title": "UserTxnLimitsRequest_DelegationPoolDelegatorLimitsRequest",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "delegation_pool_delegator"
+          ],
+          "example": "delegation_pool_delegator"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/DelegationPoolDelegatorLimitsRequest"
+    }
+  ]
+}

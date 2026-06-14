@@ -1,0 +1,113 @@
+{
+  "method": "GET",
+  "path": "/accounts/{address}/events/{event_handle}/{field_name}",
+  "operationId": "get_events_by_event_handle",
+  "summary": "Get events by event handle",
+  "description": "This API uses the given account `address`, `eventHandle`, and `fieldName`\nto build a key that can globally identify an event types. It then uses this\nkey to return events emitted to the given account matching that event type.",
+  "tags": [
+    "Events"
+  ],
+  "parameters": [
+    {
+      "name": "address",
+      "in": "path",
+      "required": true,
+      "description": "Hex-encoded 32 byte Aptos account, with or without a `0x` prefix, for\nwhich events are queried. This refers to the account that events were\nemitted to, not the account hosting the move module that emits that\nevent type.",
+      "schema": {
+        "$ref": "#/components/schemas/Address"
+      }
+    },
+    {
+      "name": "event_handle",
+      "in": "path",
+      "required": true,
+      "description": "Name of struct to lookup event handle e.g. `0x1::account::Account`",
+      "schema": {
+        "$ref": "#/components/schemas/MoveStructTag"
+      }
+    },
+    {
+      "name": "field_name",
+      "in": "path",
+      "required": true,
+      "description": "Name of field to lookup event handle e.g. `withdraw_events`",
+      "schema": {
+        "$ref": "#/components/schemas/IdentifierWrapper"
+      }
+    },
+    {
+      "name": "start",
+      "in": "query",
+      "required": false,
+      "description": "Starting sequence number of events.\n\nIf unspecified, by default will retrieve the most recent",
+      "schema": {
+        "$ref": "#/components/schemas/U64"
+      }
+    },
+    {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "description": "Max number of events to retrieve.\n\nIf unspecified, defaults to default page size",
+      "schema": {
+        "type": "integer",
+        "format": "uint16"
+      }
+    }
+  ],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/VersionedEvent"
+        }
+      },
+      "example": {}
+    },
+    "400": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "403": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "404": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "410": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

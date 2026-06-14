@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/HexEncodedBytes.json",
+  "title": "HexEncodedBytes",
+  "type": "string",
+  "format": "hex",
+  "description": "All bytes (Vec<u8>) data is represented as hex-encoded string prefixed with `0x` and fulfilled with\ntwo hex digits per byte.\n\nUnlike the `Address` type, HexEncodedBytes will not trim any zeros.\n",
+  "example": 61959483996478237799081788855878961092127547100767458402256961684167818091681
+}

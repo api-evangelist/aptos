@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/EncryptedTransactionPayload_FailedDecryptionPayload.json",
+  "title": "EncryptedTransactionPayload_FailedDecryptionPayload",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "encrypted_state"
+      ],
+      "properties": {
+        "encrypted_state": {
+          "type": "string",
+          "enum": [
+            "failed_decryption"
+          ],
+          "example": "failed_decryption"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/FailedDecryptionPayload"
+    }
+  ]
+}

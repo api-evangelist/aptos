@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Signature_WebAuthn.json",
+  "title": "Signature_WebAuthn",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "web_authn"
+          ],
+          "example": "web_authn"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/WebAuthn"
+    }
+  ]
+}

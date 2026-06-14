@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/EncryptedTransactionInnerPayload_EntryFunctionPayload.json",
+  "title": "EncryptedTransactionInnerPayload_EntryFunctionPayload",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "entry_function_payload"
+          ],
+          "example": "entry_function_payload"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/EntryFunctionPayload"
+    }
+  ]
+}

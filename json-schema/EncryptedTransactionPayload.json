@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/EncryptedTransactionPayload.json",
+  "title": "EncryptedTransactionPayload",
+  "type": "object",
+  "description": "An encrypted transaction payload, discriminated by encrypted_state.\n\nNOTE: multisig_address and replay_protection_nonce are not surfaced here.\nThey are part of extra_config and already exposed on UserTransactionRequest.\nFor Decrypted state, multisig_address is embedded in the MultisigPayload variant\nof decrypted_payload.",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/EncryptedTransactionPayload_EncryptedPayload"
+    },
+    {
+      "$ref": "#/components/schemas/EncryptedTransactionPayload_FailedDecryptionPayload"
+    },
+    {
+      "$ref": "#/components/schemas/EncryptedTransactionPayload_DecryptedPayload"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "encrypted_state",
+    "mapping": {
+      "encrypted": "#/components/schemas/EncryptedTransactionPayload_EncryptedPayload",
+      "failed_decryption": "#/components/schemas/EncryptedTransactionPayload_FailedDecryptionPayload",
+      "decrypted": "#/components/schemas/EncryptedTransactionPayload_DecryptedPayload"
+    }
+  }
+}

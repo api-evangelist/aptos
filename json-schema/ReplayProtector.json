@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ReplayProtector.json",
+  "title": "ReplayProtector",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/ReplayProtector_string(U64)"
+    },
+    {
+      "$ref": "#/components/schemas/ReplayProtector_string(U64)"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "nonce": "#/components/schemas/ReplayProtector_string(U64)",
+      "sequence_number": "#/components/schemas/ReplayProtector_string(U64)"
+    }
+  }
+}

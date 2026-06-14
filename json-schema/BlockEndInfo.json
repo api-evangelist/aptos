@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/BlockEndInfo.json",
+  "title": "BlockEndInfo",
+  "type": "object",
+  "required": [
+    "block_gas_limit_reached",
+    "block_output_limit_reached",
+    "block_effective_block_gas_units",
+    "block_approx_output_size"
+  ],
+  "properties": {
+    "block_gas_limit_reached": {
+      "type": "boolean"
+    },
+    "block_output_limit_reached": {
+      "type": "boolean"
+    },
+    "block_effective_block_gas_units": {
+      "type": "integer",
+      "format": "uint64"
+    },
+    "block_approx_output_size": {
+      "type": "integer",
+      "format": "uint64"
+    }
+  }
+}

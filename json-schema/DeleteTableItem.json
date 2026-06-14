@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/DeleteTableItem.json",
+  "title": "DeleteTableItem",
+  "type": "object",
+  "description": "Delete a table item",
+  "required": [
+    "state_key_hash",
+    "handle",
+    "key"
+  ],
+  "properties": {
+    "state_key_hash": {
+      "type": "string"
+    },
+    "handle": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    },
+    "key": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    },
+    "data": {
+      "$ref": "#/components/schemas/DeletedTableData"
+    }
+  }
+}

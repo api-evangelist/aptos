@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/RawTableItemRequest.json",
+  "title": "RawTableItemRequest",
+  "type": "object",
+  "description": "Table Item request for the GetTableItemRaw API",
+  "required": [
+    "key"
+  ],
+  "properties": {
+    "key": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    }
+  }
+}

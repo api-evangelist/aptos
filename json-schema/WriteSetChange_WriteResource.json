@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/WriteSetChange_WriteResource.json",
+  "title": "WriteSetChange_WriteResource",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "write_resource"
+          ],
+          "example": "write_resource"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/WriteResource"
+    }
+  ]
+}

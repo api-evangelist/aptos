@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MultisigTransactionPayload.json",
+  "title": "MultisigTransactionPayload",
+  "type": "object",
+  "description": "Enum for multisig transaction payloads, supporting both entry functions and scripts.",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/MultisigTransactionPayload_EntryFunctionPayload"
+    },
+    {
+      "$ref": "#/components/schemas/MultisigTransactionPayload_ScriptPayload"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "entry_function_payload": "#/components/schemas/MultisigTransactionPayload_EntryFunctionPayload",
+      "script_payload": "#/components/schemas/MultisigTransactionPayload_ScriptPayload"
+    }
+  }
+}

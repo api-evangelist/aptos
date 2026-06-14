@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/TransactionSummary.json",
+  "title": "TransactionSummary",
+  "type": "object",
+  "required": [
+    "sender",
+    "version",
+    "transaction_hash",
+    "replay_protector"
+  ],
+  "properties": {
+    "sender": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "version": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "transaction_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "replay_protector": {
+      "$ref": "#/components/schemas/ReplayProtector"
+    }
+  }
+}

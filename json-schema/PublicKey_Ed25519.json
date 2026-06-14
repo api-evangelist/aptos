@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/PublicKey_Ed25519.json",
+  "title": "PublicKey_Ed25519",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "ed25519"
+          ],
+          "example": "ed25519"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/Ed25519"
+    }
+  ]
+}

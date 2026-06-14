@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/EncryptedPayload.json",
+  "title": "EncryptedPayload",
+  "type": "object",
+  "description": "Payload is still encrypted and cannot be read.",
+  "required": [
+    "payload_hash",
+    "ciphertext",
+    "encryption_epoch"
+  ],
+  "properties": {
+    "payload_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "ciphertext": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/HexEncodedBytes"
+        },
+        {
+          "description": "BCS-serialized ciphertext bytes, hex-encoded."
+        }
+      ]
+    },
+    "encryption_epoch": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "claimed_entry_fun": {
+      "$ref": "#/components/schemas/ClaimedEntryFunction"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/EncryptedTransactionInnerPayload.json",
+  "title": "EncryptedTransactionInnerPayload",
+  "type": "object",
+  "description": "The inner payload of an encrypted transaction, present only when decrypted.",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/EncryptedTransactionInnerPayload_EntryFunctionPayload"
+    },
+    {
+      "$ref": "#/components/schemas/EncryptedTransactionInnerPayload_ScriptPayload"
+    },
+    {
+      "$ref": "#/components/schemas/EncryptedTransactionInnerPayload_MultisigPayload"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "entry_function_payload": "#/components/schemas/EncryptedTransactionInnerPayload_EntryFunctionPayload",
+      "script_payload": "#/components/schemas/EncryptedTransactionInnerPayload_ScriptPayload",
+      "multisig_payload": "#/components/schemas/EncryptedTransactionInnerPayload_MultisigPayload"
+    }
+  }
+}

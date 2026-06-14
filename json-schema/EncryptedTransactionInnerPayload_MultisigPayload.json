@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/EncryptedTransactionInnerPayload_MultisigPayload.json",
+  "title": "EncryptedTransactionInnerPayload_MultisigPayload",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "multisig_payload"
+          ],
+          "example": "multisig_payload"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/MultisigPayload"
+    }
+  ]
+}

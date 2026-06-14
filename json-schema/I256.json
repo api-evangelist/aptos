@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/I256.json",
+  "title": "I256",
+  "type": "string",
+  "format": "int256",
+  "description": "A string containing a 256-bit signed integer.\n\nWe represent i256 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse i256s in JSON natively.\n",
+  "example": "-32425224034"
+}

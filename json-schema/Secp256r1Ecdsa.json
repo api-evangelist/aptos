@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Secp256r1Ecdsa.json",
+  "title": "Secp256r1Ecdsa",
+  "type": "object",
+  "required": [
+    "value"
+  ],
+  "properties": {
+    "value": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    }
+  }
+}

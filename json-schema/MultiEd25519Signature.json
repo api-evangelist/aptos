@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MultiEd25519Signature.json",
+  "title": "MultiEd25519Signature",
+  "type": "object",
+  "description": "A Ed25519 multi-sig signature\n\nThis allows k-of-n signing for a transaction",
+  "required": [
+    "public_keys",
+    "signatures",
+    "threshold",
+    "bitmap"
+  ],
+  "properties": {
+    "public_keys": {
+      "type": "array",
+      "description": "The public keys for the Ed25519 signature",
+      "items": {
+        "$ref": "#/components/schemas/HexEncodedBytes"
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "description": "Signature associated with the public keys in the same order",
+      "items": {
+        "$ref": "#/components/schemas/HexEncodedBytes"
+      }
+    },
+    "threshold": {
+      "type": "integer",
+      "format": "uint8",
+      "description": "The number of signatures required for a successful transaction"
+    },
+    "bitmap": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    }
+  }
+}

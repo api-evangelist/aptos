@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MultiAgentSignature.json",
+  "title": "MultiAgentSignature",
+  "type": "object",
+  "description": "Multi agent signature for multi agent transactions\n\nThis allows you to have transactions across multiple accounts",
+  "required": [
+    "sender",
+    "secondary_signer_addresses",
+    "secondary_signers"
+  ],
+  "properties": {
+    "sender": {
+      "$ref": "#/components/schemas/AccountSignature"
+    },
+    "secondary_signer_addresses": {
+      "type": "array",
+      "description": "The other involved parties' addresses",
+      "items": {
+        "$ref": "#/components/schemas/Address"
+      }
+    },
+    "secondary_signers": {
+      "type": "array",
+      "description": "The associated signatures, in the same order as the secondary addresses",
+      "items": {
+        "$ref": "#/components/schemas/AccountSignature"
+      }
+    }
+  }
+}

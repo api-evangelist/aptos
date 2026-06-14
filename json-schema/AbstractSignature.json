@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/AbstractSignature.json",
+  "title": "AbstractSignature",
+  "type": "object",
+  "required": [
+    "function_info",
+    "auth_data"
+  ],
+  "properties": {
+    "function_info": {
+      "type": "string"
+    },
+    "auth_data": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    }
+  }
+}

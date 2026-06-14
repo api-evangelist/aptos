@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ExportedQuorumCertifiedUpdate.json",
+  "title": "ExportedQuorumCertifiedUpdate",
+  "type": "object",
+  "description": "A more API-friendly representation of the on-chain `aptos_types::jwks::QuorumCertifiedUpdate`.",
+  "required": [
+    "update",
+    "multi_sig"
+  ],
+  "properties": {
+    "update": {
+      "$ref": "#/components/schemas/ExportedProviderJWKs"
+    },
+    "multi_sig": {
+      "$ref": "#/components/schemas/ExportedAggregateSignature"
+    }
+  }
+}

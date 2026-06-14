@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/RequestedMultipliers.json",
+  "title": "RequestedMultipliers",
+  "type": "object",
+  "description": "Multipliers for higher transaction limits, expressed as percent of the base\nlimit (100 = 1x, 200 = 2x, 250 = 2.5x).",
+  "required": [
+    "execution_multiplier_percent",
+    "io_multiplier_percent"
+  ],
+  "properties": {
+    "execution_multiplier_percent": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "io_multiplier_percent": {
+      "$ref": "#/components/schemas/U64"
+    }
+  }
+}

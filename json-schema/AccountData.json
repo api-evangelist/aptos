@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/AccountData.json",
+  "title": "AccountData",
+  "type": "object",
+  "description": "Account data\n\nA simplified version of the onchain Account resource",
+  "required": [
+    "sequence_number",
+    "authentication_key"
+  ],
+  "properties": {
+    "sequence_number": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "authentication_key": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    }
+  }
+}

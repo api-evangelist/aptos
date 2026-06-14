@@ -1,0 +1,107 @@
+{
+  "method": "POST",
+  "path": "/transactions/simulate",
+  "operationId": "simulate_transaction",
+  "summary": "Simulate transaction",
+  "description": "The output of the transaction will have the exact transaction outputs and events that running\nan actual signed transaction would have.  However, it will not have the associated state\nhashes, as they are not updated in storage.  This can be used to estimate the maximum gas\nunits for a submitted transaction.\n\nTo use this, you must:\n- Create a SignedTransaction with a zero-padded signature.\n- Submit a SubmitTransactionRequest containing a UserTransactionRequest containing that signature.\n\nTo use this endpoint with BCS, you must submit a SignedTransaction\nencoded as BCS. See SignedTransaction in types/src/transaction/mod.rs.",
+  "tags": [
+    "Transactions"
+  ],
+  "parameters": [
+    {
+      "name": "estimate_max_gas_amount",
+      "in": "query",
+      "required": false,
+      "description": "If set to true, the max gas value in the transaction will be ignored\nand the maximum possible gas will be used",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "name": "estimate_gas_unit_price",
+      "in": "query",
+      "required": false,
+      "description": "If set to true, the gas unit price in the transaction will be ignored\nand the estimated value will be used",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "name": "estimate_prioritized_gas_unit_price",
+      "in": "query",
+      "required": false,
+      "description": "If set to true, the transaction will use a higher price than the original\nestimate.",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "requestBody": {
+    "contentType": "application/json",
+    "schema": {
+      "$ref": "#/components/schemas/SubmitTransactionRequest"
+    },
+    "example": null
+  },
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/UserTransaction"
+        }
+      },
+      "example": {}
+    },
+    "400": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "403": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "404": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "413": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "507": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

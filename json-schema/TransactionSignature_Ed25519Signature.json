@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/TransactionSignature_Ed25519Signature.json",
+  "title": "TransactionSignature_Ed25519Signature",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "ed25519_signature"
+          ],
+          "example": "ed25519_signature"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/Ed25519Signature"
+    }
+  ]
+}

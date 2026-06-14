@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MoveScriptBytecode.json",
+  "title": "MoveScriptBytecode",
+  "type": "object",
+  "description": "Move script bytecode",
+  "required": [
+    "bytecode"
+  ],
+  "properties": {
+    "bytecode": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    },
+    "abi": {
+      "$ref": "#/components/schemas/MoveFunction"
+    }
+  }
+}

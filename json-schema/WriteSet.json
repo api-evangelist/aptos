@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/WriteSet.json",
+  "title": "WriteSet",
+  "type": "object",
+  "description": "The associated writeset with a payload",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/WriteSet_ScriptWriteSet"
+    },
+    {
+      "$ref": "#/components/schemas/WriteSet_DirectWriteSet"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "script_write_set": "#/components/schemas/WriteSet_ScriptWriteSet",
+      "direct_write_set": "#/components/schemas/WriteSet_DirectWriteSet"
+    }
+  }
+}

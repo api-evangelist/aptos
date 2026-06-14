@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/RSA_JWK.json",
+  "title": "RSA_JWK",
+  "type": "object",
+  "description": "Move type `0x1::jwks::RSA_JWK` in rust.\nSee its doc in Move for more details.",
+  "required": [
+    "kid",
+    "kty",
+    "alg",
+    "e",
+    "n"
+  ],
+  "properties": {
+    "kid": {
+      "type": "string"
+    },
+    "kty": {
+      "type": "string"
+    },
+    "alg": {
+      "type": "string"
+    },
+    "e": {
+      "type": "string"
+    },
+    "n": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ValidatorTransaction.json",
+  "title": "ValidatorTransaction",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/ValidatorTransaction_JWKUpdateTransaction"
+    },
+    {
+      "$ref": "#/components/schemas/ValidatorTransaction_DKGResultTransaction"
+    },
+    {
+      "$ref": "#/components/schemas/ValidatorTransaction_ChunkyDKGResultTransaction"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "validator_transaction_type",
+    "mapping": {
+      "observed_jwk_update": "#/components/schemas/ValidatorTransaction_JWKUpdateTransaction",
+      "dkg_result": "#/components/schemas/ValidatorTransaction_DKGResultTransaction",
+      "chunky_d_k_g_result": "#/components/schemas/ValidatorTransaction_ChunkyDKGResultTransaction"
+    }
+  }
+}

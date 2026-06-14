@@ -1,0 +1,83 @@
+{
+  "method": "GET",
+  "path": "/blocks/by_height/{block_height}",
+  "operationId": "get_block_by_height",
+  "summary": "Get blocks by height",
+  "description": "This endpoint allows you to get the transactions in a block\nand the corresponding block information.\n\nTransactions are limited by max default transactions size.  If not all transactions\nare present, the user will need to query for the rest of the transactions via the\nget transactions API.\n\nIf the block is pruned, it will return a 410",
+  "tags": [
+    "Blocks"
+  ],
+  "parameters": [
+    {
+      "name": "block_height",
+      "in": "path",
+      "required": true,
+      "description": "Block height to lookup.  Starts at 0",
+      "schema": {
+        "type": "integer",
+        "format": "uint64"
+      }
+    },
+    {
+      "name": "with_transactions",
+      "in": "query",
+      "required": false,
+      "description": "If set to true, include all transactions in the block\n\nIf not provided, no transactions will be retrieved",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/Block"
+      },
+      "example": {}
+    },
+    "400": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "403": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "404": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "410": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

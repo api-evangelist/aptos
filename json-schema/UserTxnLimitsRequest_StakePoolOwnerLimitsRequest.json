@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/UserTxnLimitsRequest_StakePoolOwnerLimitsRequest.json",
+  "title": "UserTxnLimitsRequest_StakePoolOwnerLimitsRequest",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "stake_pool_owner"
+          ],
+          "example": "stake_pool_owner"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/StakePoolOwnerLimitsRequest"
+    }
+  ]
+}

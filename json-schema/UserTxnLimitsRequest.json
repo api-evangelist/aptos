@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/UserTxnLimitsRequest.json",
+  "title": "UserTxnLimitsRequest",
+  "type": "object",
+  "description": "A request for higher transaction execution limits, backed by a staking proof.",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/UserTxnLimitsRequest_StakePoolOwnerLimitsRequest"
+    },
+    {
+      "$ref": "#/components/schemas/UserTxnLimitsRequest_DelegatedVoterLimitsRequest"
+    },
+    {
+      "$ref": "#/components/schemas/UserTxnLimitsRequest_DelegationPoolDelegatorLimitsRequest"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "stake_pool_owner": "#/components/schemas/UserTxnLimitsRequest_StakePoolOwnerLimitsRequest",
+      "delegated_voter": "#/components/schemas/UserTxnLimitsRequest_DelegatedVoterLimitsRequest",
+      "delegation_pool_delegator": "#/components/schemas/UserTxnLimitsRequest_DelegationPoolDelegatorLimitsRequest"
+    }
+  }
+}

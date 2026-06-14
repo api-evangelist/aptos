@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/DecodedTableData.json",
+  "title": "DecodedTableData",
+  "type": "object",
+  "description": "Decoded table data",
+  "required": [
+    "key",
+    "key_type",
+    "value",
+    "value_type"
+  ],
+  "properties": {
+    "key": {
+      "description": "Key of table in JSON"
+    },
+    "key_type": {
+      "type": "string",
+      "description": "Type of key"
+    },
+    "value": {
+      "description": "Value of table in JSON"
+    },
+    "value_type": {
+      "type": "string",
+      "description": "Type of value"
+    }
+  }
+}

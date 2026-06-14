@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Transaction_BlockEpilogueTransaction.json",
+  "title": "Transaction_BlockEpilogueTransaction",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "block_epilogue_transaction"
+          ],
+          "example": "block_epilogue_transaction"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/BlockEpilogueTransaction"
+    }
+  ]
+}

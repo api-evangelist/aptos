@@ -1,0 +1,49 @@
+{
+  "method": "GET",
+  "path": "/estimate_gas_price",
+  "operationId": "estimate_gas_price",
+  "summary": "Estimate gas price",
+  "description": "Gives an estimate of the gas unit price required to get a transaction on chain in a\nreasonable amount of time. The gas unit price is the amount that each transaction commits to\npay for each unit of gas consumed in executing the transaction. The estimate is based on\nrecent history: it gives the minimum gas that would have been required to get into recent\nblocks, for blocks that were full. (When blocks are not full, the estimate will match the\nminimum gas unit price.)\n\nThe estimation is given in three values: de-prioritized (low), regular, and prioritized\n(aggressive). Using a more aggressive value increases the likelihood that the transaction\nwill make it into the next block; more aggressive values are computed with a larger history\nand higher percentile statistics. More details are in AIP-34.",
+  "tags": [
+    "Transactions"
+  ],
+  "parameters": [],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/GasEstimation"
+      },
+      "example": {}
+    },
+    "400": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "403": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

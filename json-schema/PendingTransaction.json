@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/PendingTransaction.json",
+  "title": "PendingTransaction",
+  "type": "object",
+  "description": "A transaction waiting in mempool",
+  "required": [
+    "hash",
+    "sender",
+    "sequence_number",
+    "max_gas_amount",
+    "gas_unit_price",
+    "expiration_timestamp_secs",
+    "payload"
+  ],
+  "properties": {
+    "hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "sender": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "sequence_number": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "max_gas_amount": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "gas_unit_price": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "expiration_timestamp_secs": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "payload": {
+      "$ref": "#/components/schemas/TransactionPayload"
+    },
+    "signature": {
+      "$ref": "#/components/schemas/TransactionSignature"
+    },
+    "replay_protection_nonce": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "txn_limits_request": {
+      "$ref": "#/components/schemas/UserTxnLimitsRequest"
+    }
+  }
+}

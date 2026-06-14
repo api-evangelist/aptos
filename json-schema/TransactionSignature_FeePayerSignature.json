@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/TransactionSignature_FeePayerSignature.json",
+  "title": "TransactionSignature_FeePayerSignature",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "fee_payer_signature"
+          ],
+          "example": "fee_payer_signature"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/FeePayerSignature"
+    }
+  ]
+}

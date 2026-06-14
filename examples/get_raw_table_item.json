@@ -1,0 +1,88 @@
+{
+  "method": "POST",
+  "path": "/tables/{table_handle}/raw_item",
+  "operationId": "get_raw_table_item",
+  "summary": "Get raw table item",
+  "description": "Get a table item at a specific ledger version from the table identified by {table_handle}\nin the path and the \"key\" (RawTableItemRequest) provided in the request body.\n\nThe `get_raw_table_item` requires only a serialized key comparing to the full move type information\ncomparing to the `get_table_item` api, and can only return the query in the bcs format.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
+  "tags": [
+    "Tables"
+  ],
+  "parameters": [
+    {
+      "name": "table_handle",
+      "in": "path",
+      "required": true,
+      "description": "Table handle hex encoded 32-byte string",
+      "schema": {
+        "$ref": "#/components/schemas/Address"
+      }
+    },
+    {
+      "name": "ledger_version",
+      "in": "query",
+      "required": false,
+      "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version",
+      "schema": {
+        "$ref": "#/components/schemas/U64"
+      }
+    }
+  ],
+  "requestBody": {
+    "contentType": "application/json",
+    "schema": {
+      "$ref": "#/components/schemas/RawTableItemRequest"
+    },
+    "example": null
+  },
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/MoveValue"
+      },
+      "example": {}
+    },
+    "400": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "403": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "404": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "410": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

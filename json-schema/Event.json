@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Event.json",
+  "title": "Event",
+  "type": "object",
+  "description": "An event from a transaction",
+  "required": [
+    "guid",
+    "sequence_number",
+    "type",
+    "data"
+  ],
+  "properties": {
+    "guid": {
+      "$ref": "#/components/schemas/EventGuid"
+    },
+    "sequence_number": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "type": {
+      "$ref": "#/components/schemas/MoveType"
+    },
+    "data": {
+      "description": "The JSON representation of the event"
+    }
+  }
+}

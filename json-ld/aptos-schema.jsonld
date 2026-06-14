@@ -1,0 +1,1653 @@
+{
+  "@context": {
+    "@vocab": "https://apievangelist.com/schema/aptos#",
+    "aptos": "https://apievangelist.com/schema/aptos#",
+    "schema": "https://schema.org/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "aptos:AbstractSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "AbstractSignature",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "function_info",
+        "auth_data"
+      ]
+    },
+    {
+      "@id": "aptos:AccountData",
+      "@type": "owl:Class",
+      "rdfs:label": "AccountData",
+      "rdfs:comment": "Account data\n\nA simplified version of the onchain Account resource",
+      "aptos:hasProperty": [
+        "sequence_number",
+        "authentication_key"
+      ]
+    },
+    {
+      "@id": "aptos:AccountSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "AccountSignature",
+      "rdfs:comment": "Account signature scheme\n\nThe account signature scheme allows you to have two types of accounts:\n\n1. A single Ed25519 key account, one private key\n2. A k-of-n multi-Ed25519 key account, multiple private keys, such that k-of-n must sign a transaction.\n3. A single Secp256k1Ecdsa key account, one private key"
+    },
+    {
+      "@id": "aptos:AccountSignature_AbstractSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "AccountSignature_AbstractSignature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:AccountSignature_Ed25519Signature",
+      "@type": "owl:Class",
+      "rdfs:label": "AccountSignature_Ed25519Signature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:AccountSignature_MultiEd25519Signature",
+      "@type": "owl:Class",
+      "rdfs:label": "AccountSignature_MultiEd25519Signature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:AccountSignature_MultiKeySignature",
+      "@type": "owl:Class",
+      "rdfs:label": "AccountSignature_MultiKeySignature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:AccountSignature_NoAccountSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "AccountSignature_NoAccountSignature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:AccountSignature_SingleKeySignature",
+      "@type": "owl:Class",
+      "rdfs:label": "AccountSignature_SingleKeySignature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Address",
+      "@type": "owl:Class",
+      "rdfs:label": "Address",
+      "rdfs:comment": "A hex encoded 32 byte Aptos account address.\n\nThis is represented in a string as a 64 character hex string, sometimes\nshortened by stripping leading 0s, and adding a 0x.\n\nFor example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.\n"
+    },
+    {
+      "@id": "aptos:AptosError",
+      "@type": "owl:Class",
+      "rdfs:label": "AptosError",
+      "rdfs:comment": "This is the generic struct we use for all API errors, it contains a string\nmessage and an Aptos API specific error code.",
+      "aptos:hasProperty": [
+        "message",
+        "error_code",
+        "vm_error_code"
+      ]
+    },
+    {
+      "@id": "aptos:AptosErrorCode",
+      "@type": "owl:Class",
+      "rdfs:label": "AptosErrorCode",
+      "rdfs:comment": "These codes provide more granular error information beyond just the HTTP\nstatus code of the response."
+    },
+    {
+      "@id": "aptos:AssetType",
+      "@type": "owl:Class",
+      "rdfs:label": "AssetType",
+      "rdfs:comment": "A hex encoded 32 byte Aptos account address or a struct tag.\n\nThis is represented in a string as a 64 character hex string, sometimes\nshortened by stripping leading 0s, and adding a 0x or\nFormat: `{address}::{module name}::{struct name}`\n"
+    },
+    {
+      "@id": "aptos:Block",
+      "@type": "owl:Class",
+      "rdfs:label": "Block",
+      "rdfs:comment": "A Block with or without transactions\n\nThis contains the information about a transactions along with\nassociated transactions if requested",
+      "aptos:hasProperty": [
+        "block_height",
+        "block_hash",
+        "block_timestamp",
+        "first_version",
+        "last_version",
+        "transactions"
+      ]
+    },
+    {
+      "@id": "aptos:BlockEndInfo",
+      "@type": "owl:Class",
+      "rdfs:label": "BlockEndInfo",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "block_gas_limit_reached",
+        "block_output_limit_reached",
+        "block_effective_block_gas_units",
+        "block_approx_output_size"
+      ]
+    },
+    {
+      "@id": "aptos:BlockEpilogueTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "BlockEpilogueTransaction",
+      "rdfs:comment": "A block epilogue transaction",
+      "aptos:hasProperty": [
+        "version",
+        "hash",
+        "state_change_hash",
+        "event_root_hash",
+        "state_checkpoint_hash",
+        "gas_used",
+        "success",
+        "vm_status",
+        "accumulator_root_hash",
+        "changes",
+        "timestamp",
+        "block_end_info"
+      ]
+    },
+    {
+      "@id": "aptos:BlockMetadataExtension",
+      "@type": "owl:Class",
+      "rdfs:label": "BlockMetadataExtension",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:BlockMetadataExtensionEmpty",
+      "@type": "owl:Class",
+      "rdfs:label": "BlockMetadataExtensionEmpty",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:BlockMetadataExtensionRandomness",
+      "@type": "owl:Class",
+      "rdfs:label": "BlockMetadataExtensionRandomness",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "randomness"
+      ]
+    },
+    {
+      "@id": "aptos:BlockMetadataExtensionRandomnessAndDecKey",
+      "@type": "owl:Class",
+      "rdfs:label": "BlockMetadataExtensionRandomnessAndDecKey",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "randomness",
+        "decryption_key"
+      ]
+    },
+    {
+      "@id": "aptos:BlockMetadataExtension_BlockMetadataExtensionEmpty",
+      "@type": "owl:Class",
+      "rdfs:label": "BlockMetadataExtension_BlockMetadataExtensionEmpty",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:BlockMetadataExtension_BlockMetadataExtensionRandomness",
+      "@type": "owl:Class",
+      "rdfs:label": "BlockMetadataExtension_BlockMetadataExtensionRandomness",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:BlockMetadataExtension_BlockMetadataExtensionRandomnessAndDecKey",
+      "@type": "owl:Class",
+      "rdfs:label": "BlockMetadataExtension_BlockMetadataExtensionRandomnessAndDecKey",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:BlockMetadataTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "BlockMetadataTransaction",
+      "rdfs:comment": "A block metadata transaction\n\nThis signifies the beginning of a block, and contains information\nabout the specific block",
+      "aptos:hasProperty": [
+        "version",
+        "hash",
+        "state_change_hash",
+        "event_root_hash",
+        "state_checkpoint_hash",
+        "gas_used",
+        "success",
+        "vm_status",
+        "accumulator_root_hash",
+        "changes",
+        "id",
+        "epoch",
+        "round",
+        "events",
+        "previous_block_votes_bitvec",
+        "proposer",
+        "failed_proposer_indices",
+        "timestamp",
+        "block_metadata_extension"
+      ]
+    },
+    {
+      "@id": "aptos:ChunkyDKGResultTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "ChunkyDKGResultTransaction",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "version",
+        "hash",
+        "state_change_hash",
+        "event_root_hash",
+        "state_checkpoint_hash",
+        "gas_used",
+        "success",
+        "vm_status",
+        "accumulator_root_hash",
+        "changes",
+        "events",
+        "timestamp",
+        "certified_subtrx",
+        "encryption_key"
+      ]
+    },
+    {
+      "@id": "aptos:ClaimedEntryFunction",
+      "@type": "owl:Class",
+      "rdfs:label": "ClaimedEntryFunction",
+      "rdfs:comment": "An encrypted payload's claim about the entry function. Specifies at least the module address,\nand optionally the specific entry funtion.",
+      "aptos:hasProperty": [
+        "module",
+        "name"
+      ]
+    },
+    {
+      "@id": "aptos:DKGResultTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "DKGResultTransaction",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "version",
+        "hash",
+        "state_change_hash",
+        "event_root_hash",
+        "state_checkpoint_hash",
+        "gas_used",
+        "success",
+        "vm_status",
+        "accumulator_root_hash",
+        "changes",
+        "events",
+        "timestamp",
+        "dkg_transcript"
+      ]
+    },
+    {
+      "@id": "aptos:DecodedTableData",
+      "@type": "owl:Class",
+      "rdfs:label": "DecodedTableData",
+      "rdfs:comment": "Decoded table data",
+      "aptos:hasProperty": [
+        "key",
+        "key_type",
+        "value",
+        "value_type"
+      ]
+    },
+    {
+      "@id": "aptos:DecryptedPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "DecryptedPayload",
+      "rdfs:comment": "Payload has been successfully decrypted.",
+      "aptos:hasProperty": [
+        "payload_hash",
+        "ciphertext",
+        "encryption_epoch",
+        "claimed_entry_fun",
+        "decrypted_payload",
+        "decryption_nonce"
+      ]
+    },
+    {
+      "@id": "aptos:DelegatedVoterLimitsRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "DelegatedVoterLimitsRequest",
+      "rdfs:comment": "A higher-limits request backed by a stake pool the fee payer is the\ndelegated voter of.",
+      "aptos:hasProperty": [
+        "pool_address",
+        "multipliers"
+      ]
+    },
+    {
+      "@id": "aptos:DelegationPoolDelegatorLimitsRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "DelegationPoolDelegatorLimitsRequest",
+      "rdfs:comment": "A higher-limits request backed by a delegation pool the fee payer delegates\nto.",
+      "aptos:hasProperty": [
+        "pool_address",
+        "multipliers"
+      ]
+    },
+    {
+      "@id": "aptos:DeleteModule",
+      "@type": "owl:Class",
+      "rdfs:label": "DeleteModule",
+      "rdfs:comment": "Delete a module",
+      "aptos:hasProperty": [
+        "address",
+        "state_key_hash",
+        "module"
+      ]
+    },
+    {
+      "@id": "aptos:DeleteResource",
+      "@type": "owl:Class",
+      "rdfs:label": "DeleteResource",
+      "rdfs:comment": "Delete a resource",
+      "aptos:hasProperty": [
+        "address",
+        "state_key_hash",
+        "resource"
+      ]
+    },
+    {
+      "@id": "aptos:DeleteTableItem",
+      "@type": "owl:Class",
+      "rdfs:label": "DeleteTableItem",
+      "rdfs:comment": "Delete a table item",
+      "aptos:hasProperty": [
+        "state_key_hash",
+        "handle",
+        "key",
+        "data"
+      ]
+    },
+    {
+      "@id": "aptos:DeletedTableData",
+      "@type": "owl:Class",
+      "rdfs:label": "DeletedTableData",
+      "rdfs:comment": "Deleted table data",
+      "aptos:hasProperty": [
+        "key",
+        "key_type"
+      ]
+    },
+    {
+      "@id": "aptos:DeprecatedModuleBundlePayload",
+      "@type": "owl:Class",
+      "rdfs:label": "DeprecatedModuleBundlePayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:DirectWriteSet",
+      "@type": "owl:Class",
+      "rdfs:label": "DirectWriteSet",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "changes",
+        "events"
+      ]
+    },
+    {
+      "@id": "aptos:Ed25519",
+      "@type": "owl:Class",
+      "rdfs:label": "Ed25519",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "value"
+      ]
+    },
+    {
+      "@id": "aptos:Ed25519Signature",
+      "@type": "owl:Class",
+      "rdfs:label": "Ed25519Signature",
+      "rdfs:comment": "A single Ed25519 signature",
+      "aptos:hasProperty": [
+        "public_key",
+        "signature"
+      ]
+    },
+    {
+      "@id": "aptos:EncodeSubmissionRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "EncodeSubmissionRequest",
+      "rdfs:comment": "Request to encode a submission",
+      "aptos:hasProperty": [
+        "sender",
+        "sequence_number",
+        "max_gas_amount",
+        "gas_unit_price",
+        "expiration_timestamp_secs",
+        "payload",
+        "replay_protection_nonce",
+        "secondary_signers"
+      ]
+    },
+    {
+      "@id": "aptos:EncryptedPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "EncryptedPayload",
+      "rdfs:comment": "Payload is still encrypted and cannot be read.",
+      "aptos:hasProperty": [
+        "payload_hash",
+        "ciphertext",
+        "encryption_epoch",
+        "claimed_entry_fun"
+      ]
+    },
+    {
+      "@id": "aptos:EncryptedTransactionInnerPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "EncryptedTransactionInnerPayload",
+      "rdfs:comment": "The inner payload of an encrypted transaction, present only when decrypted."
+    },
+    {
+      "@id": "aptos:EncryptedTransactionInnerPayload_EntryFunctionPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "EncryptedTransactionInnerPayload_EntryFunctionPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:EncryptedTransactionInnerPayload_MultisigPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "EncryptedTransactionInnerPayload_MultisigPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:EncryptedTransactionInnerPayload_ScriptPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "EncryptedTransactionInnerPayload_ScriptPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:EncryptedTransactionPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "EncryptedTransactionPayload",
+      "rdfs:comment": "An encrypted transaction payload, discriminated by encrypted_state.\n\nNOTE: multisig_address and replay_protection_nonce are not surfaced here.\nThey are part of extra_config and already exposed on UserTransactionRequest.\nFor Decrypted state, multisig_address is embedded in the MultisigPayload variant\nof decrypted_payload."
+    },
+    {
+      "@id": "aptos:EncryptedTransactionPayload_DecryptedPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "EncryptedTransactionPayload_DecryptedPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:EncryptedTransactionPayload_EncryptedPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "EncryptedTransactionPayload_EncryptedPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:EncryptedTransactionPayload_FailedDecryptionPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "EncryptedTransactionPayload_FailedDecryptionPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:EntryFunctionId",
+      "@type": "owl:Class",
+      "rdfs:label": "EntryFunctionId",
+      "rdfs:comment": "Entry function id is string representation of a entry function defined on-chain.\n\nFormat: `{address}::{module name}::{function name}`\n\nBoth `module name` and `function name` are case-sensitive.\n"
+    },
+    {
+      "@id": "aptos:EntryFunctionPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "EntryFunctionPayload",
+      "rdfs:comment": "Payload which runs a single entry function",
+      "aptos:hasProperty": [
+        "function",
+        "type_arguments",
+        "arguments"
+      ]
+    },
+    {
+      "@id": "aptos:Event",
+      "@type": "owl:Class",
+      "rdfs:label": "Event",
+      "rdfs:comment": "An event from a transaction",
+      "aptos:hasProperty": [
+        "guid",
+        "sequence_number",
+        "type",
+        "data"
+      ]
+    },
+    {
+      "@id": "aptos:EventGuid",
+      "@type": "owl:Class",
+      "rdfs:label": "EventGuid",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "creation_number",
+        "account_address"
+      ]
+    },
+    {
+      "@id": "aptos:ExportedAggregateSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "ExportedAggregateSignature",
+      "rdfs:comment": "A more API-friendly representation of the on-chain `aptos_types::aggregate_signature::AggregateSignature`.",
+      "aptos:hasProperty": [
+        "signer_indices",
+        "sig"
+      ]
+    },
+    {
+      "@id": "aptos:ExportedCertifiedAggregatedChunkySubtranscript",
+      "@type": "owl:Class",
+      "rdfs:label": "ExportedCertifiedAggregatedChunkySubtranscript",
+      "rdfs:comment": "A more API-friendly representation of the on-chain\n`aptos_types::dkg::chunky_dkg::CertifiedAggregatedChunkySubtranscript`.",
+      "aptos:hasProperty": [
+        "epoch",
+        "author",
+        "subtrx",
+        "signature"
+      ]
+    },
+    {
+      "@id": "aptos:ExportedDKGTranscript",
+      "@type": "owl:Class",
+      "rdfs:label": "ExportedDKGTranscript",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "epoch",
+        "author",
+        "payload"
+      ]
+    },
+    {
+      "@id": "aptos:ExportedProviderJWKs",
+      "@type": "owl:Class",
+      "rdfs:label": "ExportedProviderJWKs",
+      "rdfs:comment": "A more API-friendly representation of the on-chain `aptos_types::jwks::ProviderJWKs`.",
+      "aptos:hasProperty": [
+        "issuer",
+        "version",
+        "jwks"
+      ]
+    },
+    {
+      "@id": "aptos:ExportedQuorumCertifiedUpdate",
+      "@type": "owl:Class",
+      "rdfs:label": "ExportedQuorumCertifiedUpdate",
+      "rdfs:comment": "A more API-friendly representation of the on-chain `aptos_types::jwks::QuorumCertifiedUpdate`.",
+      "aptos:hasProperty": [
+        "update",
+        "multi_sig"
+      ]
+    },
+    {
+      "@id": "aptos:FailedDecryptionPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "FailedDecryptionPayload",
+      "rdfs:comment": "Decryption was attempted but failed.",
+      "aptos:hasProperty": [
+        "payload_hash",
+        "ciphertext",
+        "encryption_epoch",
+        "claimed_entry_fun"
+      ]
+    },
+    {
+      "@id": "aptos:FederatedKeyless",
+      "@type": "owl:Class",
+      "rdfs:label": "FederatedKeyless",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "value"
+      ]
+    },
+    {
+      "@id": "aptos:FeePayerSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "FeePayerSignature",
+      "rdfs:comment": "Fee payer signature for fee payer transactions\n\nThis allows you to have transactions across multiple accounts and with a fee payer",
+      "aptos:hasProperty": [
+        "sender",
+        "secondary_signer_addresses",
+        "secondary_signers",
+        "fee_payer_address",
+        "fee_payer_signer"
+      ]
+    },
+    {
+      "@id": "aptos:GasEstimation",
+      "@type": "owl:Class",
+      "rdfs:label": "GasEstimation",
+      "rdfs:comment": "Struct holding the outputs of the estimate gas API",
+      "aptos:hasProperty": [
+        "deprioritized_gas_estimate",
+        "gas_estimate",
+        "prioritized_gas_estimate"
+      ]
+    },
+    {
+      "@id": "aptos:GenesisPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "GenesisPayload",
+      "rdfs:comment": "The writeset payload of the Genesis transaction"
+    },
+    {
+      "@id": "aptos:GenesisPayload_WriteSetPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "GenesisPayload_WriteSetPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:GenesisTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "GenesisTransaction",
+      "rdfs:comment": "The genesis transaction\n\nThis only occurs at the genesis transaction (version 0)",
+      "aptos:hasProperty": [
+        "version",
+        "hash",
+        "state_change_hash",
+        "event_root_hash",
+        "state_checkpoint_hash",
+        "gas_used",
+        "success",
+        "vm_status",
+        "accumulator_root_hash",
+        "changes",
+        "payload",
+        "events"
+      ]
+    },
+    {
+      "@id": "aptos:HashValue",
+      "@type": "owl:Class",
+      "rdfs:label": "HashValue",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:HealthCheckSuccess",
+      "@type": "owl:Class",
+      "rdfs:label": "HealthCheckSuccess",
+      "rdfs:comment": "Representation of a successful healthcheck",
+      "aptos:hasProperty": [
+        "message"
+      ]
+    },
+    {
+      "@id": "aptos:HexEncodedBytes",
+      "@type": "owl:Class",
+      "rdfs:label": "HexEncodedBytes",
+      "rdfs:comment": "All bytes (Vec<u8>) data is represented as hex-encoded string prefixed with `0x` and fulfilled with\ntwo hex digits per byte.\n\nUnlike the `Address` type, HexEncodedBytes will not trim any zeros.\n"
+    },
+    {
+      "@id": "aptos:I128",
+      "@type": "owl:Class",
+      "rdfs:label": "I128",
+      "rdfs:comment": "A string containing a 128-bit signed integer.\n\nWe represent i128 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse i128s in JSON natively.\n"
+    },
+    {
+      "@id": "aptos:I256",
+      "@type": "owl:Class",
+      "rdfs:label": "I256",
+      "rdfs:comment": "A string containing a 256-bit signed integer.\n\nWe represent i256 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse i256s in JSON natively.\n"
+    },
+    {
+      "@id": "aptos:I64",
+      "@type": "owl:Class",
+      "rdfs:label": "I64",
+      "rdfs:comment": "A string containing a 64-bit signed integer.\n\nWe represent i64 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse i64s in JSON natively.\n"
+    },
+    {
+      "@id": "aptos:IdentifierWrapper",
+      "@type": "owl:Class",
+      "rdfs:label": "IdentifierWrapper",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:IndexResponse",
+      "@type": "owl:Class",
+      "rdfs:label": "IndexResponse",
+      "rdfs:comment": "The struct holding all data returned to the client by the\nindex endpoint (i.e., GET \"/\").  Only for responding in JSON",
+      "aptos:hasProperty": [
+        "chain_id",
+        "epoch",
+        "ledger_version",
+        "oldest_ledger_version",
+        "ledger_timestamp",
+        "node_role",
+        "oldest_block_height",
+        "block_height",
+        "git_hash",
+        "encryption_key"
+      ]
+    },
+    {
+      "@id": "aptos:IndexedSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "IndexedSignature",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "index",
+        "signature"
+      ]
+    },
+    {
+      "@id": "aptos:JWK",
+      "@type": "owl:Class",
+      "rdfs:label": "JWK",
+      "rdfs:comment": "The JWK type that can be converted from/to `JWKMoveStruct` but easier to use in rust."
+    },
+    {
+      "@id": "aptos:JWKUpdateTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "JWKUpdateTransaction",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "version",
+        "hash",
+        "state_change_hash",
+        "event_root_hash",
+        "state_checkpoint_hash",
+        "gas_used",
+        "success",
+        "vm_status",
+        "accumulator_root_hash",
+        "changes",
+        "events",
+        "timestamp",
+        "quorum_certified_update"
+      ]
+    },
+    {
+      "@id": "aptos:Keyless",
+      "@type": "owl:Class",
+      "rdfs:label": "Keyless",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "value"
+      ]
+    },
+    {
+      "@id": "aptos:MoveAbility",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveAbility",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:MoveFunction",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveFunction",
+      "rdfs:comment": "Move function",
+      "aptos:hasProperty": [
+        "name",
+        "visibility",
+        "is_entry",
+        "is_view",
+        "generic_type_params",
+        "params",
+        "return"
+      ]
+    },
+    {
+      "@id": "aptos:MoveFunctionGenericTypeParam",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveFunctionGenericTypeParam",
+      "rdfs:comment": "Move function generic type param",
+      "aptos:hasProperty": [
+        "constraints"
+      ]
+    },
+    {
+      "@id": "aptos:MoveFunctionVisibility",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveFunctionVisibility",
+      "rdfs:comment": "Move function visibility"
+    },
+    {
+      "@id": "aptos:MoveModule",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveModule",
+      "rdfs:comment": "A Move module",
+      "aptos:hasProperty": [
+        "address",
+        "name",
+        "friends",
+        "exposed_functions",
+        "structs"
+      ]
+    },
+    {
+      "@id": "aptos:MoveModuleBytecode",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveModuleBytecode",
+      "rdfs:comment": "Move module bytecode along with it's ABI",
+      "aptos:hasProperty": [
+        "bytecode",
+        "abi"
+      ]
+    },
+    {
+      "@id": "aptos:MoveModuleId",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveModuleId",
+      "rdfs:comment": "Move module id is a string representation of Move module.\n\nFormat: `{address}::{module name}`\n\n`address` should be hex-encoded 32 byte account address that is prefixed with `0x`.\n\nModule name is case-sensitive.\n"
+    },
+    {
+      "@id": "aptos:MoveResource",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveResource",
+      "rdfs:comment": "A parsed Move resource",
+      "aptos:hasProperty": [
+        "type",
+        "data"
+      ]
+    },
+    {
+      "@id": "aptos:MoveScriptBytecode",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveScriptBytecode",
+      "rdfs:comment": "Move script bytecode",
+      "aptos:hasProperty": [
+        "bytecode",
+        "abi"
+      ]
+    },
+    {
+      "@id": "aptos:MoveStruct",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveStruct",
+      "rdfs:comment": "A move struct",
+      "aptos:hasProperty": [
+        "name",
+        "is_native",
+        "is_event",
+        "is_enum",
+        "abilities",
+        "generic_type_params",
+        "fields",
+        "variants"
+      ]
+    },
+    {
+      "@id": "aptos:MoveStructField",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveStructField",
+      "rdfs:comment": "Move struct field",
+      "aptos:hasProperty": [
+        "name",
+        "type"
+      ]
+    },
+    {
+      "@id": "aptos:MoveStructGenericTypeParam",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveStructGenericTypeParam",
+      "rdfs:comment": "Move generic type param",
+      "aptos:hasProperty": [
+        "constraints"
+      ]
+    },
+    {
+      "@id": "aptos:MoveStructTag",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveStructTag",
+      "rdfs:comment": "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n"
+    },
+    {
+      "@id": "aptos:MoveStructValue",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveStructValue",
+      "rdfs:comment": "This is a JSON representation of some data within an account resource. More specifically,\nit is a map of strings to arbitrary JSON values / objects, where the keys are top level\nfields within the given resource.\n\nTo clarify, you might query for 0x1::account::Account and see the example data.\n\nMove `bool` type value is serialized into `boolean`.\n\nMove `u8`, `u16`, `u32`, `i8`, `i16`, and `i32` type value is serialized into `integer`.\n\nMove `u64`, `u128`, `u256`, `i64`, `i128`, and `i256` type value is serialized into `string`.\n\nMove `address` type value (32 byte Aptos account address) is serialized into a HexEncodedBytes string.\nFor example:\n  - `0x1`\n  - `0x1668f6be25668c1a17cd8caf6b8d2f25`\n\nMove `vector` type value is serialized into `array`, except `vector<u8>` which is serialized into a\nHexEncodedBytes string with `0x` prefix.\nFor example:\n  - `vector<u64>{255, 255}` => `[\"255\", \"255\"]`\n  - `vector<u8>{255, 255}` => `0xffff`\n\nMove `struct` type value is serialized into `object` that looks like this (except some Move stdlib types, see the following section):\n  ```json\n  {\n    field1_name: field1_value,\n    field2_name: field2_value,\n    ......\n  }\n  ```\n\nFor example:\n  `{ \"created\": \"0xa550c18\", \"role_id\": \"0\" }`\n\n**Special serialization for Move stdlib types**:\n  - [0x1::string::String](https://github.com/aptos-labs/aptos-core/blob/main/third_party/move/move-stdlib/docs/ascii.md)\n    is serialized into `string`. For example, struct value `0x1::string::String{bytes: b\"Hello World!\"}`\n    is serialized as `\"Hello World!\"` in JSON.\n"
+    },
+    {
+      "@id": "aptos:MoveStructVariant",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveStructVariant",
+      "rdfs:comment": "A single variant of a Move enum.",
+      "aptos:hasProperty": [
+        "name",
+        "fields"
+      ]
+    },
+    {
+      "@id": "aptos:MoveType",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveType",
+      "rdfs:comment": "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - i8\n      - i16\n      - i32\n      - i64\n      - i128\n      - i256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n"
+    },
+    {
+      "@id": "aptos:MoveValue",
+      "@type": "owl:Class",
+      "rdfs:label": "MoveValue",
+      "rdfs:comment": "An enum of the possible Move value types"
+    },
+    {
+      "@id": "aptos:MultiAgentSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "MultiAgentSignature",
+      "rdfs:comment": "Multi agent signature for multi agent transactions\n\nThis allows you to have transactions across multiple accounts",
+      "aptos:hasProperty": [
+        "sender",
+        "secondary_signer_addresses",
+        "secondary_signers"
+      ]
+    },
+    {
+      "@id": "aptos:MultiEd25519Signature",
+      "@type": "owl:Class",
+      "rdfs:label": "MultiEd25519Signature",
+      "rdfs:comment": "A Ed25519 multi-sig signature\n\nThis allows k-of-n signing for a transaction",
+      "aptos:hasProperty": [
+        "public_keys",
+        "signatures",
+        "threshold",
+        "bitmap"
+      ]
+    },
+    {
+      "@id": "aptos:MultiKeySignature",
+      "@type": "owl:Class",
+      "rdfs:label": "MultiKeySignature",
+      "rdfs:comment": "A multi key signature",
+      "aptos:hasProperty": [
+        "public_keys",
+        "signatures",
+        "signatures_required"
+      ]
+    },
+    {
+      "@id": "aptos:MultisigPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "MultisigPayload",
+      "rdfs:comment": "A multisig transaction that allows an owner of a multisig account to execute a pre-approved\ntransaction as the multisig account.",
+      "aptos:hasProperty": [
+        "multisig_address",
+        "transaction_payload"
+      ]
+    },
+    {
+      "@id": "aptos:MultisigTransactionPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "MultisigTransactionPayload",
+      "rdfs:comment": "Enum for multisig transaction payloads, supporting both entry functions and scripts."
+    },
+    {
+      "@id": "aptos:MultisigTransactionPayload_EntryFunctionPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "MultisigTransactionPayload_EntryFunctionPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:MultisigTransactionPayload_ScriptPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "MultisigTransactionPayload_ScriptPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:NoAccountSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "NoAccountSignature",
+      "rdfs:comment": "A placeholder to represent the absence of account signature"
+    },
+    {
+      "@id": "aptos:PendingTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "PendingTransaction",
+      "rdfs:comment": "A transaction waiting in mempool",
+      "aptos:hasProperty": [
+        "hash",
+        "sender",
+        "sequence_number",
+        "max_gas_amount",
+        "gas_unit_price",
+        "expiration_timestamp_secs",
+        "payload",
+        "signature",
+        "replay_protection_nonce",
+        "txn_limits_request"
+      ]
+    },
+    {
+      "@id": "aptos:PersistedAuxiliaryInfo",
+      "@type": "owl:Class",
+      "rdfs:label": "PersistedAuxiliaryInfo",
+      "rdfs:comment": "API representation of persisted auxiliary transaction information",
+      "aptos:hasProperty": [
+        "transaction_index"
+      ]
+    },
+    {
+      "@id": "aptos:PublicKey",
+      "@type": "owl:Class",
+      "rdfs:label": "PublicKey",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:PublicKey_Ed25519",
+      "@type": "owl:Class",
+      "rdfs:label": "PublicKey_Ed25519",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:PublicKey_FederatedKeyless",
+      "@type": "owl:Class",
+      "rdfs:label": "PublicKey_FederatedKeyless",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:PublicKey_Keyless",
+      "@type": "owl:Class",
+      "rdfs:label": "PublicKey_Keyless",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:PublicKey_Secp256k1Ecdsa",
+      "@type": "owl:Class",
+      "rdfs:label": "PublicKey_Secp256k1Ecdsa",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:PublicKey_Secp256r1Ecdsa",
+      "@type": "owl:Class",
+      "rdfs:label": "PublicKey_Secp256r1Ecdsa",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:PublicKey_SlhDsa_Sha2_128s",
+      "@type": "owl:Class",
+      "rdfs:label": "PublicKey_SlhDsa_Sha2_128s",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:RSA_JWK",
+      "@type": "owl:Class",
+      "rdfs:label": "RSA_JWK",
+      "rdfs:comment": "Move type `0x1::jwks::RSA_JWK` in rust.\nSee its doc in Move for more details.",
+      "aptos:hasProperty": [
+        "kid",
+        "kty",
+        "alg",
+        "e",
+        "n"
+      ]
+    },
+    {
+      "@id": "aptos:RawTableItemRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "RawTableItemRequest",
+      "rdfs:comment": "Table Item request for the GetTableItemRaw API",
+      "aptos:hasProperty": [
+        "key"
+      ]
+    },
+    {
+      "@id": "aptos:ReplayProtector",
+      "@type": "owl:Class",
+      "rdfs:label": "ReplayProtector",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:ReplayProtector_string(U64)",
+      "@type": "owl:Class",
+      "rdfs:label": "ReplayProtector_string(U64)",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:RequestedMultipliers",
+      "@type": "owl:Class",
+      "rdfs:label": "RequestedMultipliers",
+      "rdfs:comment": "Multipliers for higher transaction limits, expressed as percent of the base\nlimit (100 = 1x, 200 = 2x, 250 = 2.5x).",
+      "aptos:hasProperty": [
+        "execution_multiplier_percent",
+        "io_multiplier_percent"
+      ]
+    },
+    {
+      "@id": "aptos:RoleType",
+      "@type": "owl:Class",
+      "rdfs:label": "RoleType",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:ScriptPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "ScriptPayload",
+      "rdfs:comment": "Payload which runs a script that can run multiple functions",
+      "aptos:hasProperty": [
+        "code",
+        "type_arguments",
+        "arguments"
+      ]
+    },
+    {
+      "@id": "aptos:ScriptWriteSet",
+      "@type": "owl:Class",
+      "rdfs:label": "ScriptWriteSet",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "execute_as",
+        "script"
+      ]
+    },
+    {
+      "@id": "aptos:Secp256k1Ecdsa",
+      "@type": "owl:Class",
+      "rdfs:label": "Secp256k1Ecdsa",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "value"
+      ]
+    },
+    {
+      "@id": "aptos:Secp256r1Ecdsa",
+      "@type": "owl:Class",
+      "rdfs:label": "Secp256r1Ecdsa",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "value"
+      ]
+    },
+    {
+      "@id": "aptos:Signature",
+      "@type": "owl:Class",
+      "rdfs:label": "Signature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Signature_Ed25519",
+      "@type": "owl:Class",
+      "rdfs:label": "Signature_Ed25519",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Signature_Keyless",
+      "@type": "owl:Class",
+      "rdfs:label": "Signature_Keyless",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Signature_Secp256k1Ecdsa",
+      "@type": "owl:Class",
+      "rdfs:label": "Signature_Secp256k1Ecdsa",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Signature_SlhDsa_Sha2_128s",
+      "@type": "owl:Class",
+      "rdfs:label": "Signature_SlhDsa_Sha2_128s",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Signature_WebAuthn",
+      "@type": "owl:Class",
+      "rdfs:label": "Signature_WebAuthn",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:SingleKeySignature",
+      "@type": "owl:Class",
+      "rdfs:label": "SingleKeySignature",
+      "rdfs:comment": "A single key signature",
+      "aptos:hasProperty": [
+        "public_key",
+        "signature"
+      ]
+    },
+    {
+      "@id": "aptos:SlhDsa_Sha2_128s",
+      "@type": "owl:Class",
+      "rdfs:label": "SlhDsa_Sha2_128s",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "value"
+      ]
+    },
+    {
+      "@id": "aptos:StakePoolOwnerLimitsRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "StakePoolOwnerLimitsRequest",
+      "rdfs:comment": "A higher-limits request whose backing is a stake pool the fee payer owns.",
+      "aptos:hasProperty": [
+        "multipliers"
+      ]
+    },
+    {
+      "@id": "aptos:StateCheckpointTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "StateCheckpointTransaction",
+      "rdfs:comment": "A state checkpoint transaction",
+      "aptos:hasProperty": [
+        "version",
+        "hash",
+        "state_change_hash",
+        "event_root_hash",
+        "state_checkpoint_hash",
+        "gas_used",
+        "success",
+        "vm_status",
+        "accumulator_root_hash",
+        "changes",
+        "timestamp"
+      ]
+    },
+    {
+      "@id": "aptos:StateKeyWrapper",
+      "@type": "owl:Class",
+      "rdfs:label": "StateKeyWrapper",
+      "rdfs:comment": "Representation of a StateKey as a hex string. This is used for cursor based pagination.\n"
+    },
+    {
+      "@id": "aptos:SubmitTransactionRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "SubmitTransactionRequest",
+      "rdfs:comment": "A request to submit a transaction\n\nThis requires a transaction and a signature of it",
+      "aptos:hasProperty": [
+        "sender",
+        "sequence_number",
+        "max_gas_amount",
+        "gas_unit_price",
+        "expiration_timestamp_secs",
+        "payload",
+        "replay_protection_nonce",
+        "signature"
+      ]
+    },
+    {
+      "@id": "aptos:TableItemRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "TableItemRequest",
+      "rdfs:comment": "Table Item request for the GetTableItem API",
+      "aptos:hasProperty": [
+        "key_type",
+        "value_type",
+        "key"
+      ]
+    },
+    {
+      "@id": "aptos:Transaction",
+      "@type": "owl:Class",
+      "rdfs:label": "Transaction",
+      "rdfs:comment": "Enum of the different types of transactions in Aptos"
+    },
+    {
+      "@id": "aptos:TransactionPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionPayload",
+      "rdfs:comment": "An enum of the possible transaction payloads"
+    },
+    {
+      "@id": "aptos:TransactionPayload_DeprecatedModuleBundlePayload",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionPayload_DeprecatedModuleBundlePayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionPayload_EncryptedTransactionPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionPayload_EncryptedTransactionPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionPayload_EntryFunctionPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionPayload_EntryFunctionPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionPayload_MultisigPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionPayload_MultisigPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionPayload_ScriptPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionPayload_ScriptPayload",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionSignature",
+      "rdfs:comment": "An enum representing the different transaction signatures available"
+    },
+    {
+      "@id": "aptos:TransactionSignature_AccountSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionSignature_AccountSignature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionSignature_Ed25519Signature",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionSignature_Ed25519Signature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionSignature_FeePayerSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionSignature_FeePayerSignature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionSignature_MultiAgentSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionSignature_MultiAgentSignature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionSignature_MultiEd25519Signature",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionSignature_MultiEd25519Signature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionSignature_NoAccountSignature",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionSignature_NoAccountSignature",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionSummary",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionSummary",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "sender",
+        "version",
+        "transaction_hash",
+        "replay_protector"
+      ]
+    },
+    {
+      "@id": "aptos:Transaction_BlockEpilogueTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "Transaction_BlockEpilogueTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Transaction_BlockMetadataTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "Transaction_BlockMetadataTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Transaction_GenesisTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "Transaction_GenesisTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Transaction_PendingTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "Transaction_PendingTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Transaction_StateCheckpointTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "Transaction_StateCheckpointTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Transaction_UserTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "Transaction_UserTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:Transaction_ValidatorTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "Transaction_ValidatorTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:TransactionsBatchSingleSubmissionFailure",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionsBatchSingleSubmissionFailure",
+      "rdfs:comment": "Information telling which batch submission transactions failed",
+      "aptos:hasProperty": [
+        "error",
+        "transaction_index"
+      ]
+    },
+    {
+      "@id": "aptos:TransactionsBatchSubmissionResult",
+      "@type": "owl:Class",
+      "rdfs:label": "TransactionsBatchSubmissionResult",
+      "rdfs:comment": "Batch transaction submission result\n\nTells which transactions failed",
+      "aptos:hasProperty": [
+        "transaction_failures"
+      ]
+    },
+    {
+      "@id": "aptos:U128",
+      "@type": "owl:Class",
+      "rdfs:label": "U128",
+      "rdfs:comment": "A string containing a 128-bit unsigned integer.\n\nWe represent u128 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse u128s in JSON natively.\n"
+    },
+    {
+      "@id": "aptos:U256",
+      "@type": "owl:Class",
+      "rdfs:label": "U256",
+      "rdfs:comment": "A string containing a 256-bit unsigned integer.\n\nWe represent u256 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse u256s in JSON natively.\n"
+    },
+    {
+      "@id": "aptos:U64",
+      "@type": "owl:Class",
+      "rdfs:label": "U64",
+      "rdfs:comment": "A string containing a 64-bit unsigned integer.\n\nWe represent u64 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse u64s in JSON natively.\n"
+    },
+    {
+      "@id": "aptos:UnsupportedJWK",
+      "@type": "owl:Class",
+      "rdfs:label": "UnsupportedJWK",
+      "rdfs:comment": "Move type `0x1::jwks::UnsupportedJWK` in rust.\nSee its doc in Move for more details.",
+      "aptos:hasProperty": [
+        "id",
+        "payload"
+      ]
+    },
+    {
+      "@id": "aptos:UserTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "UserTransaction",
+      "rdfs:comment": "A transaction submitted by a user to change the state of the blockchain",
+      "aptos:hasProperty": [
+        "version",
+        "hash",
+        "state_change_hash",
+        "event_root_hash",
+        "state_checkpoint_hash",
+        "gas_used",
+        "success",
+        "vm_status",
+        "accumulator_root_hash",
+        "changes",
+        "sender",
+        "sequence_number",
+        "max_gas_amount",
+        "gas_unit_price",
+        "expiration_timestamp_secs",
+        "payload",
+        "signature",
+        "replay_protection_nonce",
+        "txn_limits_request",
+        "events",
+        "timestamp"
+      ]
+    },
+    {
+      "@id": "aptos:UserTxnLimitsRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "UserTxnLimitsRequest",
+      "rdfs:comment": "A request for higher transaction execution limits, backed by a staking proof."
+    },
+    {
+      "@id": "aptos:UserTxnLimitsRequest_DelegatedVoterLimitsRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "UserTxnLimitsRequest_DelegatedVoterLimitsRequest",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:UserTxnLimitsRequest_DelegationPoolDelegatorLimitsRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "UserTxnLimitsRequest_DelegationPoolDelegatorLimitsRequest",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:UserTxnLimitsRequest_StakePoolOwnerLimitsRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "UserTxnLimitsRequest_StakePoolOwnerLimitsRequest",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:ValidatorTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "ValidatorTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:ValidatorTransaction_ChunkyDKGResultTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "ValidatorTransaction_ChunkyDKGResultTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:ValidatorTransaction_DKGResultTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "ValidatorTransaction_DKGResultTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:ValidatorTransaction_JWKUpdateTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": "ValidatorTransaction_JWKUpdateTransaction",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:VersionedEvent",
+      "@type": "owl:Class",
+      "rdfs:label": "VersionedEvent",
+      "rdfs:comment": "An event from a transaction with a version",
+      "aptos:hasProperty": [
+        "version",
+        "guid",
+        "sequence_number",
+        "type",
+        "data"
+      ]
+    },
+    {
+      "@id": "aptos:ViewRequest",
+      "@type": "owl:Class",
+      "rdfs:label": "ViewRequest",
+      "rdfs:comment": "View request for the Move View Function API",
+      "aptos:hasProperty": [
+        "function",
+        "type_arguments",
+        "arguments"
+      ]
+    },
+    {
+      "@id": "aptos:WebAuthn",
+      "@type": "owl:Class",
+      "rdfs:label": "WebAuthn",
+      "rdfs:comment": "",
+      "aptos:hasProperty": [
+        "value"
+      ]
+    },
+    {
+      "@id": "aptos:WriteModule",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteModule",
+      "rdfs:comment": "Write a new module or update an existing one",
+      "aptos:hasProperty": [
+        "address",
+        "state_key_hash",
+        "data"
+      ]
+    },
+    {
+      "@id": "aptos:WriteResource",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteResource",
+      "rdfs:comment": "Write a resource or update an existing one",
+      "aptos:hasProperty": [
+        "address",
+        "state_key_hash",
+        "data"
+      ]
+    },
+    {
+      "@id": "aptos:WriteSet",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSet",
+      "rdfs:comment": "The associated writeset with a payload"
+    },
+    {
+      "@id": "aptos:WriteSetChange",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSetChange",
+      "rdfs:comment": "A final state change of a transaction on a resource or module"
+    },
+    {
+      "@id": "aptos:WriteSetChange_DeleteModule",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSetChange_DeleteModule",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:WriteSetChange_DeleteResource",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSetChange_DeleteResource",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:WriteSetChange_DeleteTableItem",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSetChange_DeleteTableItem",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:WriteSetChange_WriteModule",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSetChange_WriteModule",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:WriteSetChange_WriteResource",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSetChange_WriteResource",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:WriteSetChange_WriteTableItem",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSetChange_WriteTableItem",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:WriteSetPayload",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSetPayload",
+      "rdfs:comment": "A writeset payload, used only for genesis",
+      "aptos:hasProperty": [
+        "write_set"
+      ]
+    },
+    {
+      "@id": "aptos:WriteSet_DirectWriteSet",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSet_DirectWriteSet",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:WriteSet_ScriptWriteSet",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteSet_ScriptWriteSet",
+      "rdfs:comment": ""
+    },
+    {
+      "@id": "aptos:WriteTableItem",
+      "@type": "owl:Class",
+      "rdfs:label": "WriteTableItem",
+      "rdfs:comment": "Change set to write a table item",
+      "aptos:hasProperty": [
+        "state_key_hash",
+        "handle",
+        "key",
+        "value",
+        "data"
+      ]
+    }
+  ]
+}

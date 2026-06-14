@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/DirectWriteSet.json",
+  "title": "DirectWriteSet",
+  "type": "object",
+  "required": [
+    "changes",
+    "events"
+  ],
+  "properties": {
+    "changes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/WriteSetChange"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Event"
+      }
+    }
+  }
+}

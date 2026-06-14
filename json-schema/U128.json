@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/U128.json",
+  "title": "U128",
+  "type": "string",
+  "format": "uint128",
+  "description": "A string containing a 128-bit unsigned integer.\n\nWe represent u128 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse u128s in JSON natively.\n",
+  "example": "340282366920938463463374607431768211454"
+}

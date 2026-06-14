@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/BlockMetadataExtension.json",
+  "title": "BlockMetadataExtension",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionEmpty"
+    },
+    {
+      "$ref": "#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionRandomness"
+    },
+    {
+      "$ref": "#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionRandomnessAndDecKey"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "v0": "#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionEmpty",
+      "v1": "#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionRandomness",
+      "v2": "#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionRandomnessAndDecKey"
+    }
+  }
+}

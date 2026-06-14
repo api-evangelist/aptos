@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/WriteSetChange_WriteModule.json",
+  "title": "WriteSetChange_WriteModule",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "write_module"
+          ],
+          "example": "write_module"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/WriteModule"
+    }
+  ]
+}

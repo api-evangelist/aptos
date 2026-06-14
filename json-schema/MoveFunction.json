@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MoveFunction.json",
+  "title": "MoveFunction",
+  "type": "object",
+  "description": "Move function",
+  "required": [
+    "name",
+    "visibility",
+    "is_entry",
+    "is_view",
+    "generic_type_params",
+    "params",
+    "return"
+  ],
+  "properties": {
+    "name": {
+      "$ref": "#/components/schemas/IdentifierWrapper"
+    },
+    "visibility": {
+      "$ref": "#/components/schemas/MoveFunctionVisibility"
+    },
+    "is_entry": {
+      "type": "boolean",
+      "description": "Whether the function can be called as an entry function directly in a transaction"
+    },
+    "is_view": {
+      "type": "boolean",
+      "description": "Whether the function is a view function or not"
+    },
+    "generic_type_params": {
+      "type": "array",
+      "description": "Generic type params associated with the Move function",
+      "items": {
+        "$ref": "#/components/schemas/MoveFunctionGenericTypeParam"
+      }
+    },
+    "params": {
+      "type": "array",
+      "description": "Parameters associated with the move function",
+      "items": {
+        "$ref": "#/components/schemas/MoveType"
+      }
+    },
+    "return": {
+      "type": "array",
+      "description": "Return type of the function",
+      "items": {
+        "$ref": "#/components/schemas/MoveType"
+      }
+    }
+  }
+}

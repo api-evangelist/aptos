@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/JWK.json",
+  "title": "JWK",
+  "type": "object",
+  "description": "The JWK type that can be converted from/to `JWKMoveStruct` but easier to use in rust.",
+  "anyOf": [
+    {
+      "$ref": "#/components/schemas/RSA_JWK"
+    },
+    {
+      "$ref": "#/components/schemas/UnsupportedJWK"
+    }
+  ]
+}

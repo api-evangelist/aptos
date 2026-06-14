@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Transaction_StateCheckpointTransaction.json",
+  "title": "Transaction_StateCheckpointTransaction",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "state_checkpoint_transaction"
+          ],
+          "example": "state_checkpoint_transaction"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/StateCheckpointTransaction"
+    }
+  ]
+}

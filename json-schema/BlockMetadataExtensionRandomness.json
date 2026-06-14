@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/BlockMetadataExtensionRandomness.json",
+  "title": "BlockMetadataExtensionRandomness",
+  "type": "object",
+  "properties": {
+    "randomness": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    }
+  }
+}

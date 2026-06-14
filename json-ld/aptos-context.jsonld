@@ -1,0 +1,139 @@
+{
+  "@context": {
+    "@vocab": "https://apievangelist.com/schema/aptos#",
+    "aptos": "https://apievangelist.com/schema/aptos#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "Address": "aptos:Address",
+    "AccountData": "aptos:AccountData",
+    "Transaction": "aptos:Transaction",
+    "Block": "aptos:Block",
+    "Event": "aptos:Event",
+    "MoveModule": "aptos:MoveModule",
+    "MoveResource": "aptos:MoveResource",
+    "MoveFunction": "aptos:MoveFunction",
+    "MoveStruct": "aptos:MoveStruct",
+    "MoveType": "aptos:MoveType",
+    "MoveValue": "aptos:MoveValue",
+    "PendingTransaction": "aptos:PendingTransaction",
+    "UserTransaction": "aptos:UserTransaction",
+    "GenesisTransaction": "aptos:GenesisTransaction",
+    "BlockMetadataTransaction": "aptos:BlockMetadataTransaction",
+    "StateCheckpointTransaction": "aptos:StateCheckpointTransaction",
+    "ValidatorTransaction": "aptos:ValidatorTransaction",
+    "Ed25519Signature": "aptos:Ed25519Signature",
+    "MultiEd25519Signature": "aptos:MultiEd25519Signature",
+    "MultiAgentSignature": "aptos:MultiAgentSignature",
+    "FeePayerSignature": "aptos:FeePayerSignature",
+    "sequence_number": {
+      "@id": "aptos:sequenceNumber",
+      "@type": "xsd:string"
+    },
+    "authentication_key": {
+      "@id": "aptos:authenticationKey",
+      "@type": "xsd:string"
+    },
+    "hash": {
+      "@id": "aptos:hash",
+      "@type": "xsd:string"
+    },
+    "version": {
+      "@id": "aptos:version",
+      "@type": "xsd:string"
+    },
+    "timestamp": {
+      "@id": "aptos:timestamp",
+      "@type": "xsd:string"
+    },
+    "gas_used": {
+      "@id": "aptos:gasUsed",
+      "@type": "xsd:string"
+    },
+    "success": {
+      "@id": "aptos:success",
+      "@type": "xsd:boolean"
+    },
+    "vm_status": {
+      "@id": "aptos:vmStatus",
+      "@type": "xsd:string"
+    },
+    "sender": {
+      "@id": "aptos:sender",
+      "@type": "xsd:string"
+    },
+    "payload": "aptos:payload",
+    "signature": "aptos:signature",
+    "events": "aptos:events",
+    "changes": "aptos:changes",
+    "type": "@type",
+    "data": "aptos:data",
+    "key": "aptos:key",
+    "guid": "aptos:guid",
+    "block_height": {
+      "@id": "aptos:blockHeight",
+      "@type": "xsd:string"
+    },
+    "block_hash": {
+      "@id": "aptos:blockHash",
+      "@type": "xsd:string"
+    },
+    "block_timestamp": {
+      "@id": "aptos:blockTimestamp",
+      "@type": "xsd:string"
+    },
+    "first_version": {
+      "@id": "aptos:firstVersion",
+      "@type": "xsd:string"
+    },
+    "last_version": {
+      "@id": "aptos:lastVersion",
+      "@type": "xsd:string"
+    },
+    "transactions": "aptos:transactions",
+    "ledger_version": {
+      "@id": "aptos:ledgerVersion",
+      "@type": "xsd:string"
+    },
+    "ledger_timestamp": {
+      "@id": "aptos:ledgerTimestamp",
+      "@type": "xsd:string"
+    },
+    "oldest_ledger_version": {
+      "@id": "aptos:oldestLedgerVersion",
+      "@type": "xsd:string"
+    },
+    "node_role": {
+      "@id": "aptos:nodeRole",
+      "@type": "xsd:string"
+    },
+    "chain_id": {
+      "@id": "aptos:chainId",
+      "@type": "xsd:integer"
+    },
+    "max_gas_amount": {
+      "@id": "aptos:maxGasAmount",
+      "@type": "xsd:string"
+    },
+    "gas_unit_price": {
+      "@id": "aptos:gasUnitPrice",
+      "@type": "xsd:string"
+    },
+    "expiration_timestamp_secs": {
+      "@id": "aptos:expirationTimestampSecs",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "aptos:AptosFullnodeAPI",
+      "@type": "schema:WebAPI",
+      "schema:name": "Aptos Node API",
+      "schema:description": "The Aptos Node API is a RESTful API for client applications to interact with the Aptos blockchain.",
+      "schema:version": "1.2.0",
+      "schema:url": "https://api.mainnet.aptoslabs.com/v1",
+      "schema:documentation": "https://aptos.dev/en/build/apis/fullnode-rest-api",
+      "schema:license": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ValidatorTransaction_ChunkyDKGResultTransaction.json",
+  "title": "ValidatorTransaction_ChunkyDKGResultTransaction",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "validator_transaction_type"
+      ],
+      "properties": {
+        "validator_transaction_type": {
+          "type": "string",
+          "enum": [
+            "chunky_d_k_g_result"
+          ],
+          "example": "chunky_d_k_g_result"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/ChunkyDKGResultTransaction"
+    }
+  ]
+}

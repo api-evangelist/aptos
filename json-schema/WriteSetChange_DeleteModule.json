@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/WriteSetChange_DeleteModule.json",
+  "title": "WriteSetChange_DeleteModule",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "delete_module"
+          ],
+          "example": "delete_module"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/DeleteModule"
+    }
+  ]
+}

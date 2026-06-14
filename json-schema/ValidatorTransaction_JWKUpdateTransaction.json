@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ValidatorTransaction_JWKUpdateTransaction.json",
+  "title": "ValidatorTransaction_JWKUpdateTransaction",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "validator_transaction_type"
+      ],
+      "properties": {
+        "validator_transaction_type": {
+          "type": "string",
+          "enum": [
+            "observed_jwk_update"
+          ],
+          "example": "observed_jwk_update"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/JWKUpdateTransaction"
+    }
+  ]
+}

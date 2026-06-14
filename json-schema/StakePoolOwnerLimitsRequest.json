@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/StakePoolOwnerLimitsRequest.json",
+  "title": "StakePoolOwnerLimitsRequest",
+  "type": "object",
+  "description": "A higher-limits request whose backing is a stake pool the fee payer owns.",
+  "required": [
+    "multipliers"
+  ],
+  "properties": {
+    "multipliers": {
+      "$ref": "#/components/schemas/RequestedMultipliers"
+    }
+  }
+}

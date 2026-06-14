@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/EventGuid.json",
+  "title": "EventGuid",
+  "type": "object",
+  "required": [
+    "creation_number",
+    "account_address"
+  ],
+  "properties": {
+    "creation_number": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "account_address": {
+      "$ref": "#/components/schemas/Address"
+    }
+  }
+}

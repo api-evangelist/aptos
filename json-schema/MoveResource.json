@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MoveResource.json",
+  "title": "MoveResource",
+  "type": "object",
+  "description": "A parsed Move resource",
+  "required": [
+    "type",
+    "data"
+  ],
+  "properties": {
+    "type": {
+      "$ref": "#/components/schemas/MoveStructTag"
+    },
+    "data": {
+      "$ref": "#/components/schemas/MoveStructValue"
+    }
+  }
+}

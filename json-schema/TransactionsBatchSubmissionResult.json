@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/TransactionsBatchSubmissionResult.json",
+  "title": "TransactionsBatchSubmissionResult",
+  "type": "object",
+  "description": "Batch transaction submission result\n\nTells which transactions failed",
+  "required": [
+    "transaction_failures"
+  ],
+  "properties": {
+    "transaction_failures": {
+      "type": "array",
+      "description": "Summary of the failed transactions",
+      "items": {
+        "$ref": "#/components/schemas/TransactionsBatchSingleSubmissionFailure"
+      }
+    }
+  }
+}

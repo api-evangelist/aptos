@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/WriteSetChange_WriteTableItem.json",
+  "title": "WriteSetChange_WriteTableItem",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "write_table_item"
+          ],
+          "example": "write_table_item"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/WriteTableItem"
+    }
+  ]
+}

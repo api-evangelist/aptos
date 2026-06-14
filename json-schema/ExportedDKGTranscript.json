@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ExportedDKGTranscript.json",
+  "title": "ExportedDKGTranscript",
+  "type": "object",
+  "required": [
+    "epoch",
+    "author",
+    "payload"
+  ],
+  "properties": {
+    "epoch": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "author": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "payload": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    }
+  }
+}

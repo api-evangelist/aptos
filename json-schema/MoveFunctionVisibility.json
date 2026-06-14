@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MoveFunctionVisibility.json",
+  "title": "MoveFunctionVisibility",
+  "type": "string",
+  "description": "Move function visibility",
+  "enum": [
+    "private",
+    "public",
+    "friend"
+  ]
+}

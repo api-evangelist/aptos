@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Transaction_PendingTransaction.json",
+  "title": "Transaction_PendingTransaction",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "pending_transaction"
+          ],
+          "example": "pending_transaction"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/PendingTransaction"
+    }
+  ]
+}

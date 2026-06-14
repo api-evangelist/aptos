@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ExportedAggregateSignature.json",
+  "title": "ExportedAggregateSignature",
+  "type": "object",
+  "description": "A more API-friendly representation of the on-chain `aptos_types::aggregate_signature::AggregateSignature`.",
+  "required": [
+    "signer_indices"
+  ],
+  "properties": {
+    "signer_indices": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "uint64"
+      }
+    },
+    "sig": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    }
+  }
+}

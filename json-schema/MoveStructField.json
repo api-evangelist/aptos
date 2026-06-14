@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MoveStructField.json",
+  "title": "MoveStructField",
+  "type": "object",
+  "description": "Move struct field",
+  "required": [
+    "name",
+    "type"
+  ],
+  "properties": {
+    "name": {
+      "$ref": "#/components/schemas/IdentifierWrapper"
+    },
+    "type": {
+      "$ref": "#/components/schemas/MoveType"
+    }
+  }
+}

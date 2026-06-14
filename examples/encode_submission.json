@@ -1,0 +1,55 @@
+{
+  "method": "POST",
+  "path": "/transactions/encode_submission",
+  "operationId": "encode_submission",
+  "summary": "Encode submission",
+  "description": "This endpoint accepts an EncodeSubmissionRequest, which internally is a\nUserTransactionRequestInner (and optionally secondary signers) encoded\nas JSON, validates the request format, and then returns that request\nencoded in BCS. The client can then use this to create a transaction\nsignature to be used in a SubmitTransactionRequest, which it then\npasses to the /transactions POST endpoint.\n\nTo be clear, this endpoint makes it possible to submit transaction\nrequests to the API from languages that do not have library support for\nBCS. If you are using an SDK that has BCS support, such as the official\nRust, TypeScript, or Python SDKs, you do not need to use this endpoint.\n\nTo sign a message using the response from this endpoint:\n- Decode the hex encoded string in the response to bytes.\n- Sign the bytes to create the signature.\n- Use that as the signature field in something like Ed25519Signature, which you then use to build a TransactionSignature.",
+  "tags": [
+    "Transactions"
+  ],
+  "parameters": [],
+  "requestBody": {
+    "contentType": "application/json",
+    "schema": {
+      "$ref": "#/components/schemas/EncodeSubmissionRequest"
+    },
+    "example": null
+  },
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/HexEncodedBytes"
+      },
+      "example": {}
+    },
+    "400": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "403": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

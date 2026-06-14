@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MoveValue.json",
+  "title": "MoveValue",
+  "type": "object",
+  "description": "An enum of the possible Move value types",
+  "anyOf": [
+    {
+      "type": "integer",
+      "format": "uint8"
+    },
+    {
+      "type": "integer",
+      "format": "uint16"
+    },
+    {
+      "type": "integer",
+      "format": "uint32"
+    },
+    {
+      "$ref": "#/components/schemas/U64"
+    },
+    {
+      "$ref": "#/components/schemas/U128"
+    },
+    {
+      "$ref": "#/components/schemas/U256"
+    },
+    {
+      "type": "integer",
+      "format": "int8"
+    },
+    {
+      "type": "integer",
+      "format": "int16"
+    },
+    {
+      "type": "integer",
+      "format": "int32"
+    },
+    {
+      "$ref": "#/components/schemas/I64"
+    },
+    {
+      "$ref": "#/components/schemas/I128"
+    },
+    {
+      "$ref": "#/components/schemas/I256"
+    },
+    {
+      "type": "boolean"
+    },
+    {
+      "$ref": "#/components/schemas/Address"
+    },
+    {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/MoveValue"
+      }
+    },
+    {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    },
+    {
+      "$ref": "#/components/schemas/MoveStructValue"
+    },
+    {
+      "type": "string"
+    }
+  ]
+}

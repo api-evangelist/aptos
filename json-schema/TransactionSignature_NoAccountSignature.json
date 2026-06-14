@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/TransactionSignature_NoAccountSignature.json",
+  "title": "TransactionSignature_NoAccountSignature",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "no_account_signature"
+          ],
+          "example": "no_account_signature"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/NoAccountSignature"
+    }
+  ]
+}

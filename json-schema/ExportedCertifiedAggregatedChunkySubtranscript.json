@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ExportedCertifiedAggregatedChunkySubtranscript.json",
+  "title": "ExportedCertifiedAggregatedChunkySubtranscript",
+  "type": "object",
+  "description": "A more API-friendly representation of the on-chain\n`aptos_types::dkg::chunky_dkg::CertifiedAggregatedChunkySubtranscript`.",
+  "required": [
+    "epoch",
+    "author",
+    "subtrx",
+    "signature"
+  ],
+  "properties": {
+    "epoch": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "author": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "subtrx": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    },
+    "signature": {
+      "$ref": "#/components/schemas/ExportedAggregateSignature"
+    }
+  }
+}

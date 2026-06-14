@@ -1,0 +1,86 @@
+{
+  "method": "GET",
+  "path": "/transactions/auxiliary_info",
+  "operationId": "get_transactions_auxiliary_info",
+  "summary": "Get transactions auxiliary info",
+  "description": "Retrieves persisted auxiliary information (such as transaction indices within blocks) for\ntransactions in a given version range.\n\nIf the version range has been pruned, a 410 will be returned.",
+  "tags": [
+    "Transactions"
+  ],
+  "parameters": [
+    {
+      "name": "start_version",
+      "in": "query",
+      "required": true,
+      "description": "Starting ledger version to retrieve auxiliary info for",
+      "schema": {
+        "$ref": "#/components/schemas/U64"
+      }
+    },
+    {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "description": "Max number of transactions to retrieve auxiliary info for.\n\nIf not provided, defaults to default page size",
+      "schema": {
+        "type": "integer",
+        "format": "uint16"
+      }
+    }
+  ],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/PersistedAuxiliaryInfo"
+        }
+      },
+      "example": {}
+    },
+    "400": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "403": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "404": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "410": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

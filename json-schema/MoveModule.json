@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/MoveModule.json",
+  "title": "MoveModule",
+  "type": "object",
+  "description": "A Move module",
+  "required": [
+    "address",
+    "name",
+    "friends",
+    "exposed_functions",
+    "structs"
+  ],
+  "properties": {
+    "address": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "name": {
+      "$ref": "#/components/schemas/IdentifierWrapper"
+    },
+    "friends": {
+      "type": "array",
+      "description": "Friends of the module",
+      "items": {
+        "$ref": "#/components/schemas/MoveModuleId"
+      }
+    },
+    "exposed_functions": {
+      "type": "array",
+      "description": "Public functions of the module",
+      "items": {
+        "$ref": "#/components/schemas/MoveFunction"
+      }
+    },
+    "structs": {
+      "type": "array",
+      "description": "Structs of the module",
+      "items": {
+        "$ref": "#/components/schemas/MoveStruct"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/PersistedAuxiliaryInfo.json",
+  "title": "PersistedAuxiliaryInfo",
+  "type": "object",
+  "description": "API representation of persisted auxiliary transaction information",
+  "properties": {
+    "transaction_index": {
+      "type": "integer",
+      "format": "uint32",
+      "description": "Optional transaction index in the block (None indicates no auxiliary info available)"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/TransactionSignature_AccountSignature.json",
+  "title": "TransactionSignature_AccountSignature",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "single_sender"
+          ],
+          "example": "single_sender"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/AccountSignature"
+    }
+  ]
+}

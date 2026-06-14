@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/SingleKeySignature.json",
+  "title": "SingleKeySignature",
+  "type": "object",
+  "description": "A single key signature",
+  "required": [
+    "public_key",
+    "signature"
+  ],
+  "properties": {
+    "public_key": {
+      "$ref": "#/components/schemas/PublicKey"
+    },
+    "signature": {
+      "$ref": "#/components/schemas/Signature"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/PublicKey_Keyless.json",
+  "title": "PublicKey_Keyless",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "keyless"
+          ],
+          "example": "keyless"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/Keyless"
+    }
+  ]
+}

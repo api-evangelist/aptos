@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Ed25519Signature.json",
+  "title": "Ed25519Signature",
+  "type": "object",
+  "description": "A single Ed25519 signature",
+  "required": [
+    "public_key",
+    "signature"
+  ],
+  "properties": {
+    "public_key": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    },
+    "signature": {
+      "$ref": "#/components/schemas/HexEncodedBytes"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/StateKeyWrapper.json",
+  "title": "StateKeyWrapper",
+  "type": "string",
+  "description": "Representation of a StateKey as a hex string. This is used for cursor based pagination.\n",
+  "example": "0000000000000000000000000000000000000000000000000000000000000000012f0000000000000000000000000000000000000000000000000000000000000000010d7374616b696e675f70726f7879"
+}

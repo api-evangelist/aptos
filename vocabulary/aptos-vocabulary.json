@@ -1,0 +1,2036 @@
+{
+  "$schema": "https://api-evangelist.github.io/aptos/vocabulary/schema",
+  "title": "Aptos API Vocabulary",
+  "description": "Terms, properties, and concepts used in the Aptos Fullnode REST API",
+  "source": "https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml",
+  "terms": [
+    {
+      "term": "AbstractSignature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "function_info",
+      "type": "property",
+      "description": "",
+      "source": "schema:AbstractSignature"
+    },
+    {
+      "term": "auth_data",
+      "type": "property",
+      "description": "",
+      "source": "schema:AbstractSignature"
+    },
+    {
+      "term": "AccountData",
+      "type": "schema",
+      "description": "Account data\n\nA simplified version of the onchain Account resource",
+      "source": "components/schemas"
+    },
+    {
+      "term": "sequence_number",
+      "type": "property",
+      "description": "",
+      "source": "schema:AccountData"
+    },
+    {
+      "term": "authentication_key",
+      "type": "property",
+      "description": "",
+      "source": "schema:AccountData"
+    },
+    {
+      "term": "AccountSignature",
+      "type": "schema",
+      "description": "Account signature scheme\n\nThe account signature scheme allows you to have two types of accounts:\n\n1. A single Ed25519 key account, one private key\n2. A k-of-n multi-Ed25519 key account, multiple private keys, such that k-of-n must sign a transaction.\n3. A single Secp256k1Ecdsa key account, one private key",
+      "source": "components/schemas"
+    },
+    {
+      "term": "AccountSignature_AbstractSignature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "AccountSignature_Ed25519Signature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "AccountSignature_MultiEd25519Signature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "AccountSignature_MultiKeySignature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "AccountSignature_NoAccountSignature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "AccountSignature_SingleKeySignature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Address",
+      "type": "schema",
+      "description": "A hex encoded 32 byte Aptos account address.\n\nThis is represented in a string as a 64 character hex string, sometimes\nshortened by stripping leading 0s, and adding a 0x.\n\nFor example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "AptosError",
+      "type": "schema",
+      "description": "This is the generic struct we use for all API errors, it contains a string\nmessage and an Aptos API specific error code.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "message",
+      "type": "property",
+      "description": "A message describing the error",
+      "source": "schema:AptosError"
+    },
+    {
+      "term": "error_code",
+      "type": "property",
+      "description": "",
+      "source": "schema:AptosError"
+    },
+    {
+      "term": "vm_error_code",
+      "type": "property",
+      "description": "A code providing VM error details when submitting transactions to the VM",
+      "source": "schema:AptosError"
+    },
+    {
+      "term": "AptosErrorCode",
+      "type": "schema",
+      "description": "These codes provide more granular error information beyond just the HTTP\nstatus code of the response.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "AssetType",
+      "type": "schema",
+      "description": "A hex encoded 32 byte Aptos account address or a struct tag.\n\nThis is represented in a string as a 64 character hex string, sometimes\nshortened by stripping leading 0s, and adding a 0x or\nFormat: `{address}::{module name}::{struct name}`\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Block",
+      "type": "schema",
+      "description": "A Block with or without transactions\n\nThis contains the information about a transactions along with\nassociated transactions if requested",
+      "source": "components/schemas"
+    },
+    {
+      "term": "block_height",
+      "type": "property",
+      "description": "",
+      "source": "schema:Block"
+    },
+    {
+      "term": "block_hash",
+      "type": "property",
+      "description": "",
+      "source": "schema:Block"
+    },
+    {
+      "term": "block_timestamp",
+      "type": "property",
+      "description": "",
+      "source": "schema:Block"
+    },
+    {
+      "term": "first_version",
+      "type": "property",
+      "description": "",
+      "source": "schema:Block"
+    },
+    {
+      "term": "last_version",
+      "type": "property",
+      "description": "",
+      "source": "schema:Block"
+    },
+    {
+      "term": "transactions",
+      "type": "property",
+      "description": "The transactions in the block in sequential order",
+      "source": "schema:Block"
+    },
+    {
+      "term": "BlockEndInfo",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "block_gas_limit_reached",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEndInfo"
+    },
+    {
+      "term": "block_output_limit_reached",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEndInfo"
+    },
+    {
+      "term": "block_effective_block_gas_units",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEndInfo"
+    },
+    {
+      "term": "block_approx_output_size",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEndInfo"
+    },
+    {
+      "term": "BlockEpilogueTransaction",
+      "type": "schema",
+      "description": "A block epilogue transaction",
+      "source": "components/schemas"
+    },
+    {
+      "term": "version",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "hash",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "state_change_hash",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "event_root_hash",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "state_checkpoint_hash",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "gas_used",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "success",
+      "type": "property",
+      "description": "Whether the transaction was successful",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "vm_status",
+      "type": "property",
+      "description": "The VM status of the transaction, can tell useful information in a failure",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "accumulator_root_hash",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "changes",
+      "type": "property",
+      "description": "Final state of resources changed by the transaction",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "timestamp",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "block_end_info",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockEpilogueTransaction"
+    },
+    {
+      "term": "BlockMetadataExtension",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "BlockMetadataExtensionEmpty",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "BlockMetadataExtensionRandomness",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "randomness",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockMetadataExtensionRandomness"
+    },
+    {
+      "term": "BlockMetadataExtensionRandomnessAndDecKey",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "decryption_key",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockMetadataExtensionRandomnessAndDecKey"
+    },
+    {
+      "term": "BlockMetadataExtension_BlockMetadataExtensionEmpty",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "BlockMetadataExtension_BlockMetadataExtensionRandomness",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "BlockMetadataExtension_BlockMetadataExtensionRandomnessAndDecKey",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "BlockMetadataTransaction",
+      "type": "schema",
+      "description": "A block metadata transaction\n\nThis signifies the beginning of a block, and contains information\nabout the specific block",
+      "source": "components/schemas"
+    },
+    {
+      "term": "id",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockMetadataTransaction"
+    },
+    {
+      "term": "epoch",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockMetadataTransaction"
+    },
+    {
+      "term": "round",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockMetadataTransaction"
+    },
+    {
+      "term": "events",
+      "type": "property",
+      "description": "The events emitted at the block creation",
+      "source": "schema:BlockMetadataTransaction"
+    },
+    {
+      "term": "previous_block_votes_bitvec",
+      "type": "property",
+      "description": "Previous block votes",
+      "source": "schema:BlockMetadataTransaction"
+    },
+    {
+      "term": "proposer",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockMetadataTransaction"
+    },
+    {
+      "term": "failed_proposer_indices",
+      "type": "property",
+      "description": "The indices of the proposers who failed to propose",
+      "source": "schema:BlockMetadataTransaction"
+    },
+    {
+      "term": "block_metadata_extension",
+      "type": "property",
+      "description": "",
+      "source": "schema:BlockMetadataTransaction"
+    },
+    {
+      "term": "ChunkyDKGResultTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "certified_subtrx",
+      "type": "property",
+      "description": "",
+      "source": "schema:ChunkyDKGResultTransaction"
+    },
+    {
+      "term": "encryption_key",
+      "type": "property",
+      "description": "",
+      "source": "schema:ChunkyDKGResultTransaction"
+    },
+    {
+      "term": "ClaimedEntryFunction",
+      "type": "schema",
+      "description": "An encrypted payload's claim about the entry function. Specifies at least the module address,\nand optionally the specific entry funtion.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "module",
+      "type": "property",
+      "description": "",
+      "source": "schema:ClaimedEntryFunction"
+    },
+    {
+      "term": "name",
+      "type": "property",
+      "description": "",
+      "source": "schema:ClaimedEntryFunction"
+    },
+    {
+      "term": "DKGResultTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "dkg_transcript",
+      "type": "property",
+      "description": "",
+      "source": "schema:DKGResultTransaction"
+    },
+    {
+      "term": "DecodedTableData",
+      "type": "schema",
+      "description": "Decoded table data",
+      "source": "components/schemas"
+    },
+    {
+      "term": "key",
+      "type": "property",
+      "description": "Key of table in JSON",
+      "source": "schema:DecodedTableData"
+    },
+    {
+      "term": "key_type",
+      "type": "property",
+      "description": "Type of key",
+      "source": "schema:DecodedTableData"
+    },
+    {
+      "term": "value",
+      "type": "property",
+      "description": "Value of table in JSON",
+      "source": "schema:DecodedTableData"
+    },
+    {
+      "term": "value_type",
+      "type": "property",
+      "description": "Type of value",
+      "source": "schema:DecodedTableData"
+    },
+    {
+      "term": "DecryptedPayload",
+      "type": "schema",
+      "description": "Payload has been successfully decrypted.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "payload_hash",
+      "type": "property",
+      "description": "",
+      "source": "schema:DecryptedPayload"
+    },
+    {
+      "term": "ciphertext",
+      "type": "property",
+      "description": "",
+      "source": "schema:DecryptedPayload"
+    },
+    {
+      "term": "encryption_epoch",
+      "type": "property",
+      "description": "",
+      "source": "schema:DecryptedPayload"
+    },
+    {
+      "term": "claimed_entry_fun",
+      "type": "property",
+      "description": "",
+      "source": "schema:DecryptedPayload"
+    },
+    {
+      "term": "decrypted_payload",
+      "type": "property",
+      "description": "",
+      "source": "schema:DecryptedPayload"
+    },
+    {
+      "term": "decryption_nonce",
+      "type": "property",
+      "description": "",
+      "source": "schema:DecryptedPayload"
+    },
+    {
+      "term": "DelegatedVoterLimitsRequest",
+      "type": "schema",
+      "description": "A higher-limits request backed by a stake pool the fee payer is the\ndelegated voter of.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "pool_address",
+      "type": "property",
+      "description": "",
+      "source": "schema:DelegatedVoterLimitsRequest"
+    },
+    {
+      "term": "multipliers",
+      "type": "property",
+      "description": "",
+      "source": "schema:DelegatedVoterLimitsRequest"
+    },
+    {
+      "term": "DelegationPoolDelegatorLimitsRequest",
+      "type": "schema",
+      "description": "A higher-limits request backed by a delegation pool the fee payer delegates\nto.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "DeleteModule",
+      "type": "schema",
+      "description": "Delete a module",
+      "source": "components/schemas"
+    },
+    {
+      "term": "address",
+      "type": "property",
+      "description": "",
+      "source": "schema:DeleteModule"
+    },
+    {
+      "term": "state_key_hash",
+      "type": "property",
+      "description": "State key hash",
+      "source": "schema:DeleteModule"
+    },
+    {
+      "term": "DeleteResource",
+      "type": "schema",
+      "description": "Delete a resource",
+      "source": "components/schemas"
+    },
+    {
+      "term": "resource",
+      "type": "property",
+      "description": "",
+      "source": "schema:DeleteResource"
+    },
+    {
+      "term": "DeleteTableItem",
+      "type": "schema",
+      "description": "Delete a table item",
+      "source": "components/schemas"
+    },
+    {
+      "term": "handle",
+      "type": "property",
+      "description": "",
+      "source": "schema:DeleteTableItem"
+    },
+    {
+      "term": "data",
+      "type": "property",
+      "description": "",
+      "source": "schema:DeleteTableItem"
+    },
+    {
+      "term": "DeletedTableData",
+      "type": "schema",
+      "description": "Deleted table data",
+      "source": "components/schemas"
+    },
+    {
+      "term": "DeprecatedModuleBundlePayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "DirectWriteSet",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Ed25519",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Ed25519Signature",
+      "type": "schema",
+      "description": "A single Ed25519 signature",
+      "source": "components/schemas"
+    },
+    {
+      "term": "public_key",
+      "type": "property",
+      "description": "",
+      "source": "schema:Ed25519Signature"
+    },
+    {
+      "term": "signature",
+      "type": "property",
+      "description": "",
+      "source": "schema:Ed25519Signature"
+    },
+    {
+      "term": "EncodeSubmissionRequest",
+      "type": "schema",
+      "description": "Request to encode a submission",
+      "source": "components/schemas"
+    },
+    {
+      "term": "sender",
+      "type": "property",
+      "description": "",
+      "source": "schema:EncodeSubmissionRequest"
+    },
+    {
+      "term": "max_gas_amount",
+      "type": "property",
+      "description": "",
+      "source": "schema:EncodeSubmissionRequest"
+    },
+    {
+      "term": "gas_unit_price",
+      "type": "property",
+      "description": "",
+      "source": "schema:EncodeSubmissionRequest"
+    },
+    {
+      "term": "expiration_timestamp_secs",
+      "type": "property",
+      "description": "",
+      "source": "schema:EncodeSubmissionRequest"
+    },
+    {
+      "term": "payload",
+      "type": "property",
+      "description": "",
+      "source": "schema:EncodeSubmissionRequest"
+    },
+    {
+      "term": "replay_protection_nonce",
+      "type": "property",
+      "description": "",
+      "source": "schema:EncodeSubmissionRequest"
+    },
+    {
+      "term": "secondary_signers",
+      "type": "property",
+      "description": "Secondary signer accounts of the request for Multi-agent",
+      "source": "schema:EncodeSubmissionRequest"
+    },
+    {
+      "term": "EncryptedPayload",
+      "type": "schema",
+      "description": "Payload is still encrypted and cannot be read.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "EncryptedTransactionInnerPayload",
+      "type": "schema",
+      "description": "The inner payload of an encrypted transaction, present only when decrypted.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "EncryptedTransactionInnerPayload_EntryFunctionPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "EncryptedTransactionInnerPayload_MultisigPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "EncryptedTransactionInnerPayload_ScriptPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "EncryptedTransactionPayload",
+      "type": "schema",
+      "description": "An encrypted transaction payload, discriminated by encrypted_state.\n\nNOTE: multisig_address and replay_protection_nonce are not surfaced here.\nThey are part of extra_config and already exposed on UserTransactionRequest.\nFor Decrypted state, multisig_address is embedded in the MultisigPayload variant\nof decrypted_payload.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "EncryptedTransactionPayload_DecryptedPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "EncryptedTransactionPayload_EncryptedPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "EncryptedTransactionPayload_FailedDecryptionPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "EntryFunctionId",
+      "type": "schema",
+      "description": "Entry function id is string representation of a entry function defined on-chain.\n\nFormat: `{address}::{module name}::{function name}`\n\nBoth `module name` and `function name` are case-sensitive.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "EntryFunctionPayload",
+      "type": "schema",
+      "description": "Payload which runs a single entry function",
+      "source": "components/schemas"
+    },
+    {
+      "term": "function",
+      "type": "property",
+      "description": "",
+      "source": "schema:EntryFunctionPayload"
+    },
+    {
+      "term": "type_arguments",
+      "type": "property",
+      "description": "Type arguments of the function",
+      "source": "schema:EntryFunctionPayload"
+    },
+    {
+      "term": "arguments",
+      "type": "property",
+      "description": "Arguments of the function",
+      "source": "schema:EntryFunctionPayload"
+    },
+    {
+      "term": "Event",
+      "type": "schema",
+      "description": "An event from a transaction",
+      "source": "components/schemas"
+    },
+    {
+      "term": "guid",
+      "type": "property",
+      "description": "",
+      "source": "schema:Event"
+    },
+    {
+      "term": "type",
+      "type": "property",
+      "description": "",
+      "source": "schema:Event"
+    },
+    {
+      "term": "EventGuid",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "creation_number",
+      "type": "property",
+      "description": "",
+      "source": "schema:EventGuid"
+    },
+    {
+      "term": "account_address",
+      "type": "property",
+      "description": "",
+      "source": "schema:EventGuid"
+    },
+    {
+      "term": "ExportedAggregateSignature",
+      "type": "schema",
+      "description": "A more API-friendly representation of the on-chain `aptos_types::aggregate_signature::AggregateSignature`.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "signer_indices",
+      "type": "property",
+      "description": "",
+      "source": "schema:ExportedAggregateSignature"
+    },
+    {
+      "term": "sig",
+      "type": "property",
+      "description": "",
+      "source": "schema:ExportedAggregateSignature"
+    },
+    {
+      "term": "ExportedCertifiedAggregatedChunkySubtranscript",
+      "type": "schema",
+      "description": "A more API-friendly representation of the on-chain\n`aptos_types::dkg::chunky_dkg::CertifiedAggregatedChunkySubtranscript`.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "author",
+      "type": "property",
+      "description": "",
+      "source": "schema:ExportedCertifiedAggregatedChunkySubtranscript"
+    },
+    {
+      "term": "subtrx",
+      "type": "property",
+      "description": "",
+      "source": "schema:ExportedCertifiedAggregatedChunkySubtranscript"
+    },
+    {
+      "term": "ExportedDKGTranscript",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "ExportedProviderJWKs",
+      "type": "schema",
+      "description": "A more API-friendly representation of the on-chain `aptos_types::jwks::ProviderJWKs`.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "issuer",
+      "type": "property",
+      "description": "",
+      "source": "schema:ExportedProviderJWKs"
+    },
+    {
+      "term": "jwks",
+      "type": "property",
+      "description": "",
+      "source": "schema:ExportedProviderJWKs"
+    },
+    {
+      "term": "ExportedQuorumCertifiedUpdate",
+      "type": "schema",
+      "description": "A more API-friendly representation of the on-chain `aptos_types::jwks::QuorumCertifiedUpdate`.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "update",
+      "type": "property",
+      "description": "",
+      "source": "schema:ExportedQuorumCertifiedUpdate"
+    },
+    {
+      "term": "multi_sig",
+      "type": "property",
+      "description": "",
+      "source": "schema:ExportedQuorumCertifiedUpdate"
+    },
+    {
+      "term": "FailedDecryptionPayload",
+      "type": "schema",
+      "description": "Decryption was attempted but failed.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "FederatedKeyless",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "FeePayerSignature",
+      "type": "schema",
+      "description": "Fee payer signature for fee payer transactions\n\nThis allows you to have transactions across multiple accounts and with a fee payer",
+      "source": "components/schemas"
+    },
+    {
+      "term": "secondary_signer_addresses",
+      "type": "property",
+      "description": "The other involved parties' addresses",
+      "source": "schema:FeePayerSignature"
+    },
+    {
+      "term": "fee_payer_address",
+      "type": "property",
+      "description": "",
+      "source": "schema:FeePayerSignature"
+    },
+    {
+      "term": "fee_payer_signer",
+      "type": "property",
+      "description": "",
+      "source": "schema:FeePayerSignature"
+    },
+    {
+      "term": "GasEstimation",
+      "type": "schema",
+      "description": "Struct holding the outputs of the estimate gas API",
+      "source": "components/schemas"
+    },
+    {
+      "term": "deprioritized_gas_estimate",
+      "type": "property",
+      "description": "The deprioritized estimate for the gas unit price",
+      "source": "schema:GasEstimation"
+    },
+    {
+      "term": "gas_estimate",
+      "type": "property",
+      "description": "The current estimate for the gas unit price",
+      "source": "schema:GasEstimation"
+    },
+    {
+      "term": "prioritized_gas_estimate",
+      "type": "property",
+      "description": "The prioritized estimate for the gas unit price",
+      "source": "schema:GasEstimation"
+    },
+    {
+      "term": "GenesisPayload",
+      "type": "schema",
+      "description": "The writeset payload of the Genesis transaction",
+      "source": "components/schemas"
+    },
+    {
+      "term": "GenesisPayload_WriteSetPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "GenesisTransaction",
+      "type": "schema",
+      "description": "The genesis transaction\n\nThis only occurs at the genesis transaction (version 0)",
+      "source": "components/schemas"
+    },
+    {
+      "term": "HashValue",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "HealthCheckSuccess",
+      "type": "schema",
+      "description": "Representation of a successful healthcheck",
+      "source": "components/schemas"
+    },
+    {
+      "term": "HexEncodedBytes",
+      "type": "schema",
+      "description": "All bytes (Vec<u8>) data is represented as hex-encoded string prefixed with `0x` and fulfilled with\ntwo hex digits per byte.\n\nUnlike the `Address` type, HexEncodedBytes will not trim any zeros.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "I128",
+      "type": "schema",
+      "description": "A string containing a 128-bit signed integer.\n\nWe represent i128 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse i128s in JSON natively.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "I256",
+      "type": "schema",
+      "description": "A string containing a 256-bit signed integer.\n\nWe represent i256 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse i256s in JSON natively.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "I64",
+      "type": "schema",
+      "description": "A string containing a 64-bit signed integer.\n\nWe represent i64 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse i64s in JSON natively.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "IdentifierWrapper",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "IndexResponse",
+      "type": "schema",
+      "description": "The struct holding all data returned to the client by the\nindex endpoint (i.e., GET \"/\").  Only for responding in JSON",
+      "source": "components/schemas"
+    },
+    {
+      "term": "chain_id",
+      "type": "property",
+      "description": "Chain ID of the current chain",
+      "source": "schema:IndexResponse"
+    },
+    {
+      "term": "ledger_version",
+      "type": "property",
+      "description": "",
+      "source": "schema:IndexResponse"
+    },
+    {
+      "term": "oldest_ledger_version",
+      "type": "property",
+      "description": "",
+      "source": "schema:IndexResponse"
+    },
+    {
+      "term": "ledger_timestamp",
+      "type": "property",
+      "description": "",
+      "source": "schema:IndexResponse"
+    },
+    {
+      "term": "node_role",
+      "type": "property",
+      "description": "",
+      "source": "schema:IndexResponse"
+    },
+    {
+      "term": "oldest_block_height",
+      "type": "property",
+      "description": "",
+      "source": "schema:IndexResponse"
+    },
+    {
+      "term": "git_hash",
+      "type": "property",
+      "description": "Git hash of the build of the API endpoint.  Can be used to determine the exact\nsoftware version used by the API endpoint.",
+      "source": "schema:IndexResponse"
+    },
+    {
+      "term": "IndexedSignature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "index",
+      "type": "property",
+      "description": "",
+      "source": "schema:IndexedSignature"
+    },
+    {
+      "term": "JWK",
+      "type": "schema",
+      "description": "The JWK type that can be converted from/to `JWKMoveStruct` but easier to use in rust.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "JWKUpdateTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "quorum_certified_update",
+      "type": "property",
+      "description": "",
+      "source": "schema:JWKUpdateTransaction"
+    },
+    {
+      "term": "Keyless",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveAbility",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveFunction",
+      "type": "schema",
+      "description": "Move function",
+      "source": "components/schemas"
+    },
+    {
+      "term": "visibility",
+      "type": "property",
+      "description": "",
+      "source": "schema:MoveFunction"
+    },
+    {
+      "term": "is_entry",
+      "type": "property",
+      "description": "Whether the function can be called as an entry function directly in a transaction",
+      "source": "schema:MoveFunction"
+    },
+    {
+      "term": "is_view",
+      "type": "property",
+      "description": "Whether the function is a view function or not",
+      "source": "schema:MoveFunction"
+    },
+    {
+      "term": "generic_type_params",
+      "type": "property",
+      "description": "Generic type params associated with the Move function",
+      "source": "schema:MoveFunction"
+    },
+    {
+      "term": "params",
+      "type": "property",
+      "description": "Parameters associated with the move function",
+      "source": "schema:MoveFunction"
+    },
+    {
+      "term": "return",
+      "type": "property",
+      "description": "Return type of the function",
+      "source": "schema:MoveFunction"
+    },
+    {
+      "term": "MoveFunctionGenericTypeParam",
+      "type": "schema",
+      "description": "Move function generic type param",
+      "source": "components/schemas"
+    },
+    {
+      "term": "constraints",
+      "type": "property",
+      "description": "Move abilities tied to the generic type param and associated with the function that uses it",
+      "source": "schema:MoveFunctionGenericTypeParam"
+    },
+    {
+      "term": "MoveFunctionVisibility",
+      "type": "schema",
+      "description": "Move function visibility",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveModule",
+      "type": "schema",
+      "description": "A Move module",
+      "source": "components/schemas"
+    },
+    {
+      "term": "friends",
+      "type": "property",
+      "description": "Friends of the module",
+      "source": "schema:MoveModule"
+    },
+    {
+      "term": "exposed_functions",
+      "type": "property",
+      "description": "Public functions of the module",
+      "source": "schema:MoveModule"
+    },
+    {
+      "term": "structs",
+      "type": "property",
+      "description": "Structs of the module",
+      "source": "schema:MoveModule"
+    },
+    {
+      "term": "MoveModuleBytecode",
+      "type": "schema",
+      "description": "Move module bytecode along with it's ABI",
+      "source": "components/schemas"
+    },
+    {
+      "term": "bytecode",
+      "type": "property",
+      "description": "",
+      "source": "schema:MoveModuleBytecode"
+    },
+    {
+      "term": "abi",
+      "type": "property",
+      "description": "",
+      "source": "schema:MoveModuleBytecode"
+    },
+    {
+      "term": "MoveModuleId",
+      "type": "schema",
+      "description": "Move module id is a string representation of Move module.\n\nFormat: `{address}::{module name}`\n\n`address` should be hex-encoded 32 byte account address that is prefixed with `0x`.\n\nModule name is case-sensitive.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveResource",
+      "type": "schema",
+      "description": "A parsed Move resource",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveScriptBytecode",
+      "type": "schema",
+      "description": "Move script bytecode",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveStruct",
+      "type": "schema",
+      "description": "A move struct",
+      "source": "components/schemas"
+    },
+    {
+      "term": "is_native",
+      "type": "property",
+      "description": "Whether the struct is a native struct of Move",
+      "source": "schema:MoveStruct"
+    },
+    {
+      "term": "is_event",
+      "type": "property",
+      "description": "Whether the struct is marked with the #[event] annotation",
+      "source": "schema:MoveStruct"
+    },
+    {
+      "term": "is_enum",
+      "type": "property",
+      "description": "Whether the struct is an enum (i.e. enum MyEnum vs struct MyStruct).",
+      "source": "schema:MoveStruct"
+    },
+    {
+      "term": "abilities",
+      "type": "property",
+      "description": "Abilities associated with the struct",
+      "source": "schema:MoveStruct"
+    },
+    {
+      "term": "fields",
+      "type": "property",
+      "description": "Fields associated with the struct",
+      "source": "schema:MoveStruct"
+    },
+    {
+      "term": "variants",
+      "type": "property",
+      "description": "Variants of the enum. Only populated when `is_enum` is true.",
+      "source": "schema:MoveStruct"
+    },
+    {
+      "term": "MoveStructField",
+      "type": "schema",
+      "description": "Move struct field",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveStructGenericTypeParam",
+      "type": "schema",
+      "description": "Move generic type param",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveStructTag",
+      "type": "schema",
+      "description": "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveStructValue",
+      "type": "schema",
+      "description": "This is a JSON representation of some data within an account resource. More specifically,\nit is a map of strings to arbitrary JSON values / objects, where the keys are top level\nfields within the given resource.\n\nTo clarify, you might query for 0x1::account::Account and see the example data.\n\nMove `bool` type value is serialized into `boolean`.\n\nMove `u8`, `u16`, `u32`, `i8`, `i16`, and `i32` type value is serialized into `integer`.\n\nMove `u64`, `u128`, `u256`, `i64`, `i128`, and `i256` type value is serialized into `string`.\n\nMove `address` type value (32 byte Aptos account address) is serialized into a HexEncodedBytes string.\nFor example:\n  - `0x1`\n  - `0x1668f6be25668c1a17cd8caf6b8d2f25`\n\nMove `vector` type value is serialized into `array`, except `vector<u8>` which is serialized into a\nHexEncodedBytes string with `0x` prefix.\nFor example:\n  - `vector<u64>{255, 255}` => `[\"255\", \"255\"]`\n  - `vector<u8>{255, 255}` => `0xffff`\n\nMove `struct` type value is serialized into `object` that looks like this (except some Move stdlib types, see the following section):\n  ```json\n  {\n    field1_name: field1_value,\n    field2_name: field2_value,\n    ......\n  }\n  ```\n\nFor example:\n  `{ \"created\": \"0xa550c18\", \"role_id\": \"0\" }`\n\n**Special serialization for Move stdlib types**:\n  - [0x1::string::String](https://github.com/aptos-labs/aptos-core/blob/main/third_party/move/move-stdlib/docs/ascii.md)\n    is serialized into `string`. For example, struct value `0x1::string::String{bytes: b\"Hello World!\"}`\n    is serialized as `\"Hello World!\"` in JSON.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveStructVariant",
+      "type": "schema",
+      "description": "A single variant of a Move enum.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveType",
+      "type": "schema",
+      "description": "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - i8\n      - i16\n      - i32\n      - i64\n      - i128\n      - i256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MoveValue",
+      "type": "schema",
+      "description": "An enum of the possible Move value types",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MultiAgentSignature",
+      "type": "schema",
+      "description": "Multi agent signature for multi agent transactions\n\nThis allows you to have transactions across multiple accounts",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MultiEd25519Signature",
+      "type": "schema",
+      "description": "A Ed25519 multi-sig signature\n\nThis allows k-of-n signing for a transaction",
+      "source": "components/schemas"
+    },
+    {
+      "term": "public_keys",
+      "type": "property",
+      "description": "The public keys for the Ed25519 signature",
+      "source": "schema:MultiEd25519Signature"
+    },
+    {
+      "term": "signatures",
+      "type": "property",
+      "description": "Signature associated with the public keys in the same order",
+      "source": "schema:MultiEd25519Signature"
+    },
+    {
+      "term": "threshold",
+      "type": "property",
+      "description": "The number of signatures required for a successful transaction",
+      "source": "schema:MultiEd25519Signature"
+    },
+    {
+      "term": "bitmap",
+      "type": "property",
+      "description": "",
+      "source": "schema:MultiEd25519Signature"
+    },
+    {
+      "term": "MultiKeySignature",
+      "type": "schema",
+      "description": "A multi key signature",
+      "source": "components/schemas"
+    },
+    {
+      "term": "signatures_required",
+      "type": "property",
+      "description": "",
+      "source": "schema:MultiKeySignature"
+    },
+    {
+      "term": "MultisigPayload",
+      "type": "schema",
+      "description": "A multisig transaction that allows an owner of a multisig account to execute a pre-approved\ntransaction as the multisig account.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "multisig_address",
+      "type": "property",
+      "description": "",
+      "source": "schema:MultisigPayload"
+    },
+    {
+      "term": "transaction_payload",
+      "type": "property",
+      "description": "",
+      "source": "schema:MultisigPayload"
+    },
+    {
+      "term": "MultisigTransactionPayload",
+      "type": "schema",
+      "description": "Enum for multisig transaction payloads, supporting both entry functions and scripts.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MultisigTransactionPayload_EntryFunctionPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "MultisigTransactionPayload_ScriptPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "NoAccountSignature",
+      "type": "schema",
+      "description": "A placeholder to represent the absence of account signature",
+      "source": "components/schemas"
+    },
+    {
+      "term": "PendingTransaction",
+      "type": "schema",
+      "description": "A transaction waiting in mempool",
+      "source": "components/schemas"
+    },
+    {
+      "term": "txn_limits_request",
+      "type": "property",
+      "description": "",
+      "source": "schema:PendingTransaction"
+    },
+    {
+      "term": "PersistedAuxiliaryInfo",
+      "type": "schema",
+      "description": "API representation of persisted auxiliary transaction information",
+      "source": "components/schemas"
+    },
+    {
+      "term": "transaction_index",
+      "type": "property",
+      "description": "Optional transaction index in the block (None indicates no auxiliary info available)",
+      "source": "schema:PersistedAuxiliaryInfo"
+    },
+    {
+      "term": "PublicKey",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "PublicKey_Ed25519",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "PublicKey_FederatedKeyless",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "PublicKey_Keyless",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "PublicKey_Secp256k1Ecdsa",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "PublicKey_Secp256r1Ecdsa",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "PublicKey_SlhDsa_Sha2_128s",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "RSA_JWK",
+      "type": "schema",
+      "description": "Move type `0x1::jwks::RSA_JWK` in rust.\nSee its doc in Move for more details.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "kid",
+      "type": "property",
+      "description": "",
+      "source": "schema:RSA_JWK"
+    },
+    {
+      "term": "kty",
+      "type": "property",
+      "description": "",
+      "source": "schema:RSA_JWK"
+    },
+    {
+      "term": "alg",
+      "type": "property",
+      "description": "",
+      "source": "schema:RSA_JWK"
+    },
+    {
+      "term": "e",
+      "type": "property",
+      "description": "",
+      "source": "schema:RSA_JWK"
+    },
+    {
+      "term": "n",
+      "type": "property",
+      "description": "",
+      "source": "schema:RSA_JWK"
+    },
+    {
+      "term": "RawTableItemRequest",
+      "type": "schema",
+      "description": "Table Item request for the GetTableItemRaw API",
+      "source": "components/schemas"
+    },
+    {
+      "term": "ReplayProtector",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "ReplayProtector_string(U64)",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "RequestedMultipliers",
+      "type": "schema",
+      "description": "Multipliers for higher transaction limits, expressed as percent of the base\nlimit (100 = 1x, 200 = 2x, 250 = 2.5x).",
+      "source": "components/schemas"
+    },
+    {
+      "term": "execution_multiplier_percent",
+      "type": "property",
+      "description": "",
+      "source": "schema:RequestedMultipliers"
+    },
+    {
+      "term": "io_multiplier_percent",
+      "type": "property",
+      "description": "",
+      "source": "schema:RequestedMultipliers"
+    },
+    {
+      "term": "RoleType",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "ScriptPayload",
+      "type": "schema",
+      "description": "Payload which runs a script that can run multiple functions",
+      "source": "components/schemas"
+    },
+    {
+      "term": "code",
+      "type": "property",
+      "description": "",
+      "source": "schema:ScriptPayload"
+    },
+    {
+      "term": "ScriptWriteSet",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "execute_as",
+      "type": "property",
+      "description": "",
+      "source": "schema:ScriptWriteSet"
+    },
+    {
+      "term": "script",
+      "type": "property",
+      "description": "",
+      "source": "schema:ScriptWriteSet"
+    },
+    {
+      "term": "Secp256k1Ecdsa",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Secp256r1Ecdsa",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Signature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Signature_Ed25519",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Signature_Keyless",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Signature_Secp256k1Ecdsa",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Signature_SlhDsa_Sha2_128s",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Signature_WebAuthn",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "SingleKeySignature",
+      "type": "schema",
+      "description": "A single key signature",
+      "source": "components/schemas"
+    },
+    {
+      "term": "SlhDsa_Sha2_128s",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "StakePoolOwnerLimitsRequest",
+      "type": "schema",
+      "description": "A higher-limits request whose backing is a stake pool the fee payer owns.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "StateCheckpointTransaction",
+      "type": "schema",
+      "description": "A state checkpoint transaction",
+      "source": "components/schemas"
+    },
+    {
+      "term": "StateKeyWrapper",
+      "type": "schema",
+      "description": "Representation of a StateKey as a hex string. This is used for cursor based pagination.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "SubmitTransactionRequest",
+      "type": "schema",
+      "description": "A request to submit a transaction\n\nThis requires a transaction and a signature of it",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TableItemRequest",
+      "type": "schema",
+      "description": "Table Item request for the GetTableItem API",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Transaction",
+      "type": "schema",
+      "description": "Enum of the different types of transactions in Aptos",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionPayload",
+      "type": "schema",
+      "description": "An enum of the possible transaction payloads",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionPayload_DeprecatedModuleBundlePayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionPayload_EncryptedTransactionPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionPayload_EntryFunctionPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionPayload_MultisigPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionPayload_ScriptPayload",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionSignature",
+      "type": "schema",
+      "description": "An enum representing the different transaction signatures available",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionSignature_AccountSignature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionSignature_Ed25519Signature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionSignature_FeePayerSignature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionSignature_MultiAgentSignature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionSignature_MultiEd25519Signature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionSignature_NoAccountSignature",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionSummary",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "transaction_hash",
+      "type": "property",
+      "description": "",
+      "source": "schema:TransactionSummary"
+    },
+    {
+      "term": "replay_protector",
+      "type": "property",
+      "description": "",
+      "source": "schema:TransactionSummary"
+    },
+    {
+      "term": "Transaction_BlockEpilogueTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Transaction_BlockMetadataTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Transaction_GenesisTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Transaction_PendingTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Transaction_StateCheckpointTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Transaction_UserTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Transaction_ValidatorTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "TransactionsBatchSingleSubmissionFailure",
+      "type": "schema",
+      "description": "Information telling which batch submission transactions failed",
+      "source": "components/schemas"
+    },
+    {
+      "term": "error",
+      "type": "property",
+      "description": "",
+      "source": "schema:TransactionsBatchSingleSubmissionFailure"
+    },
+    {
+      "term": "TransactionsBatchSubmissionResult",
+      "type": "schema",
+      "description": "Batch transaction submission result\n\nTells which transactions failed",
+      "source": "components/schemas"
+    },
+    {
+      "term": "transaction_failures",
+      "type": "property",
+      "description": "Summary of the failed transactions",
+      "source": "schema:TransactionsBatchSubmissionResult"
+    },
+    {
+      "term": "U128",
+      "type": "schema",
+      "description": "A string containing a 128-bit unsigned integer.\n\nWe represent u128 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse u128s in JSON natively.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "U256",
+      "type": "schema",
+      "description": "A string containing a 256-bit unsigned integer.\n\nWe represent u256 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse u256s in JSON natively.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "U64",
+      "type": "schema",
+      "description": "A string containing a 64-bit unsigned integer.\n\nWe represent u64 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse u64s in JSON natively.\n",
+      "source": "components/schemas"
+    },
+    {
+      "term": "UnsupportedJWK",
+      "type": "schema",
+      "description": "Move type `0x1::jwks::UnsupportedJWK` in rust.\nSee its doc in Move for more details.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "UserTransaction",
+      "type": "schema",
+      "description": "A transaction submitted by a user to change the state of the blockchain",
+      "source": "components/schemas"
+    },
+    {
+      "term": "UserTxnLimitsRequest",
+      "type": "schema",
+      "description": "A request for higher transaction execution limits, backed by a staking proof.",
+      "source": "components/schemas"
+    },
+    {
+      "term": "UserTxnLimitsRequest_DelegatedVoterLimitsRequest",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "UserTxnLimitsRequest_DelegationPoolDelegatorLimitsRequest",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "UserTxnLimitsRequest_StakePoolOwnerLimitsRequest",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "ValidatorTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "ValidatorTransaction_ChunkyDKGResultTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "ValidatorTransaction_DKGResultTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "ValidatorTransaction_JWKUpdateTransaction",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "VersionedEvent",
+      "type": "schema",
+      "description": "An event from a transaction with a version",
+      "source": "components/schemas"
+    },
+    {
+      "term": "ViewRequest",
+      "type": "schema",
+      "description": "View request for the Move View Function API",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WebAuthn",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteModule",
+      "type": "schema",
+      "description": "Write a new module or update an existing one",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteResource",
+      "type": "schema",
+      "description": "Write a resource or update an existing one",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteSet",
+      "type": "schema",
+      "description": "The associated writeset with a payload",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteSetChange",
+      "type": "schema",
+      "description": "A final state change of a transaction on a resource or module",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteSetChange_DeleteModule",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteSetChange_DeleteResource",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteSetChange_DeleteTableItem",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteSetChange_WriteModule",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteSetChange_WriteResource",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteSetChange_WriteTableItem",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteSetPayload",
+      "type": "schema",
+      "description": "A writeset payload, used only for genesis",
+      "source": "components/schemas"
+    },
+    {
+      "term": "write_set",
+      "type": "property",
+      "description": "",
+      "source": "schema:WriteSetPayload"
+    },
+    {
+      "term": "WriteSet_DirectWriteSet",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteSet_ScriptWriteSet",
+      "type": "schema",
+      "description": "",
+      "source": "components/schemas"
+    },
+    {
+      "term": "WriteTableItem",
+      "type": "schema",
+      "description": "Change set to write a table item",
+      "source": "components/schemas"
+    },
+    {
+      "term": "Accounts",
+      "type": "tag",
+      "description": "Access to accounts, resources, and modules",
+      "source": "tags"
+    },
+    {
+      "term": "Blocks",
+      "type": "tag",
+      "description": "Access to blocks",
+      "source": "tags"
+    },
+    {
+      "term": "Events",
+      "type": "tag",
+      "description": "Access to events",
+      "source": "tags"
+    },
+    {
+      "term": "Experimental",
+      "type": "tag",
+      "description": "Experimental APIs, no guarantees",
+      "source": "tags"
+    },
+    {
+      "term": "General",
+      "type": "tag",
+      "description": "General information",
+      "source": "tags"
+    },
+    {
+      "term": "Tables",
+      "type": "tag",
+      "description": "Access to tables",
+      "source": "tags"
+    },
+    {
+      "term": "Transactions",
+      "type": "tag",
+      "description": "Access to transactions",
+      "source": "tags"
+    },
+    {
+      "term": "View",
+      "type": "tag",
+      "description": "View functions,",
+      "source": "tags"
+    }
+  ]
+}

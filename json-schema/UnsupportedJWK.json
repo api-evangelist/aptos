@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/UnsupportedJWK.json",
+  "title": "UnsupportedJWK",
+  "type": "object",
+  "description": "Move type `0x1::jwks::UnsupportedJWK` in rust.\nSee its doc in Move for more details.",
+  "required": [
+    "id",
+    "payload"
+  ],
+  "properties": {
+    "id": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "uint8"
+      }
+    },
+    "payload": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "uint8"
+      }
+    }
+  }
+}

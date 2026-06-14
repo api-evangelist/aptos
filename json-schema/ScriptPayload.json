@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/ScriptPayload.json",
+  "title": "ScriptPayload",
+  "type": "object",
+  "description": "Payload which runs a script that can run multiple functions",
+  "required": [
+    "code",
+    "type_arguments",
+    "arguments"
+  ],
+  "properties": {
+    "code": {
+      "$ref": "#/components/schemas/MoveScriptBytecode"
+    },
+    "type_arguments": {
+      "type": "array",
+      "description": "Type arguments of the function",
+      "items": {
+        "$ref": "#/components/schemas/MoveType"
+      }
+    },
+    "arguments": {
+      "type": "array",
+      "description": "Arguments of the function",
+      "items": {}
+    }
+  }
+}

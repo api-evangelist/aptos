@@ -1,0 +1,92 @@
+{
+  "method": "GET",
+  "path": "/accounts/{address}/balance/{asset_type}",
+  "operationId": "get_account_balance",
+  "summary": "Get account balance",
+  "description": "Retrieves account balance for coins / fungible asset (only for primary fungible asset store)\nfor a given account, asset type and a specific ledger version.  If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
+  "tags": [
+    "Accounts"
+  ],
+  "parameters": [
+    {
+      "name": "address",
+      "in": "path",
+      "required": true,
+      "description": "Address of account with or without a `0x` prefix",
+      "schema": {
+        "$ref": "#/components/schemas/Address"
+      }
+    },
+    {
+      "name": "asset_type",
+      "in": "path",
+      "required": true,
+      "description": "",
+      "schema": {
+        "$ref": "#/components/schemas/AssetType"
+      }
+    },
+    {
+      "name": "ledger_version",
+      "in": "query",
+      "required": false,
+      "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version",
+      "schema": {
+        "$ref": "#/components/schemas/U64"
+      }
+    }
+  ],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "type": "integer",
+        "format": "uint64"
+      },
+      "example": {}
+    },
+    "400": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "403": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "404": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "410": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

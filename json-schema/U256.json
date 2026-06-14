@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/U256.json",
+  "title": "U256",
+  "type": "string",
+  "format": "uint256",
+  "description": "A string containing a 256-bit unsigned integer.\n\nWe represent u256 values as a string to ensure compatibility with languages such\nas JavaScript that do not parse u256s in JSON natively.\n",
+  "example": "340282366920938463463374607431768211454"
+}

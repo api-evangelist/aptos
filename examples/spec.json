@@ -1,0 +1,21 @@
+{
+  "method": "GET",
+  "path": "/spec",
+  "operationId": "spec",
+  "summary": "Show OpenAPI explorer",
+  "description": "Provides a UI that you can use to explore the API. You can also\nretrieve the API directly at `/spec.yaml` and `/spec.json`.",
+  "tags": [
+    "General"
+  ],
+  "parameters": [],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "contentType": "text/html",
+      "schema": {
+        "type": "string"
+      },
+      "example": {}
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/PublicKey_SlhDsa_Sha2_128s.json",
+  "title": "PublicKey_SlhDsa_Sha2_128s",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "slh_dsa__sha2_128s"
+          ],
+          "example": "slh_dsa__sha2_128s"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/SlhDsa_Sha2_128s"
+    }
+  ]
+}

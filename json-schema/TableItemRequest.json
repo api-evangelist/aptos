@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/TableItemRequest.json",
+  "title": "TableItemRequest",
+  "type": "object",
+  "description": "Table Item request for the GetTableItem API",
+  "required": [
+    "key_type",
+    "value_type",
+    "key"
+  ],
+  "properties": {
+    "key_type": {
+      "$ref": "#/components/schemas/MoveType"
+    },
+    "value_type": {
+      "$ref": "#/components/schemas/MoveType"
+    },
+    "key": {
+      "description": "The value of the table item's key"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/Transaction.json",
+  "title": "Transaction",
+  "type": "object",
+  "description": "Enum of the different types of transactions in Aptos",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/Transaction_PendingTransaction"
+    },
+    {
+      "$ref": "#/components/schemas/Transaction_UserTransaction"
+    },
+    {
+      "$ref": "#/components/schemas/Transaction_GenesisTransaction"
+    },
+    {
+      "$ref": "#/components/schemas/Transaction_BlockMetadataTransaction"
+    },
+    {
+      "$ref": "#/components/schemas/Transaction_StateCheckpointTransaction"
+    },
+    {
+      "$ref": "#/components/schemas/Transaction_BlockEpilogueTransaction"
+    },
+    {
+      "$ref": "#/components/schemas/Transaction_ValidatorTransaction"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "pending_transaction": "#/components/schemas/Transaction_PendingTransaction",
+      "user_transaction": "#/components/schemas/Transaction_UserTransaction",
+      "genesis_transaction": "#/components/schemas/Transaction_GenesisTransaction",
+      "block_metadata_transaction": "#/components/schemas/Transaction_BlockMetadataTransaction",
+      "state_checkpoint_transaction": "#/components/schemas/Transaction_StateCheckpointTransaction",
+      "block_epilogue_transaction": "#/components/schemas/Transaction_BlockEpilogueTransaction",
+      "validator_transaction": "#/components/schemas/Transaction_ValidatorTransaction"
+    }
+  }
+}

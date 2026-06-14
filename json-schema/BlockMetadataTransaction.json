@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/BlockMetadataTransaction.json",
+  "title": "BlockMetadataTransaction",
+  "type": "object",
+  "description": "A block metadata transaction\n\nThis signifies the beginning of a block, and contains information\nabout the specific block",
+  "required": [
+    "version",
+    "hash",
+    "state_change_hash",
+    "event_root_hash",
+    "gas_used",
+    "success",
+    "vm_status",
+    "accumulator_root_hash",
+    "changes",
+    "id",
+    "epoch",
+    "round",
+    "events",
+    "previous_block_votes_bitvec",
+    "proposer",
+    "failed_proposer_indices",
+    "timestamp"
+  ],
+  "properties": {
+    "version": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "state_change_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "event_root_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "state_checkpoint_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "gas_used": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "success": {
+      "type": "boolean",
+      "description": "Whether the transaction was successful"
+    },
+    "vm_status": {
+      "type": "string",
+      "description": "The VM status of the transaction, can tell useful information in a failure"
+    },
+    "accumulator_root_hash": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "changes": {
+      "type": "array",
+      "description": "Final state of resources changed by the transaction",
+      "items": {
+        "$ref": "#/components/schemas/WriteSetChange"
+      }
+    },
+    "id": {
+      "$ref": "#/components/schemas/HashValue"
+    },
+    "epoch": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "round": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "events": {
+      "type": "array",
+      "description": "The events emitted at the block creation",
+      "items": {
+        "$ref": "#/components/schemas/Event"
+      }
+    },
+    "previous_block_votes_bitvec": {
+      "type": "array",
+      "description": "Previous block votes",
+      "items": {
+        "type": "integer",
+        "format": "uint8"
+      }
+    },
+    "proposer": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "failed_proposer_indices": {
+      "type": "array",
+      "description": "The indices of the proposers who failed to propose",
+      "items": {
+        "type": "integer",
+        "format": "uint32"
+      }
+    },
+    "timestamp": {
+      "$ref": "#/components/schemas/U64"
+    },
+    "block_metadata_extension": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/BlockMetadataExtension"
+        },
+        {
+          "description": "If some, it means the internal txn type is `aptos_types::transaction::Transaction::BlockMetadataExt`.\nOtherwise, it is `aptos_types::transaction::Transaction::BlockMetadata`.\n\nNOTE: we could have introduced a new APT txn type to represent the corresponding internal type,\nbut that is a breaking change to the ecosystem.\n\nNOTE: `oai` does not support `flatten` together with `skip_serializing_if`.",
+          "default": null
+        }
+      ]
+    }
+  }
+}

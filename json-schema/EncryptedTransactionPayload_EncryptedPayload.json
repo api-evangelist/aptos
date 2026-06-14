@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/EncryptedTransactionPayload_EncryptedPayload.json",
+  "title": "EncryptedTransactionPayload_EncryptedPayload",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "encrypted_state"
+      ],
+      "properties": {
+        "encrypted_state": {
+          "type": "string",
+          "enum": [
+            "encrypted"
+          ],
+          "example": "encrypted"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/EncryptedPayload"
+    }
+  ]
+}

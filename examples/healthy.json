@@ -1,0 +1,46 @@
+{
+  "method": "GET",
+  "path": "/-/healthy",
+  "operationId": "healthy",
+  "summary": "Check basic node health",
+  "description": "By default this endpoint just checks that it can get the latest ledger\ninfo and then returns 200.\n\nIf the duration_secs param is provided, this endpoint will return a\n200 if the following condition is true:\n\n`server_latest_ledger_info_timestamp >= server_current_time_timestamp - duration_secs`",
+  "tags": [
+    "General"
+  ],
+  "parameters": [
+    {
+      "name": "duration_secs",
+      "in": "query",
+      "required": false,
+      "description": "Threshold in seconds that the server can be behind to be considered healthy\n\nIf not provided, the healthcheck will always succeed",
+      "schema": {
+        "type": "integer",
+        "format": "uint32"
+      }
+    }
+  ],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/HealthCheckSuccess"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

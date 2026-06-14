@@ -1,0 +1,86 @@
+{
+  "method": "POST",
+  "path": "/transactions/batch",
+  "operationId": "submit_batch_transactions",
+  "summary": "Submit batch transactions",
+  "description": "This allows you to submit multiple transactions.  The response has three outcomes:\n\n1. All transactions succeed, and it will return a 202\n2. Some transactions succeed, and it will return the failed transactions and a 206\n3. No transactions succeed, and it will also return the failed transactions and a 206\n\nTo submit a transaction as JSON, you must submit a SubmitTransactionRequest.\nTo build this request, do the following:\n\n1. Encode the transaction as BCS. If you are using a language that has\nnative BCS support, make sure to use that library. If not, you may take\nadvantage of /transactions/encode_submission. When using this\nendpoint, make sure you trust the node you're talking to, as it is\npossible they could manipulate your request.\n2. Sign the encoded transaction and use it to create a TransactionSignature.\n3. Submit the request. Make sure to use the \"application/json\" Content-Type.\n\nTo submit a transaction as BCS, you must submit a SignedTransaction\nencoded as BCS. See SignedTransaction in types/src/transaction/mod.rs.\nMake sure to use the `application/x.aptos.signed_transaction+bcs` Content-Type.",
+  "tags": [
+    "Transactions"
+  ],
+  "parameters": [],
+  "requestBody": {
+    "contentType": "application/json",
+    "schema": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/SubmitTransactionRequest"
+      }
+    },
+    "example": null
+  },
+  "responses": {
+    "202": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/TransactionsBatchSubmissionResult"
+      },
+      "example": {}
+    },
+    "206": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/TransactionsBatchSubmissionResult"
+      },
+      "example": {}
+    },
+    "400": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "403": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "404": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "413": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "500": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "503": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    },
+    "507": {
+      "contentType": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AptosError"
+      },
+      "example": {}
+    }
+  }
+}

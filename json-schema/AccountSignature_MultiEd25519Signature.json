@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/aptos/json-schema/AccountSignature_MultiEd25519Signature.json",
+  "title": "AccountSignature_MultiEd25519Signature",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "multi_ed25519_signature"
+          ],
+          "example": "multi_ed25519_signature"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/MultiEd25519Signature"
+    }
+  ]
+}
