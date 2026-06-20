@@ -1,7 +1,7 @@
 aid: aptos
 name: Aptos
 url: https://raw.githubusercontent.com/api-evangelist/aptos/refs/heads/main/apis.yml
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 description: Aptos is a Move-based Layer 1 blockchain platform that exposes a REST
   API for reading on-chain state and submitting transactions, a GraphQL Indexer API
   for high-level queries over processed blockchain data (NFTs, objects, custom Move
