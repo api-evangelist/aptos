@@ -131,7 +131,7 @@ common:
   url: https://api.mainnet.aptoslabs.com/v1/spec
 - type: GettingStarted
   url: https://aptos.dev/en/build/get-started
-- type: SignUp
+- type: Signup
   url: https://geomi.dev/
 - type: Pricing
   url: https://geomi.dev/pricing
@@ -149,16 +149,16 @@ common:
   url: https://github.com/aptos-labs
 - type: OpenAPI
   url: https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml
-- type: SDK
+- type: SDKs
   url: https://github.com/aptos-labs/aptos-ts-sdk
   title: TypeScript / JavaScript SDK
-- type: SDK
+- type: SDKs
   url: https://github.com/aptos-labs/aptos-python-sdk
   title: Python SDK
-- type: SDK
+- type: SDKs
   url: https://github.com/aptos-labs/aptos-go-sdk
   title: Go SDK
-- type: SDK
+- type: SDKs
   url: https://github.com/aptos-labs/aptos-core/tree/main/sdk
   title: Rust SDK
 - type: Plans
