@@ -123,6 +123,8 @@ apis:
   - type: Documentation
     url: https://aptos.dev/en/network/nodes/networks
 common:
+- type: DomainSecurity
+  url: security/aptos-domain-security.yml
 - type: Portal
   url: https://aptos.dev
 - type: Documentation
