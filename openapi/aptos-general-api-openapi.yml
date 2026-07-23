@@ -1,0 +1,729 @@
+openapi: 3.0.0
+info:
+  title: Aptos Node Accounts General API
+  description: The Aptos Node API is a RESTful API for client applications to interact with the Aptos blockchain.
+  version: 1.2.0
+  contact:
+    name: Aptos Labs
+    url: https://github.com/aptos-labs/aptos-core
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: /v1
+tags:
+- name: General
+  description: General information
+paths:
+  /spec:
+    get:
+      tags:
+      - General
+      summary: Show OpenAPI explorer
+      description: 'Provides a UI that you can use to explore the API. You can also
+
+        retrieve the API directly at `/spec.yaml` and `/spec.json`.'
+      responses:
+        '200':
+          description: ''
+          content:
+            text/html:
+              schema:
+                type: string
+      operationId: spec
+  /info:
+    get:
+      tags:
+      - General
+      summary: Show some basic info of the node.
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+      operationId: info
+  /-/healthy:
+    get:
+      tags:
+      - General
+      summary: Check basic node health
+      description: 'By default this endpoint just checks that it can get the latest ledger
+
+        info and then returns 200.
+
+
+        If the duration_secs param is provided, this endpoint will return a
+
+        200 if the following condition is true:
+
+
+        `server_latest_ledger_info_timestamp >= server_current_time_timestamp - duration_secs`'
+      parameters:
+      - name: duration_secs
+        schema:
+          type: integer
+          format: uint32
+        in: query
+        description: 'Threshold in seconds that the server can be behind to be considered healthy
+
+
+          If not provided, the healthcheck will always succeed'
+        required: false
+        deprecated: false
+        explode: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckSuccess'
+            application/x-bcs:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: uint8
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-CURSOR:
+              description: 'Cursor to be used for endpoints that support cursor-based
+
+                pagination. Pass this to the `start` field of the endpoint
+
+                on the next call to get the next page of results.'
+              deprecated: false
+              schema:
+                type: string
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+      operationId: healthy
+  /:
+    get:
+      tags:
+      - General
+      summary: Get ledger info
+      description: 'Get the latest ledger information, including data such as chain ID,
+
+        role type, ledger versions, epoch, etc.'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexResponse'
+            application/x-bcs:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: uint8
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-CURSOR:
+              description: 'Cursor to be used for endpoints that support cursor-based
+
+                pagination. Pass this to the `start` field of the endpoint
+
+                on the next call to get the next page of results.'
+              deprecated: false
+              schema:
+                type: string
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+      operationId: get_ledger_info
+components:
+  schemas:
+    U64:
+      type: string
+      format: uint64
+      description: 'A string containing a 64-bit unsigned integer.
+
+
+        We represent u64 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse u64s in JSON natively.
+
+        '
+      example: '32425224034'
+    AptosErrorCode:
+      type: string
+      description: 'These codes provide more granular error information beyond just the HTTP
+
+        status code of the response.'
+      enum:
+      - account_not_found
+      - resource_not_found
+      - module_not_found
+      - struct_field_not_found
+      - version_not_found
+      - transaction_not_found
+      - table_item_not_found
+      - block_not_found
+      - state_value_not_found
+      - version_pruned
+      - block_pruned
+      - invalid_input
+      - invalid_transaction_update
+      - sequence_number_too_old
+      - vm_error
+      - rejected_by_filter
+      - health_check_failed
+      - mempool_is_full
+      - rate_limited
+      - internal_error
+      - web_framework_error
+      - bcs_not_supported
+      - api_disabled
+    AptosError:
+      type: object
+      description: 'This is the generic struct we use for all API errors, it contains a string
+
+        message and an Aptos API specific error code.'
+      required:
+      - message
+      - error_code
+      properties:
+        message:
+          type: string
+          description: A message describing the error
+        error_code:
+          $ref: '#/components/schemas/AptosErrorCode'
+        vm_error_code:
+          type: integer
+          format: uint64
+          description: A code providing VM error details when submitting transactions to the VM
+    RoleType:
+      type: string
+      enum:
+      - validator
+      - full_node
+    HealthCheckSuccess:
+      type: object
+      description: Representation of a successful healthcheck
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    IndexResponse:
+      type: object
+      description: 'The struct holding all data returned to the client by the
+
+        index endpoint (i.e., GET "/").  Only for responding in JSON'
+      required:
+      - chain_id
+      - epoch
+      - ledger_version
+      - oldest_ledger_version
+      - ledger_timestamp
+      - node_role
+      - oldest_block_height
+      - block_height
+      properties:
+        chain_id:
+          type: integer
+          format: uint8
+          description: Chain ID of the current chain
+        epoch:
+          $ref: '#/components/schemas/U64'
+        ledger_version:
+          $ref: '#/components/schemas/U64'
+        oldest_ledger_version:
+          $ref: '#/components/schemas/U64'
+        ledger_timestamp:
+          $ref: '#/components/schemas/U64'
+        node_role:
+          $ref: '#/components/schemas/RoleType'
+        oldest_block_height:
+          $ref: '#/components/schemas/U64'
+        block_height:
+          $ref: '#/components/schemas/U64'
+        git_hash:
+          type: string
+          description: 'Git hash of the build of the API endpoint.  Can be used to determine the exact
+
+            software version used by the API endpoint.'
+        encryption_key:
+          type: string
+          description: Per-epoch transaction encryption key (hex-encoded)
+externalDocs:
+  url: https://github.com/aptos-labs/aptos-core

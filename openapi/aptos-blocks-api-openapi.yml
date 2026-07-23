@@ -1,0 +1,3518 @@
+openapi: 3.0.0
+info:
+  title: Aptos Node Accounts Blocks API
+  description: The Aptos Node API is a RESTful API for client applications to interact with the Aptos blockchain.
+  version: 1.2.0
+  contact:
+    name: Aptos Labs
+    url: https://github.com/aptos-labs/aptos-core
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: /v1
+tags:
+- name: Blocks
+  description: Access to blocks
+paths:
+  /blocks/by_height/{block_height}:
+    get:
+      tags:
+      - Blocks
+      summary: Get blocks by height
+      description: 'This endpoint allows you to get the transactions in a block
+
+        and the corresponding block information.
+
+
+        Transactions are limited by max default transactions size.  If not all transactions
+
+        are present, the user will need to query for the rest of the transactions via the
+
+        get transactions API.
+
+
+        If the block is pruned, it will return a 410'
+      parameters:
+      - name: block_height
+        schema:
+          type: integer
+          format: uint64
+        in: path
+        description: Block height to lookup.  Starts at 0
+        required: true
+        deprecated: false
+        explode: true
+      - name: with_transactions
+        schema:
+          type: boolean
+        in: query
+        description: 'If set to true, include all transactions in the block
+
+
+          If not provided, no transactions will be retrieved'
+        required: false
+        deprecated: false
+        explode: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Block'
+            application/x-bcs:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: uint8
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-CURSOR:
+              description: 'Cursor to be used for endpoints that support cursor-based
+
+                pagination. Pass this to the `start` field of the endpoint
+
+                on the next call to get the next page of results.'
+              deprecated: false
+              schema:
+                type: string
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '410':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+      operationId: get_block_by_height
+  /blocks/by_version/{version}:
+    get:
+      tags:
+      - Blocks
+      summary: Get blocks by version
+      description: 'This endpoint allows you to get the transactions in a block
+
+        and the corresponding block information given a version in the block.
+
+
+        Transactions are limited by max default transactions size.  If not all transactions
+
+        are present, the user will need to query for the rest of the transactions via the
+
+        get transactions API.
+
+
+        If the block has been pruned, it will return a 410'
+      parameters:
+      - name: version
+        schema:
+          type: integer
+          format: uint64
+        in: path
+        description: Ledger version to lookup block information for.
+        required: true
+        deprecated: false
+        explode: true
+      - name: with_transactions
+        schema:
+          type: boolean
+        in: query
+        description: 'If set to true, include all transactions in the block
+
+
+          If not provided, no transactions will be retrieved'
+        required: false
+        deprecated: false
+        explode: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Block'
+            application/x-bcs:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: uint8
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              required: true
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-CURSOR:
+              description: 'Cursor to be used for endpoints that support cursor-based
+
+                pagination. Pass this to the `start` field of the endpoint
+
+                on the next call to get the next page of results.'
+              deprecated: false
+              schema:
+                type: string
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '410':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AptosError'
+          headers:
+            X-APTOS-CHAIN-ID:
+              description: Chain ID of the current chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint8
+            X-APTOS-LEDGER-VERSION:
+              description: Current ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-OLDEST-VERSION:
+              description: Oldest non-pruned ledger version of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-LEDGER-TIMESTAMPUSEC:
+              description: Current timestamp of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-EPOCH:
+              description: Current epoch of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-BLOCK-HEIGHT:
+              description: Current block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-OLDEST-BLOCK-HEIGHT:
+              description: Oldest non-pruned block height of the chain
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-GAS-USED:
+              description: The cost of the call in terms of gas
+              deprecated: false
+              schema:
+                type: integer
+                format: uint64
+            X-APTOS-TXN-ENCRYPTION-KEY:
+              description: Per-epoch transaction encryption key (hex-encoded)
+              deprecated: false
+              schema:
+                type: string
+      operationId: get_block_by_version
+components:
+  schemas:
+    WriteSetChange_DeleteTableItem:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - delete_table_item
+            example: delete_table_item
+      - $ref: '#/components/schemas/DeleteTableItem'
+    NoAccountSignature:
+      type: object
+      description: A placeholder to represent the absence of account signature
+    Signature:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/Signature_Ed25519'
+      - $ref: '#/components/schemas/Signature_Secp256k1Ecdsa'
+      - $ref: '#/components/schemas/Signature_WebAuthn'
+      - $ref: '#/components/schemas/Signature_Keyless'
+      - $ref: '#/components/schemas/Signature_SlhDsa_Sha2_128s'
+      discriminator:
+        propertyName: type
+        mapping:
+          ed25519: '#/components/schemas/Signature_Ed25519'
+          secp256k1_ecdsa: '#/components/schemas/Signature_Secp256k1Ecdsa'
+          web_authn: '#/components/schemas/Signature_WebAuthn'
+          keyless: '#/components/schemas/Signature_Keyless'
+          slh_dsa__sha2_128s: '#/components/schemas/Signature_SlhDsa_Sha2_128s'
+    EncryptedTransactionInnerPayload_ScriptPayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - script_payload
+            example: script_payload
+      - $ref: '#/components/schemas/ScriptPayload'
+    WriteSet_ScriptWriteSet:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - script_write_set
+            example: script_write_set
+      - $ref: '#/components/schemas/ScriptWriteSet'
+    Transaction_UserTransaction:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - user_transaction
+            example: user_transaction
+      - $ref: '#/components/schemas/UserTransaction'
+    EntryFunctionId:
+      type: string
+      description: 'Entry function id is string representation of a entry function defined on-chain.
+
+
+        Format: `{address}::{module name}::{function name}`
+
+
+        Both `module name` and `function name` are case-sensitive.
+
+        '
+      example: 0x1::aptos_coin::transfer
+    Transaction_GenesisTransaction:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - genesis_transaction
+            example: genesis_transaction
+      - $ref: '#/components/schemas/GenesisTransaction'
+    WriteSet_DirectWriteSet:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - direct_write_set
+            example: direct_write_set
+      - $ref: '#/components/schemas/DirectWriteSet'
+    MoveFunction:
+      type: object
+      description: Move function
+      required:
+      - name
+      - visibility
+      - is_entry
+      - is_view
+      - generic_type_params
+      - params
+      - return
+      properties:
+        name:
+          $ref: '#/components/schemas/IdentifierWrapper'
+        visibility:
+          $ref: '#/components/schemas/MoveFunctionVisibility'
+        is_entry:
+          type: boolean
+          description: Whether the function can be called as an entry function directly in a transaction
+        is_view:
+          type: boolean
+          description: Whether the function is a view function or not
+        generic_type_params:
+          type: array
+          description: Generic type params associated with the Move function
+          items:
+            $ref: '#/components/schemas/MoveFunctionGenericTypeParam'
+        params:
+          type: array
+          description: Parameters associated with the move function
+          items:
+            $ref: '#/components/schemas/MoveType'
+        return:
+          type: array
+          description: Return type of the function
+          items:
+            $ref: '#/components/schemas/MoveType'
+    RequestedMultipliers:
+      type: object
+      description: 'Multipliers for higher transaction limits, expressed as percent of the base
+
+        limit (100 = 1x, 200 = 2x, 250 = 2.5x).'
+      required:
+      - execution_multiplier_percent
+      - io_multiplier_percent
+      properties:
+        execution_multiplier_percent:
+          $ref: '#/components/schemas/U64'
+        io_multiplier_percent:
+          $ref: '#/components/schemas/U64'
+    HexEncodedBytes:
+      type: string
+      format: hex
+      description: 'All bytes (Vec<u8>) data is represented as hex-encoded string prefixed with `0x` and fulfilled with
+
+        two hex digits per byte.
+
+
+        Unlike the `Address` type, HexEncodedBytes will not trim any zeros.
+
+        '
+      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
+    ValidatorTransaction:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/ValidatorTransaction_JWKUpdateTransaction'
+      - $ref: '#/components/schemas/ValidatorTransaction_DKGResultTransaction'
+      - $ref: '#/components/schemas/ValidatorTransaction_ChunkyDKGResultTransaction'
+      discriminator:
+        propertyName: validator_transaction_type
+        mapping:
+          observed_jwk_update: '#/components/schemas/ValidatorTransaction_JWKUpdateTransaction'
+          dkg_result: '#/components/schemas/ValidatorTransaction_DKGResultTransaction'
+          chunky_d_k_g_result: '#/components/schemas/ValidatorTransaction_ChunkyDKGResultTransaction'
+    PublicKey_Secp256r1Ecdsa:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - secp256r1_ecdsa
+            example: secp256r1_ecdsa
+      - $ref: '#/components/schemas/Secp256r1Ecdsa'
+    FeePayerSignature:
+      type: object
+      description: 'Fee payer signature for fee payer transactions
+
+
+        This allows you to have transactions across multiple accounts and with a fee payer'
+      required:
+      - sender
+      - secondary_signer_addresses
+      - secondary_signers
+      - fee_payer_address
+      - fee_payer_signer
+      properties:
+        sender:
+          $ref: '#/components/schemas/AccountSignature'
+        secondary_signer_addresses:
+          type: array
+          description: The other involved parties' addresses
+          items:
+            $ref: '#/components/schemas/Address'
+        secondary_signers:
+          type: array
+          description: The associated signatures, in the same order as the secondary addresses
+          items:
+            $ref: '#/components/schemas/AccountSignature'
+        fee_payer_address:
+          allOf:
+          - $ref: '#/components/schemas/Address'
+          - description: The address of the paying party
+        fee_payer_signer:
+          allOf:
+          - $ref: '#/components/schemas/AccountSignature'
+          - description: The signature of the fee payer
+    UserTxnLimitsRequest_StakePoolOwnerLimitsRequest:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - stake_pool_owner
+            example: stake_pool_owner
+      - $ref: '#/components/schemas/StakePoolOwnerLimitsRequest'
+    TransactionPayload:
+      type: object
+      description: An enum of the possible transaction payloads
+      oneOf:
+      - $ref: '#/components/schemas/TransactionPayload_EntryFunctionPayload'
+      - $ref: '#/components/schemas/TransactionPayload_ScriptPayload'
+      - $ref: '#/components/schemas/TransactionPayload_DeprecatedModuleBundlePayload'
+      - $ref: '#/components/schemas/TransactionPayload_MultisigPayload'
+      - $ref: '#/components/schemas/TransactionPayload_EncryptedTransactionPayload'
+      discriminator:
+        propertyName: type
+        mapping:
+          entry_function_payload: '#/components/schemas/TransactionPayload_EntryFunctionPayload'
+          script_payload: '#/components/schemas/TransactionPayload_ScriptPayload'
+          module_bundle_payload: '#/components/schemas/TransactionPayload_DeprecatedModuleBundlePayload'
+          multisig_payload: '#/components/schemas/TransactionPayload_MultisigPayload'
+          encrypted_transaction_payload: '#/components/schemas/TransactionPayload_EncryptedTransactionPayload'
+    MoveResource:
+      type: object
+      description: A parsed Move resource
+      required:
+      - type
+      - data
+      properties:
+        type:
+          $ref: '#/components/schemas/MoveStructTag'
+        data:
+          $ref: '#/components/schemas/MoveStructValue'
+    PublicKey_Ed25519:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - ed25519
+            example: ed25519
+      - $ref: '#/components/schemas/Ed25519'
+    DKGResultTransaction:
+      type: object
+      required:
+      - version
+      - hash
+      - state_change_hash
+      - event_root_hash
+      - gas_used
+      - success
+      - vm_status
+      - accumulator_root_hash
+      - changes
+      - events
+      - timestamp
+      - dkg_transcript
+      properties:
+        version:
+          $ref: '#/components/schemas/U64'
+        hash:
+          $ref: '#/components/schemas/HashValue'
+        state_change_hash:
+          $ref: '#/components/schemas/HashValue'
+        event_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        state_checkpoint_hash:
+          $ref: '#/components/schemas/HashValue'
+        gas_used:
+          $ref: '#/components/schemas/U64'
+        success:
+          type: boolean
+          description: Whether the transaction was successful
+        vm_status:
+          type: string
+          description: The VM status of the transaction, can tell useful information in a failure
+        accumulator_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        changes:
+          type: array
+          description: Final state of resources changed by the transaction
+          items:
+            $ref: '#/components/schemas/WriteSetChange'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        timestamp:
+          $ref: '#/components/schemas/U64'
+        dkg_transcript:
+          $ref: '#/components/schemas/ExportedDKGTranscript'
+    Secp256k1Ecdsa:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    AccountSignature_SingleKeySignature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - single_key_signature
+            example: single_key_signature
+      - $ref: '#/components/schemas/SingleKeySignature'
+    BlockMetadataExtensionRandomnessAndDecKey:
+      type: object
+      properties:
+        randomness:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        decryption_key:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    WebAuthn:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    WriteSetChange_WriteModule:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - write_module
+            example: write_module
+      - $ref: '#/components/schemas/WriteModule'
+    MultisigTransactionPayload:
+      type: object
+      description: Enum for multisig transaction payloads, supporting both entry functions and scripts.
+      oneOf:
+      - $ref: '#/components/schemas/MultisigTransactionPayload_EntryFunctionPayload'
+      - $ref: '#/components/schemas/MultisigTransactionPayload_ScriptPayload'
+      discriminator:
+        propertyName: type
+        mapping:
+          entry_function_payload: '#/components/schemas/MultisigTransactionPayload_EntryFunctionPayload'
+          script_payload: '#/components/schemas/MultisigTransactionPayload_ScriptPayload'
+    WriteModule:
+      type: object
+      description: Write a new module or update an existing one
+      required:
+      - address
+      - state_key_hash
+      - data
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        state_key_hash:
+          type: string
+          description: State key hash
+        data:
+          $ref: '#/components/schemas/MoveModuleBytecode'
+    WriteSetPayload:
+      type: object
+      description: A writeset payload, used only for genesis
+      required:
+      - write_set
+      properties:
+        write_set:
+          $ref: '#/components/schemas/WriteSet'
+    Block:
+      type: object
+      description: 'A Block with or without transactions
+
+
+        This contains the information about a transactions along with
+
+        associated transactions if requested'
+      required:
+      - block_height
+      - block_hash
+      - block_timestamp
+      - first_version
+      - last_version
+      properties:
+        block_height:
+          $ref: '#/components/schemas/U64'
+        block_hash:
+          $ref: '#/components/schemas/HashValue'
+        block_timestamp:
+          $ref: '#/components/schemas/U64'
+        first_version:
+          $ref: '#/components/schemas/U64'
+        last_version:
+          $ref: '#/components/schemas/U64'
+        transactions:
+          type: array
+          description: The transactions in the block in sequential order
+          items:
+            $ref: '#/components/schemas/Transaction'
+    ScriptPayload:
+      type: object
+      description: Payload which runs a script that can run multiple functions
+      required:
+      - code
+      - type_arguments
+      - arguments
+      properties:
+        code:
+          $ref: '#/components/schemas/MoveScriptBytecode'
+        type_arguments:
+          type: array
+          description: Type arguments of the function
+          items:
+            $ref: '#/components/schemas/MoveType'
+        arguments:
+          type: array
+          description: Arguments of the function
+          items: {}
+    IdentifierWrapper:
+      type: string
+    FederatedKeyless:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    Ed25519Signature:
+      type: object
+      description: A single Ed25519 signature
+      required:
+      - public_key
+      - signature
+      properties:
+        public_key:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        signature:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    ExportedAggregateSignature:
+      type: object
+      description: A more API-friendly representation of the on-chain `aptos_types::aggregate_signature::AggregateSignature`.
+      required:
+      - signer_indices
+      properties:
+        signer_indices:
+          type: array
+          items:
+            type: integer
+            format: uint64
+        sig:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    Signature_SlhDsa_Sha2_128s:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - slh_dsa__sha2_128s
+            example: slh_dsa__sha2_128s
+      - $ref: '#/components/schemas/SlhDsa_Sha2_128s'
+    ChunkyDKGResultTransaction:
+      type: object
+      required:
+      - version
+      - hash
+      - state_change_hash
+      - event_root_hash
+      - gas_used
+      - success
+      - vm_status
+      - accumulator_root_hash
+      - changes
+      - events
+      - timestamp
+      - certified_subtrx
+      - encryption_key
+      properties:
+        version:
+          $ref: '#/components/schemas/U64'
+        hash:
+          $ref: '#/components/schemas/HashValue'
+        state_change_hash:
+          $ref: '#/components/schemas/HashValue'
+        event_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        state_checkpoint_hash:
+          $ref: '#/components/schemas/HashValue'
+        gas_used:
+          $ref: '#/components/schemas/U64'
+        success:
+          type: boolean
+          description: Whether the transaction was successful
+        vm_status:
+          type: string
+          description: The VM status of the transaction, can tell useful information in a failure
+        accumulator_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        changes:
+          type: array
+          description: Final state of resources changed by the transaction
+          items:
+            $ref: '#/components/schemas/WriteSetChange'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        timestamp:
+          $ref: '#/components/schemas/U64'
+        certified_subtrx:
+          $ref: '#/components/schemas/ExportedCertifiedAggregatedChunkySubtranscript'
+        encryption_key:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    MultisigPayload:
+      type: object
+      description: 'A multisig transaction that allows an owner of a multisig account to execute a pre-approved
+
+        transaction as the multisig account.'
+      required:
+      - multisig_address
+      properties:
+        multisig_address:
+          $ref: '#/components/schemas/Address'
+        transaction_payload:
+          $ref: '#/components/schemas/MultisigTransactionPayload'
+    WriteSetChange_DeleteResource:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - delete_resource
+            example: delete_resource
+      - $ref: '#/components/schemas/DeleteResource'
+    Keyless:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    Signature_WebAuthn:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - web_authn
+            example: web_authn
+      - $ref: '#/components/schemas/WebAuthn'
+    GenesisPayload_WriteSetPayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - write_set_payload
+            example: write_set_payload
+      - $ref: '#/components/schemas/WriteSetPayload'
+    EntryFunctionPayload:
+      type: object
+      description: Payload which runs a single entry function
+      required:
+      - function
+      - type_arguments
+      - arguments
+      properties:
+        function:
+          $ref: '#/components/schemas/EntryFunctionId'
+        type_arguments:
+          type: array
+          description: Type arguments of the function
+          items:
+            $ref: '#/components/schemas/MoveType'
+        arguments:
+          type: array
+          description: Arguments of the function
+          items: {}
+    MultiAgentSignature:
+      type: object
+      description: 'Multi agent signature for multi agent transactions
+
+
+        This allows you to have transactions across multiple accounts'
+      required:
+      - sender
+      - secondary_signer_addresses
+      - secondary_signers
+      properties:
+        sender:
+          $ref: '#/components/schemas/AccountSignature'
+        secondary_signer_addresses:
+          type: array
+          description: The other involved parties' addresses
+          items:
+            $ref: '#/components/schemas/Address'
+        secondary_signers:
+          type: array
+          description: The associated signatures, in the same order as the secondary addresses
+          items:
+            $ref: '#/components/schemas/AccountSignature'
+    MoveAbility:
+      type: string
+    Transaction_BlockMetadataTransaction:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - block_metadata_transaction
+            example: block_metadata_transaction
+      - $ref: '#/components/schemas/BlockMetadataTransaction'
+    AptosError:
+      type: object
+      description: 'This is the generic struct we use for all API errors, it contains a string
+
+        message and an Aptos API specific error code.'
+      required:
+      - message
+      - error_code
+      properties:
+        message:
+          type: string
+          description: A message describing the error
+        error_code:
+          $ref: '#/components/schemas/AptosErrorCode'
+        vm_error_code:
+          type: integer
+          format: uint64
+          description: A code providing VM error details when submitting transactions to the VM
+    ExportedCertifiedAggregatedChunkySubtranscript:
+      type: object
+      description: 'A more API-friendly representation of the on-chain
+
+        `aptos_types::dkg::chunky_dkg::CertifiedAggregatedChunkySubtranscript`.'
+      required:
+      - epoch
+      - author
+      - subtrx
+      - signature
+      properties:
+        epoch:
+          $ref: '#/components/schemas/U64'
+        author:
+          $ref: '#/components/schemas/Address'
+        subtrx:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        signature:
+          $ref: '#/components/schemas/ExportedAggregateSignature'
+    Transaction_PendingTransaction:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - pending_transaction
+            example: pending_transaction
+      - $ref: '#/components/schemas/PendingTransaction'
+    MoveStructField:
+      type: object
+      description: Move struct field
+      required:
+      - name
+      - type
+      properties:
+        name:
+          $ref: '#/components/schemas/IdentifierWrapper'
+        type:
+          $ref: '#/components/schemas/MoveType'
+    EncryptedTransactionInnerPayload_MultisigPayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - multisig_payload
+            example: multisig_payload
+      - $ref: '#/components/schemas/MultisigPayload'
+    Ed25519:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    FailedDecryptionPayload:
+      type: object
+      description: Decryption was attempted but failed.
+      required:
+      - payload_hash
+      - ciphertext
+      - encryption_epoch
+      properties:
+        payload_hash:
+          $ref: '#/components/schemas/HashValue'
+        ciphertext:
+          allOf:
+          - $ref: '#/components/schemas/HexEncodedBytes'
+          - description: BCS-serialized ciphertext bytes, hex-encoded.
+        encryption_epoch:
+          $ref: '#/components/schemas/U64'
+        claimed_entry_fun:
+          $ref: '#/components/schemas/ClaimedEntryFunction'
+    JWK:
+      type: object
+      description: The JWK type that can be converted from/to `JWKMoveStruct` but easier to use in rust.
+      anyOf:
+      - $ref: '#/components/schemas/RSA_JWK'
+      - $ref: '#/components/schemas/UnsupportedJWK'
+    HashValue:
+      type: string
+    AptosErrorCode:
+      type: string
+      description: 'These codes provide more granular error information beyond just the HTTP
+
+        status code of the response.'
+      enum:
+      - account_not_found
+      - resource_not_found
+      - module_not_found
+      - struct_field_not_found
+      - version_not_found
+      - transaction_not_found
+      - table_item_not_found
+      - block_not_found
+      - state_value_not_found
+      - version_pruned
+      - block_pruned
+      - invalid_input
+      - invalid_transaction_update
+      - sequence_number_too_old
+      - vm_error
+      - rejected_by_filter
+      - health_check_failed
+      - mempool_is_full
+      - rate_limited
+      - internal_error
+      - web_framework_error
+      - bcs_not_supported
+      - api_disabled
+    Signature_Secp256k1Ecdsa:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - secp256k1_ecdsa
+            example: secp256k1_ecdsa
+      - $ref: '#/components/schemas/Secp256k1Ecdsa'
+    TransactionSignature:
+      type: object
+      description: An enum representing the different transaction signatures available
+      oneOf:
+      - $ref: '#/components/schemas/TransactionSignature_Ed25519Signature'
+      - $ref: '#/components/schemas/TransactionSignature_MultiEd25519Signature'
+      - $ref: '#/components/schemas/TransactionSignature_MultiAgentSignature'
+      - $ref: '#/components/schemas/TransactionSignature_FeePayerSignature'
+      - $ref: '#/components/schemas/TransactionSignature_AccountSignature'
+      - $ref: '#/components/schemas/TransactionSignature_NoAccountSignature'
+      discriminator:
+        propertyName: type
+        mapping:
+          ed25519_signature: '#/components/schemas/TransactionSignature_Ed25519Signature'
+          multi_ed25519_signature: '#/components/schemas/TransactionSignature_MultiEd25519Signature'
+          multi_agent_signature: '#/components/schemas/TransactionSignature_MultiAgentSignature'
+          fee_payer_signature: '#/components/schemas/TransactionSignature_FeePayerSignature'
+          single_sender: '#/components/schemas/TransactionSignature_AccountSignature'
+          no_account_signature: '#/components/schemas/TransactionSignature_NoAccountSignature'
+    EventGuid:
+      type: object
+      required:
+      - creation_number
+      - account_address
+      properties:
+        creation_number:
+          $ref: '#/components/schemas/U64'
+        account_address:
+          $ref: '#/components/schemas/Address'
+    Signature_Ed25519:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - ed25519
+            example: ed25519
+      - $ref: '#/components/schemas/Ed25519'
+    EncryptedPayload:
+      type: object
+      description: Payload is still encrypted and cannot be read.
+      required:
+      - payload_hash
+      - ciphertext
+      - encryption_epoch
+      properties:
+        payload_hash:
+          $ref: '#/components/schemas/HashValue'
+        ciphertext:
+          allOf:
+          - $ref: '#/components/schemas/HexEncodedBytes'
+          - description: BCS-serialized ciphertext bytes, hex-encoded.
+        encryption_epoch:
+          $ref: '#/components/schemas/U64'
+        claimed_entry_fun:
+          $ref: '#/components/schemas/ClaimedEntryFunction'
+    Secp256r1Ecdsa:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    BlockMetadataExtension_BlockMetadataExtensionRandomness:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - v1
+            example: v1
+      - $ref: '#/components/schemas/BlockMetadataExtensionRandomness'
+    AccountSignature:
+      type: object
+      description: 'Account signature scheme
+
+
+        The account signature scheme allows you to have two types of accounts:
+
+
+        1. A single Ed25519 key account, one private key
+
+        2. A k-of-n multi-Ed25519 key account, multiple private keys, such that k-of-n must sign a transaction.
+
+        3. A single Secp256k1Ecdsa key account, one private key'
+      oneOf:
+      - $ref: '#/components/schemas/AccountSignature_Ed25519Signature'
+      - $ref: '#/components/schemas/AccountSignature_MultiEd25519Signature'
+      - $ref: '#/components/schemas/AccountSignature_SingleKeySignature'
+      - $ref: '#/components/schemas/AccountSignature_MultiKeySignature'
+      - $ref: '#/components/schemas/AccountSignature_NoAccountSignature'
+      - $ref: '#/components/schemas/AccountSignature_AbstractSignature'
+      discriminator:
+        propertyName: type
+        mapping:
+          ed25519_signature: '#/components/schemas/AccountSignature_Ed25519Signature'
+          multi_ed25519_signature: '#/components/schemas/AccountSignature_MultiEd25519Signature'
+          single_key_signature: '#/components/schemas/AccountSignature_SingleKeySignature'
+          multi_key_signature: '#/components/schemas/AccountSignature_MultiKeySignature'
+          no_account_signature: '#/components/schemas/AccountSignature_NoAccountSignature'
+          abstract_signature: '#/components/schemas/AccountSignature_AbstractSignature'
+    WriteTableItem:
+      type: object
+      description: Change set to write a table item
+      required:
+      - state_key_hash
+      - handle
+      - key
+      - value
+      properties:
+        state_key_hash:
+          type: string
+        handle:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        key:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        value:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        data:
+          $ref: '#/components/schemas/DecodedTableData'
+    MoveStruct:
+      type: object
+      description: A move struct
+      required:
+      - name
+      - is_native
+      - is_event
+      - is_enum
+      - abilities
+      - generic_type_params
+      - fields
+      - variants
+      properties:
+        name:
+          $ref: '#/components/schemas/IdentifierWrapper'
+        is_native:
+          type: boolean
+          description: Whether the struct is a native struct of Move
+        is_event:
+          type: boolean
+          description: 'Whether the struct is marked with the #[event] annotation'
+        is_enum:
+          type: boolean
+          description: Whether the struct is an enum (i.e. enum MyEnum vs struct MyStruct).
+        abilities:
+          type: array
+          description: Abilities associated with the struct
+          items:
+            $ref: '#/components/schemas/MoveAbility'
+        generic_type_params:
+          type: array
+          description: Generic types associated with the struct
+          items:
+            $ref: '#/components/schemas/MoveStructGenericTypeParam'
+        fields:
+          type: array
+          description: Fields associated with the struct
+          items:
+            $ref: '#/components/schemas/MoveStructField'
+        variants:
+          type: array
+          description: Variants of the enum. Only populated when `is_enum` is true.
+          items:
+            $ref: '#/components/schemas/MoveStructVariant'
+    EncryptedTransactionPayload_FailedDecryptionPayload:
+      allOf:
+      - type: object
+        required:
+        - encrypted_state
+        properties:
+          encrypted_state:
+            type: string
+            enum:
+            - failed_decryption
+            example: failed_decryption
+      - $ref: '#/components/schemas/FailedDecryptionPayload'
+    StakePoolOwnerLimitsRequest:
+      type: object
+      description: A higher-limits request whose backing is a stake pool the fee payer owns.
+      required:
+      - multipliers
+      properties:
+        multipliers:
+          $ref: '#/components/schemas/RequestedMultipliers'
+    UserTxnLimitsRequest_DelegationPoolDelegatorLimitsRequest:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - delegation_pool_delegator
+            example: delegation_pool_delegator
+      - $ref: '#/components/schemas/DelegationPoolDelegatorLimitsRequest'
+    DeletedTableData:
+      type: object
+      description: Deleted table data
+      required:
+      - key
+      - key_type
+      properties:
+        key:
+          description: Deleted key
+        key_type:
+          type: string
+          description: Deleted key type
+    JWKUpdateTransaction:
+      type: object
+      required:
+      - version
+      - hash
+      - state_change_hash
+      - event_root_hash
+      - gas_used
+      - success
+      - vm_status
+      - accumulator_root_hash
+      - changes
+      - events
+      - timestamp
+      - quorum_certified_update
+      properties:
+        version:
+          $ref: '#/components/schemas/U64'
+        hash:
+          $ref: '#/components/schemas/HashValue'
+        state_change_hash:
+          $ref: '#/components/schemas/HashValue'
+        event_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        state_checkpoint_hash:
+          $ref: '#/components/schemas/HashValue'
+        gas_used:
+          $ref: '#/components/schemas/U64'
+        success:
+          type: boolean
+          description: Whether the transaction was successful
+        vm_status:
+          type: string
+          description: The VM status of the transaction, can tell useful information in a failure
+        accumulator_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        changes:
+          type: array
+          description: Final state of resources changed by the transaction
+          items:
+            $ref: '#/components/schemas/WriteSetChange'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        timestamp:
+          $ref: '#/components/schemas/U64'
+        quorum_certified_update:
+          $ref: '#/components/schemas/ExportedQuorumCertifiedUpdate'
+    U64:
+      type: string
+      format: uint64
+      description: 'A string containing a 64-bit unsigned integer.
+
+
+        We represent u64 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse u64s in JSON natively.
+
+        '
+      example: '32425224034'
+    AccountSignature_MultiKeySignature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - multi_key_signature
+            example: multi_key_signature
+      - $ref: '#/components/schemas/MultiKeySignature'
+    TransactionPayload_ScriptPayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - script_payload
+            example: script_payload
+      - $ref: '#/components/schemas/ScriptPayload'
+    SlhDsa_Sha2_128s:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    TransactionPayload_DeprecatedModuleBundlePayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - module_bundle_payload
+            example: module_bundle_payload
+      - $ref: '#/components/schemas/DeprecatedModuleBundlePayload'
+    PublicKey_SlhDsa_Sha2_128s:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - slh_dsa__sha2_128s
+            example: slh_dsa__sha2_128s
+      - $ref: '#/components/schemas/SlhDsa_Sha2_128s'
+    Transaction_StateCheckpointTransaction:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - state_checkpoint_transaction
+            example: state_checkpoint_transaction
+      - $ref: '#/components/schemas/StateCheckpointTransaction'
+    PublicKey_Secp256k1Ecdsa:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - secp256k1_ecdsa
+            example: secp256k1_ecdsa
+      - $ref: '#/components/schemas/Secp256k1Ecdsa'
+    WriteSetChange:
+      type: object
+      description: A final state change of a transaction on a resource or module
+      oneOf:
+      - $ref: '#/components/schemas/WriteSetChange_DeleteModule'
+      - $ref: '#/components/schemas/WriteSetChange_DeleteResource'
+      - $ref: '#/components/schemas/WriteSetChange_DeleteTableItem'
+      - $ref: '#/components/schemas/WriteSetChange_WriteModule'
+      - $ref: '#/components/schemas/WriteSetChange_WriteResource'
+      - $ref: '#/components/schemas/WriteSetChange_WriteTableItem'
+      discriminator:
+        propertyName: type
+        mapping:
+          delete_module: '#/components/schemas/WriteSetChange_DeleteModule'
+          delete_resource: '#/components/schemas/WriteSetChange_DeleteResource'
+          delete_table_item: '#/components/schemas/WriteSetChange_DeleteTableItem'
+          write_module: '#/components/schemas/WriteSetChange_WriteModule'
+          write_resource: '#/components/schemas/WriteSetChange_WriteResource'
+          write_table_item: '#/components/schemas/WriteSetChange_WriteTableItem'
+    GenesisPayload:
+      type: object
+      description: The writeset payload of the Genesis transaction
+      oneOf:
+      - $ref: '#/components/schemas/GenesisPayload_WriteSetPayload'
+      discriminator:
+        propertyName: type
+        mapping:
+          write_set_payload: '#/components/schemas/GenesisPayload_WriteSetPayload'
+    ExportedProviderJWKs:
+      type: object
+      description: A more API-friendly representation of the on-chain `aptos_types::jwks::ProviderJWKs`.
+      required:
+      - issuer
+      - version
+      - jwks
+      properties:
+        issuer:
+          type: string
+        version:
+          type: integer
+          format: uint64
+        jwks:
+          type: array
+          items:
+            $ref: '#/components/schemas/JWK'
+    PendingTransaction:
+      type: object
+      description: A transaction waiting in mempool
+      required:
+      - hash
+      - sender
+      - sequence_number
+      - max_gas_amount
+      - gas_unit_price
+      - expiration_timestamp_secs
+      - payload
+      properties:
+        hash:
+          $ref: '#/components/schemas/HashValue'
+        sender:
+          $ref: '#/components/schemas/Address'
+        sequence_number:
+          $ref: '#/components/schemas/U64'
+        max_gas_amount:
+          $ref: '#/components/schemas/U64'
+        gas_unit_price:
+          $ref: '#/components/schemas/U64'
+        expiration_timestamp_secs:
+          $ref: '#/components/schemas/U64'
+        payload:
+          $ref: '#/components/schemas/TransactionPayload'
+        signature:
+          $ref: '#/components/schemas/TransactionSignature'
+        replay_protection_nonce:
+          $ref: '#/components/schemas/U64'
+        txn_limits_request:
+          $ref: '#/components/schemas/UserTxnLimitsRequest'
+    PublicKey_FederatedKeyless:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - federated_keyless
+            example: federated_keyless
+      - $ref: '#/components/schemas/FederatedKeyless'
+    UnsupportedJWK:
+      type: object
+      description: 'Move type `0x1::jwks::UnsupportedJWK` in rust.
+
+        See its doc in Move for more details.'
+      required:
+      - id
+      - payload
+      properties:
+        id:
+          type: array
+          items:
+            type: integer
+            format: uint8
+        payload:
+          type: array
+          items:
+            type: integer
+            format: uint8
+    BlockMetadataTransaction:
+      type: object
+      description: 'A block metadata transaction
+
+
+        This signifies the beginning of a block, and contains information
+
+        about the specific block'
+      required:
+      - version
+      - hash
+      - state_change_hash
+      - event_root_hash
+      - gas_used
+      - success
+      - vm_status
+      - accumulator_root_hash
+      - changes
+      - id
+      - epoch
+      - round
+      - events
+      - previous_block_votes_bitvec
+      - proposer
+      - failed_proposer_indices
+      - timestamp
+      properties:
+        version:
+          $ref: '#/components/schemas/U64'
+        hash:
+          $ref: '#/components/schemas/HashValue'
+        state_change_hash:
+          $ref: '#/components/schemas/HashValue'
+        event_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        state_checkpoint_hash:
+          $ref: '#/components/schemas/HashValue'
+        gas_used:
+          $ref: '#/components/schemas/U64'
+        success:
+          type: boolean
+          description: Whether the transaction was successful
+        vm_status:
+          type: string
+          description: The VM status of the transaction, can tell useful information in a failure
+        accumulator_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        changes:
+          type: array
+          description: Final state of resources changed by the transaction
+          items:
+            $ref: '#/components/schemas/WriteSetChange'
+        id:
+          $ref: '#/components/schemas/HashValue'
+        epoch:
+          $ref: '#/components/schemas/U64'
+        round:
+          $ref: '#/components/schemas/U64'
+        events:
+          type: array
+          description: The events emitted at the block creation
+          items:
+            $ref: '#/components/schemas/Event'
+        previous_block_votes_bitvec:
+          type: array
+          description: Previous block votes
+          items:
+            type: integer
+            format: uint8
+        proposer:
+          $ref: '#/components/schemas/Address'
+        failed_proposer_indices:
+          type: array
+          description: The indices of the proposers who failed to propose
+          items:
+            type: integer
+            format: uint32
+        timestamp:
+          $ref: '#/components/schemas/U64'
+        block_metadata_extension:
+          allOf:
+          - $ref: '#/components/schemas/BlockMetadataExtension'
+          - description: 'If some, it means the internal txn type is `aptos_types::transaction::Transaction::BlockMetadataExt`.
+
+              Otherwise, it is `aptos_types::transaction::Transaction::BlockMetadata`.
+
+
+              NOTE: we could have introduced a new APT txn type to represent the corresponding internal type,
+
+              but that is a breaking change to the ecosystem.
+
+
+              NOTE: `oai` does not support `flatten` together with `skip_serializing_if`.'
+            default: null
+    DecryptedPayload:
+      type: object
+      description: Payload has been successfully decrypted.
+      required:
+      - payload_hash
+      - ciphertext
+      - encryption_epoch
+      - decrypted_payload
+      - decryption_nonce
+      properties:
+        payload_hash:
+          $ref: '#/components/schemas/HashValue'
+        ciphertext:
+          allOf:
+          - $ref: '#/components/schemas/HexEncodedBytes'
+          - description: BCS-serialized ciphertext bytes, hex-encoded.
+        encryption_epoch:
+          $ref: '#/components/schemas/U64'
+        claimed_entry_fun:
+          $ref: '#/components/schemas/ClaimedEntryFunction'
+        decrypted_payload:
+          $ref: '#/components/schemas/EncryptedTransactionInnerPayload'
+        decryption_nonce:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    WriteSetChange_DeleteModule:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - delete_module
+            example: delete_module
+      - $ref: '#/components/schemas/DeleteModule'
+    Address:
+      type: string
+      format: hex
+      description: 'A hex encoded 32 byte Aptos account address.
+
+
+        This is represented in a string as a 64 character hex string, sometimes
+
+        shortened by stripping leading 0s, and adding a 0x.
+
+
+        For example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.
+
+        '
+      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
+    ValidatorTransaction_DKGResultTransaction:
+      allOf:
+      - type: object
+        required:
+        - validator_transaction_type
+        properties:
+          validator_transaction_type:
+            type: string
+            enum:
+            - dkg_result
+            example: dkg_result
+      - $ref: '#/components/schemas/DKGResultTransaction'
+    Event:
+      type: object
+      description: An event from a transaction
+      required:
+      - guid
+      - sequence_number
+      - type
+      - data
+      properties:
+        guid:
+          $ref: '#/components/schemas/EventGuid'
+        sequence_number:
+          $ref: '#/components/schemas/U64'
+        type:
+          $ref: '#/components/schemas/MoveType'
+        data:
+          description: The JSON representation of the event
+    BlockMetadataExtension_BlockMetadataExtensionRandomnessAndDecKey:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - v2
+            example: v2
+      - $ref: '#/components/schemas/BlockMetadataExtensionRandomnessAndDecKey'
+    EncryptedTransactionPayload_EncryptedPayload:
+      allOf:
+      - type: object
+        required:
+        - encrypted_state
+        properties:
+          encrypted_state:
+            type: string
+            enum:
+            - encrypted
+            example: encrypted
+      - $ref: '#/components/schemas/EncryptedPayload'
+    ScriptWriteSet:
+      type: object
+      required:
+      - execute_as
+      - script
+      properties:
+        execute_as:
+          $ref: '#/components/schemas/Address'
+        script:
+          $ref: '#/components/schemas/ScriptPayload'
+    TransactionSignature_FeePayerSignature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - fee_payer_signature
+            example: fee_payer_signature
+      - $ref: '#/components/schemas/FeePayerSignature'
+    MoveStructTag:
+      type: string
+      description: "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n"
+      example: 0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>
+      pattern: ^0x[0-9a-zA-Z:_<>]+$
+    IndexedSignature:
+      type: object
+      required:
+      - index
+      - signature
+      properties:
+        index:
+          type: integer
+          format: uint8
+        signature:
+          $ref: '#/components/schemas/Signature'
+    DeleteResource:
+      type: object
+      description: Delete a resource
+      required:
+      - address
+      - state_key_hash
+      - resource
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        state_key_hash:
+          type: string
+          description: State key hash
+        resource:
+          $ref: '#/components/schemas/MoveStructTag'
+    Transaction:
+      type: object
+      description: Enum of the different types of transactions in Aptos
+      oneOf:
+      - $ref: '#/components/schemas/Transaction_PendingTransaction'
+      - $ref: '#/components/schemas/Transaction_UserTransaction'
+      - $ref: '#/components/schemas/Transaction_GenesisTransaction'
+      - $ref: '#/components/schemas/Transaction_BlockMetadataTransaction'
+      - $ref: '#/components/schemas/Transaction_StateCheckpointTransaction'
+      - $ref: '#/components/schemas/Transaction_BlockEpilogueTransaction'
+      - $ref: '#/components/schemas/Transaction_ValidatorTransaction'
+      discriminator:
+        propertyName: type
+        mapping:
+          pending_transaction: '#/components/schemas/Transaction_PendingTransaction'
+          user_transaction: '#/components/schemas/Transaction_UserTransaction'
+          genesis_transaction: '#/components/schemas/Transaction_GenesisTransaction'
+          block_metadata_transaction: '#/components/schemas/Transaction_BlockMetadataTransaction'
+          state_checkpoint_transaction: '#/components/schemas/Transaction_StateCheckpointTransaction'
+          block_epilogue_transaction: '#/components/schemas/Transaction_BlockEpilogueTransaction'
+          validator_transaction: '#/components/schemas/Transaction_ValidatorTransaction'
+    DeprecatedModuleBundlePayload:
+      type: object
+    TransactionSignature_AccountSignature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - single_sender
+            example: single_sender
+      - $ref: '#/components/schemas/AccountSignature'
+    DeleteTableItem:
+      type: object
+      description: Delete a table item
+      required:
+      - state_key_hash
+      - handle
+      - key
+      properties:
+        state_key_hash:
+          type: string
+        handle:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        key:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        data:
+          $ref: '#/components/schemas/DeletedTableData'
+    MultiEd25519Signature:
+      type: object
+      description: 'A Ed25519 multi-sig signature
+
+
+        This allows k-of-n signing for a transaction'
+      required:
+      - public_keys
+      - signatures
+      - threshold
+      - bitmap
+      properties:
+        public_keys:
+          type: array
+          description: The public keys for the Ed25519 signature
+          items:
+            $ref: '#/components/schemas/HexEncodedBytes'
+        signatures:
+          type: array
+          description: Signature associated with the public keys in the same order
+          items:
+            $ref: '#/components/schemas/HexEncodedBytes'
+        threshold:
+          type: integer
+          format: uint8
+          description: The number of signatures required for a successful transaction
+        bitmap:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    BlockMetadataExtensionRandomness:
+      type: object
+      properties:
+        randomness:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    MoveModule:
+      type: object
+      description: A Move module
+      required:
+      - address
+      - name
+      - friends
+      - exposed_functions
+      - structs
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        name:
+          $ref: '#/components/schemas/IdentifierWrapper'
+        friends:
+          type: array
+          description: Friends of the module
+          items:
+            $ref: '#/components/schemas/MoveModuleId'
+        exposed_functions:
+          type: array
+          description: Public functions of the module
+          items:
+            $ref: '#/components/schemas/MoveFunction'
+        structs:
+          type: array
+          description: Structs of the module
+          items:
+            $ref: '#/components/schemas/MoveStruct'
+    DeleteModule:
+      type: object
+      description: Delete a module
+      required:
+      - address
+      - state_key_hash
+      - module
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        state_key_hash:
+          type: string
+          description: State key hash
+        module:
+          $ref: '#/components/schemas/MoveModuleId'
+    TransactionPayload_EntryFunctionPayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - entry_function_payload
+            example: entry_function_payload
+      - $ref: '#/components/schemas/EntryFunctionPayload'
+    Signature_Keyless:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - keyless
+            example: keyless
+      - $ref: '#/components/schemas/Keyless'
+    RSA_JWK:
+      type: object
+      description: 'Move type `0x1::jwks::RSA_JWK` in rust.
+
+        See its doc in Move for more details.'
+      required:
+      - kid
+      - kty
+      - alg
+      - e
+      - n
+      properties:
+        kid:
+          type: string
+        kty:
+          type: string
+        alg:
+          type: string
+        e:
+          type: string
+        n:
+          type: string
+    DirectWriteSet:
+      type: object
+      required:
+      - changes
+      - events
+      properties:
+        changes:
+          type: array
+          items:
+            $ref: '#/components/schemas/WriteSetChange'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    MoveStructGenericTypeParam:
+      type: object
+      description: Move generic type param
+      required:
+      - constraints
+      properties:
+        constraints:
+          type: array
+          description: Move abilities tied to the generic type param and associated with the type that uses it
+          items:
+            $ref: '#/components/schemas/MoveAbility'
+    MultisigTransactionPayload_EntryFunctionPayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - entry_function_payload
+            example: entry_function_payload
+      - $ref: '#/components/schemas/EntryFunctionPayload'
+    BlockMetadataExtension:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionEmpty'
+      - $ref: '#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionRandomness'
+      - $ref: '#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionRandomnessAndDecKey'
+      discriminator:
+        propertyName: type
+        mapping:
+          v0: '#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionEmpty'
+          v1: '#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionRandomness'
+          v2: '#/components/schemas/BlockMetadataExtension_BlockMetadataExtensionRandomnessAndDecKey'
+    MoveFunctionVisibility:
+      type: string
+      description: Move function visibility
+      enum:
+      - private
+      - public
+      - friend
+    MoveType:
+      type: string
+      description: "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - i8\n      - i16\n      - i32\n      - i64\n      - i128\n      - i256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n"
+      pattern: ^(bool|u8|u16|u32|u64|u128|u256|i8|i16|i32|i64|i128|i256|address|signer|vector<.+>|0x[0-9a-zA-Z:_<, >]+)$
+    UserTransaction:
+      type: object
+      description: A transaction submitted by a user to change the state of the blockchain
+      required:
+      - version
+      - hash
+      - state_change_hash
+      - event_root_hash
+      - gas_used
+      - success
+      - vm_status
+      - accumulator_root_hash
+      - changes
+      - sender
+      - sequence_number
+      - max_gas_amount
+      - gas_unit_price
+      - expiration_timestamp_secs
+      - payload
+      - events
+      - timestamp
+      properties:
+        version:
+          $ref: '#/components/schemas/U64'
+        hash:
+          $ref: '#/components/schemas/HashValue'
+        state_change_hash:
+          $ref: '#/components/schemas/HashValue'
+        event_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        state_checkpoint_hash:
+          $ref: '#/components/schemas/HashValue'
+        gas_used:
+          $ref: '#/components/schemas/U64'
+        success:
+          type: boolean
+          description: Whether the transaction was successful
+        vm_status:
+          type: string
+          description: The VM status of the transaction, can tell useful information in a failure
+        accumulator_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        changes:
+          type: array
+          description: Final state of resources changed by the transaction
+          items:
+            $ref: '#/components/schemas/WriteSetChange'
+        sender:
+          $ref: '#/components/schemas/Address'
+        sequence_number:
+          $ref: '#/components/schemas/U64'
+        max_gas_amount:
+          $ref: '#/components/schemas/U64'
+        gas_unit_price:
+          $ref: '#/components/schemas/U64'
+        expiration_timestamp_secs:
+          $ref: '#/components/schemas/U64'
+        payload:
+          $ref: '#/components/schemas/TransactionPayload'
+        signature:
+          $ref: '#/components/schemas/TransactionSignature'
+        replay_protection_nonce:
+          $ref: '#/components/schemas/U64'
+        txn_limits_request:
+          $ref: '#/components/schemas/UserTxnLimitsRequest'
+        events:
+          type: array
+          description: Events generated by the transaction
+          items:
+            $ref: '#/components/schemas/Event'
+        timestamp:
+          $ref: '#/components/schemas/U64'
+    EncryptedTransactionInnerPayload_EntryFunctionPayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - entry_function_payload
+            example: entry_function_payload
+      - $ref: '#/components/schemas/EntryFunctionPayload'
+    WriteSetChange_WriteTableItem:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - write_table_item
+            example: write_table_item
+      - $ref: '#/components/schemas/WriteTableItem'
+    StateCheckpointTransaction:
+      type: object
+      description: A state checkpoint transaction
+      required:
+      - version
+      - hash
+      - state_change_hash
+      - event_root_hash
+      - gas_used
+      - success
+      - vm_status
+      - accumulator_root_hash
+      - changes
+      - timestamp
+      properties:
+        version:
+          $ref: '#/components/schemas/U64'
+        hash:
+          $ref: '#/components/schemas/HashValue'
+        state_change_hash:
+          $ref: '#/components/schemas/HashValue'
+        event_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        state_checkpoint_hash:
+          $ref: '#/components/schemas/HashValue'
+        gas_used:
+          $ref: '#/components/schemas/U64'
+        success:
+          type: boolean
+          description: Whether the transaction was successful
+        vm_status:
+          type: string
+          description: The VM status of the transaction, can tell useful information in a failure
+        accumulator_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        changes:
+          type: array
+          description: Final state of resources changed by the transaction
+          items:
+            $ref: '#/components/schemas/WriteSetChange'
+        timestamp:
+          $ref: '#/components/schemas/U64'
+    Transaction_ValidatorTransaction:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - validator_transaction
+            example: validator_transaction
+      - $ref: '#/components/schemas/ValidatorTransaction'
+    AccountSignature_NoAccountSignature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - no_account_signature
+            example: no_account_signature
+      - $ref: '#/components/schemas/NoAccountSignature'
+    SingleKeySignature:
+      type: object
+      description: A single key signature
+      required:
+      - public_key
+      - signature
+      properties:
+        public_key:
+          $ref: '#/components/schemas/PublicKey'
+        signature:
+          $ref: '#/components/schemas/Signature'
+    BlockMetadataExtension_BlockMetadataExtensionEmpty:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - v0
+            example: v0
+      - $ref: '#/components/schemas/BlockMetadataExtensionEmpty'
+    BlockMetadataExtensionEmpty:
+      type: object
+    MoveModuleId:
+      type: string
+      description: 'Move module id is a string representation of Move module.
+
+
+        Format: `{address}::{module name}`
+
+
+        `address` should be hex-encoded 32 byte account address that is prefixed with `0x`.
+
+
+        Module name is case-sensitive.
+
+        '
+      example: 0x1::aptos_coin
+    ExportedQuorumCertifiedUpdate:
+      type: object
+      description: A more API-friendly representation of the on-chain `aptos_types::jwks::QuorumCertifiedUpdate`.
+      required:
+      - update
+      - multi_sig
+      properties:
+        update:
+          $ref: '#/components/schemas/ExportedProviderJWKs'
+        multi_sig:
+          $ref: '#/components/schemas/ExportedAggregateSignature'
+    DecodedTableData:
+      type: object
+      description: Decoded table data
+      required:
+      - key
+      - key_type
+      - value
+      - value_type
+      properties:
+        key:
+          description: Key of table in JSON
+        key_type:
+          type: string
+          description: Type of key
+        value:
+          description: Value of table in JSON
+        value_type:
+          type: string
+          description: Type of value
+    AccountSignature_Ed25519Signature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - ed25519_signature
+            example: ed25519_signature
+      - $ref: '#/components/schemas/Ed25519Signature'
+    BlockEndInfo:
+      type: object
+      required:
+      - block_gas_limit_reached
+      - block_output_limit_reached
+      - block_effective_block_gas_units
+      - block_approx_output_size
+      properties:
+        block_gas_limit_reached:
+          type: boolean
+        block_output_limit_reached:
+          type: boolean
+        block_effective_block_gas_units:
+          type: integer
+          format: uint64
+        block_approx_output_size:
+          type: integer
+          format: uint64
+    AccountSignature_AbstractSignature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - abstract_signature
+            example: abstract_signature
+      - $ref: '#/components/schemas/AbstractSignature'
+    MoveStructValue:
+      type: object
+      description: "This is a JSON representation of some data within an account resource. More specifically,\nit is a map of strings to arbitrary JSON values / objects, where the keys are top level\nfields within the given resource.\n\nTo clarify, you might query for 0x1::account::Account and see the example data.\n\nMove `bool` type value is serialized into `boolean`.\n\nMove `u8`, `u16`, `u32`, `i8`, `i16`, and `i32` type value is serialized into `integer`.\n\nMove `u64`, `u128`, `u256`, `i64`, `i128`, and `i256` type value is serialized into `string`.\n\nMove `address` type value (32 byte Aptos account address) is serialized into a HexEncodedBytes string.\nFor example:\n  - `0x1`\n  - `0x1668f6be25668c1a17cd8caf6b8d2f25`\n\nMove `vector` type value is serialized into `array`, except `vector<u8>` which is serialized into a\nHexEncodedBytes string with `0x` prefix.\nFor example:\n  - `vector<u64>{255, 255}` => `[\"255\", \"255\"]`\n  - `vector<u8>{255, 255}` => `0xffff`\n\nMove `struct` type value is serialized into `object` that looks like this (except some Move stdlib types, see the following section):\n  ```json\n  {\n    field1_name: field1_value,\n    field2_name: field2_value,\n    ......\n  }\n  ```\n\nFor example:\n  `{ \"created\": \"0xa550c18\", \"role_id\": \"0\" }`\n\n**Special serialization for Move stdlib types**:\n  - [0x1::string::String](https://github.com/aptos-labs/aptos-core/blob/main/third_party/move/move-stdlib/docs/ascii.md)\n    is serialized into `string`. For example, struct value `0x1::string::String{bytes: b\"Hello World!\"}`\n    is serialized as `\"Hello World!\"` in JSON.\n"
+      example:
+        authentication_key: '0x0000000000000000000000000000000000000000000000000000000000000001'
+        coin_register_events:
+          counter: '0'
+          guid:
+            id:
+              addr: '0x1'
+              creation_num: '0'
+        self_address: '0x1'
+        sequence_number: '0'
+    AbstractSignature:
+      type: object
+      required:
+      - function_info
+      - auth_data
+      properties:
+        function_info:
+          type: string
+        auth_data:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    ValidatorTransaction_ChunkyDKGResultTransaction:
+      allOf:
+      - type: object
+        required:
+        - validator_transaction_type
+        properties:
+          validator_transaction_type:
+            type: string
+            enum:
+            - chunky_d_k_g_result
+            example: chunky_d_k_g_result
+      - $ref: '#/components/schemas/ChunkyDKGResultTransaction'
+    WriteSet:
+      type: object
+      description: The associated writeset with a payload
+      oneOf:
+      - $ref: '#/components/schemas/WriteSet_ScriptWriteSet'
+      - $ref: '#/components/schemas/WriteSet_DirectWriteSet'
+      discriminator:
+        propertyName: type
+        mapping:
+          script_write_set: '#/components/schemas/WriteSet_ScriptWriteSet'
+          direct_write_set: '#/components/schemas/WriteSet_DirectWriteSet'
+    TransactionPayload_MultisigPayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - multisig_payload
+            example: multisig_payload
+      - $ref: '#/components/schemas/MultisigPayload'
+    MoveModuleBytecode:
+      type: object
+      description: Move module bytecode along with it's ABI
+      required:
+      - bytecode
+      properties:
+        bytecode:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        abi:
+          $ref: '#/components/schemas/MoveModule'
+    TransactionSignature_MultiEd25519Signature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - multi_ed25519_signature
+            example: multi_ed25519_signature
+      - $ref: '#/components/schemas/MultiEd25519Signature'
+    TransactionSignature_NoAccountSignature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - no_account_signature
+            example: no_account_signature
+      - $ref: '#/components/schemas/NoAccountSignature'
+    MoveStructVariant:
+      type: object
+      description: A single variant of a Move enum.
+      required:
+      - name
+      - fields
+      properties:
+        name:
+          $ref: '#/components/schemas/IdentifierWrapper'
+        fields:
+          type: array
+          description: Fields associated with the variant, if any.
+          items:
+            $ref: '#/components/schemas/MoveStructField'
+    DelegatedVoterLimitsRequest:
+      type: object
+      description: 'A higher-limits request backed by a stake pool the fee payer is the
+
+        delegated voter of.'
+      required:
+      - pool_address
+      - multipliers
+      properties:
+        pool_address:
+          $ref: '#/components/schemas/Address'
+        multipliers:
+          $ref: '#/components/schemas/RequestedMultipliers'
+    Transaction_BlockEpilogueTransaction:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - block_epilogue_transaction
+            example: block_epilogue_transaction
+      - $ref: '#/components/schemas/BlockEpilogueTransaction'
+    MoveFunctionGenericTypeParam:
+      type: object
+      description: Move function generic type param
+      required:
+      - constraints
+      properties:
+        constraints:
+          type: array
+          description: Move abilities tied to the generic type param and associated with the function that uses it
+          items:
+            $ref: '#/components/schemas/MoveAbility'
+    EncryptedTransactionPayload:
+      type: object
+      description: 'An encrypted transaction payload, discriminated by encrypted_state.
+
+
+        NOTE: multisig_address and replay_protection_nonce are not surfaced here.
+
+        They are part of extra_config and already exposed on UserTransactionRequest.
+
+        For Decrypted state, multisig_address is embedded in the MultisigPayload variant
+
+        of decrypted_payload.'
+      oneOf:
+      - $ref: '#/components/schemas/EncryptedTransactionPayload_EncryptedPayload'
+      - $ref: '#/components/schemas/EncryptedTransactionPayload_FailedDecryptionPayload'
+      - $ref: '#/components/schemas/EncryptedTransactionPayload_DecryptedPayload'
+      discriminator:
+        propertyName: encrypted_state
+        mapping:
+          encrypted: '#/components/schemas/EncryptedTransactionPayload_EncryptedPayload'
+          failed_decryption: '#/components/schemas/EncryptedTransactionPayload_FailedDecryptionPayload'
+          decrypted: '#/components/schemas/EncryptedTransactionPayload_DecryptedPayload'
+    PublicKey:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/PublicKey_Ed25519'
+      - $ref: '#/components/schemas/PublicKey_Secp256k1Ecdsa'
+      - $ref: '#/components/schemas/PublicKey_Secp256r1Ecdsa'
+      - $ref: '#/components/schemas/PublicKey_Keyless'
+      - $ref: '#/components/schemas/PublicKey_FederatedKeyless'
+      - $ref: '#/components/schemas/PublicKey_SlhDsa_Sha2_128s'
+      discriminator:
+        propertyName: type
+        mapping:
+          ed25519: '#/components/schemas/PublicKey_Ed25519'
+          secp256k1_ecdsa: '#/components/schemas/PublicKey_Secp256k1Ecdsa'
+          secp256r1_ecdsa: '#/components/schemas/PublicKey_Secp256r1Ecdsa'
+          keyless: '#/components/schemas/PublicKey_Keyless'
+          federated_keyless: '#/components/schemas/PublicKey_FederatedKeyless'
+          slh_dsa__sha2_128s: '#/components/schemas/PublicKey_SlhDsa_Sha2_128s'
+    EncryptedTransactionInnerPayload:
+      type: object
+      description: The inner payload of an encrypted transaction, present only when decrypted.
+      oneOf:
+      - $ref: '#/components/schemas/EncryptedTransactionInnerPayload_EntryFunctionPayload'
+      - $ref: '#/components/schemas/EncryptedTransactionInnerPayload_ScriptPayload'
+      - $ref: '#/components/schemas/EncryptedTransactionInnerPayload_MultisigPayload'
+      discriminator:
+        propertyName: type
+        mapping:
+          entry_function_payload: '#/components/schemas/EncryptedTransactionInnerPayload_EntryFunctionPayload'
+          script_payload: '#/components/schemas/EncryptedTransactionInnerPayload_ScriptPayload'
+          multisig_payload: '#/components/schemas/EncryptedTransactionInnerPayload_MultisigPayload'
+    UserTxnLimitsRequest:
+      type: object
+      description: A request for higher transaction execution limits, backed by a staking proof.
+      oneOf:
+      - $ref: '#/components/schemas/UserTxnLimitsRequest_StakePoolOwnerLimitsRequest'
+      - $ref: '#/components/schemas/UserTxnLimitsRequest_DelegatedVoterLimitsRequest'
+      - $ref: '#/components/schemas/UserTxnLimitsRequest_DelegationPoolDelegatorLimitsRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          stake_pool_owner: '#/components/schemas/UserTxnLimitsRequest_StakePoolOwnerLimitsRequest'
+          delegated_voter: '#/components/schemas/UserTxnLimitsRequest_DelegatedVoterLimitsRequest'
+          delegation_pool_delegator: '#/components/schemas/UserTxnLimitsRequest_DelegationPoolDelegatorLimitsRequest'
+    ValidatorTransaction_JWKUpdateTransaction:
+      allOf:
+      - type: object
+        required:
+        - validator_transaction_type
+        properties:
+          validator_transaction_type:
+            type: string
+            enum:
+            - observed_jwk_update
+            example: observed_jwk_update
+      - $ref: '#/components/schemas/JWKUpdateTransaction'
+    EncryptedTransactionPayload_DecryptedPayload:
+      allOf:
+      - type: object
+        required:
+        - encrypted_state
+        properties:
+          encrypted_state:
+            type: string
+            enum:
+            - decrypted
+            example: decrypted
+      - $ref: '#/components/schemas/DecryptedPayload'
+    PublicKey_Keyless:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - keyless
+            example: keyless
+      - $ref: '#/components/schemas/Keyless'
+    TransactionSignature_Ed25519Signature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - ed25519_signature
+            example: ed25519_signature
+      - $ref: '#/components/schemas/Ed25519Signature'
+    WriteResource:
+      type: object
+      description: Write a resource or update an existing one
+      required:
+      - address
+      - state_key_hash
+      - data
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        state_key_hash:
+          type: string
+          description: State key hash
+        data:
+          $ref: '#/components/schemas/MoveResource'
+    TransactionPayload_EncryptedTransactionPayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - encrypted_transaction_payload
+            example: encrypted_transaction_payload
+      - $ref: '#/components/schemas/EncryptedTransactionPayload'
+    TransactionSignature_MultiAgentSignature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - multi_agent_signature
+            example: multi_agent_signature
+      - $ref: '#/components/schemas/MultiAgentSignature'
+    MultisigTransactionPayload_ScriptPayload:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - script_payload
+            example: script_payload
+      - $ref: '#/components/schemas/ScriptPayload'
+    MoveScriptBytecode:
+      type: object
+      description: Move script bytecode
+      required:
+      - bytecode
+      properties:
+        bytecode:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        abi:
+          $ref: '#/components/schemas/MoveFunction'
+    BlockEpilogueTransaction:
+      type: object
+      description: A block epilogue transaction
+      required:
+      - version
+      - hash
+      - state_change_hash
+      - event_root_hash
+      - gas_used
+      - success
+      - vm_status
+      - accumulator_root_hash
+      - changes
+      - timestamp
+      properties:
+        version:
+          $ref: '#/components/schemas/U64'
+        hash:
+          $ref: '#/components/schemas/HashValue'
+        state_change_hash:
+          $ref: '#/components/schemas/HashValue'
+        event_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        state_checkpoint_hash:
+          $ref: '#/components/schemas/HashValue'
+        gas_used:
+          $ref: '#/components/schemas/U64'
+        success:
+          type: boolean
+          description: Whether the transaction was successful
+        vm_status:
+          type: string
+          description: The VM status of the transaction, can tell useful information in a failure
+        accumulator_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        changes:
+          type: array
+          description: Final state of resources changed by the transaction
+          items:
+            $ref: '#/components/schemas/WriteSetChange'
+        timestamp:
+          $ref: '#/components/schemas/U64'
+        block_end_info:
+          $ref: '#/components/schemas/BlockEndInfo'
+    DelegationPoolDelegatorLimitsRequest:
+      type: object
+      description: 'A higher-limits request backed by a delegation pool the fee payer delegates
+
+        to.'
+      required:
+      - pool_address
+      - multipliers
+      properties:
+        pool_address:
+          $ref: '#/components/schemas/Address'
+        multipliers:
+          $ref: '#/components/schemas/RequestedMultipliers'
+    MultiKeySignature:
+      type: object
+      description: A multi key signature
+      required:
+      - public_keys
+      - signatures
+      - signatures_required
+      properties:
+        public_keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicKey'
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndexedSignature'
+        signatures_required:
+          type: integer
+          format: uint8
+    ExportedDKGTranscript:
+      type: object
+      required:
+      - epoch
+      - author
+      - payload
+      properties:
+        epoch:
+          $ref: '#/components/schemas/U64'
+        author:
+          $ref: '#/components/schemas/Address'
+        payload:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    WriteSetChange_WriteResource:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - write_resource
+            example: write_resource
+      - $ref: '#/components/schemas/WriteResource'
+    GenesisTransaction:
+      type: object
+      description: 'The genesis transaction
+
+
+        This only occurs at the genesis transaction (version 0)'
+      required:
+      - version
+      - hash
+      - state_change_hash
+      - event_root_hash
+      - gas_used
+      - success
+      - vm_status
+      - accumulator_root_hash
+      - changes
+      - payload
+      - events
+      properties:
+        version:
+          $ref: '#/components/schemas/U64'
+        hash:
+          $ref: '#/components/schemas/HashValue'
+        state_change_hash:
+          $ref: '#/components/schemas/HashValue'
+        event_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        state_checkpoint_hash:
+          $ref: '#/components/schemas/HashValue'
+        gas_used:
+          $ref: '#/components/schemas/U64'
+        success:
+          type: boolean
+          description: Whether the transaction was successful
+        vm_status:
+          type: string
+          description: The VM status of the transaction, can tell useful information in a failure
+        accumulator_root_hash:
+          $ref: '#/components/schemas/HashValue'
+        changes:
+          type: array
+          description: Final state of resources changed by the transaction
+          items:
+            $ref: '#/components/schemas/WriteSetChange'
+        payload:
+          $ref: '#/components/schemas/GenesisPayload'
+        events:
+          type: array
+          description: Events emitted during genesis
+          items:
+            $ref: '#/components/schemas/Event'
+    UserTxnLimitsRequest_DelegatedVoterLimitsRequest:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - delegated_voter
+            example: delegated_voter
+      - $ref: '#/components/schemas/DelegatedVoterLimitsRequest'
+    ClaimedEntryFunction:
+      type: object
+      description: 'An encrypted payload''s claim about the entry function. Specifies at least the module address,
+
+        and optionally the specific entry funtion.'
+      required:
+      - module
+      properties:
+        module:
+          $ref: '#/components/schemas/MoveModuleId'
+        name:
+          $ref: '#/components/schemas/IdentifierWrapper'
+    AccountSignature_MultiEd25519Signature:
+      allOf:
+      - type: object
+        required:
+        - type
+        properties:
+          type:
+            type: string
+            enum:
+            - multi_ed25519_signature
+            example: multi_ed25519_signature
+      - $ref: '#/components/schemas/MultiEd25519Signature'
+externalDocs:
+  url: https://github.com/aptos-labs/aptos-core
