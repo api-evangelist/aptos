@@ -1,7 +1,19 @@
 aid: aptos
 name: Aptos
 url: https://raw.githubusercontent.com/api-evangelist/aptos/refs/heads/main/apis.yml
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/aptos.png
 description: Aptos is a Move-based Layer 1 blockchain platform that exposes a REST
   API for reading on-chain state and submitting transactions, a GraphQL Indexer API
   for high-level queries over processed blockchain data (NFTs, objects, custom Move
@@ -30,44 +42,13 @@ tags:
 - GraphQL
 - gRPC
 apis:
-- aid: aptos:fullnode-rest-api
-  name: Aptos Fullnode REST API
-  description: Low-latency REST API for reading on-chain state and submitting transactions
-    to the Aptos blockchain. Endpoints cover accounts (authentication key, sequence
-    number, resources, modules, balances), blocks (by height or ledger version), events,
-    transactions (read, submit, simulate), table items, Move view functions, and node
-    health/info. Available on mainnet, testnet, and devnet.
-  humanURL: https://aptos.dev/en/build/apis/fullnode-rest-api
-  baseURL: https://api.mainnet.aptoslabs.com/v1
-  tags:
-  - Accounts
-  - Transactions
-  - Blocks
-  - Events
-  - Modules
-  - Resources
-  - Move
-  - REST
-  properties:
-  - type: Documentation
-    url: https://aptos.dev/en/build/apis/fullnode-rest-api
-  - type: APIReference
-    url: https://api.mainnet.aptoslabs.com/v1/spec
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml
-  - type: Authentication
-    url: https://geomi.dev/docs/api-keys
-  - type: Sandbox
-    url: https://api.testnet.aptoslabs.com/v1
-  - url: graphql/aptos-graphql.md
-    type: GraphQL
 - aid: aptos:indexer-graphql-api
   name: Aptos Indexer GraphQL API
-  description: High-level GraphQL API backed by the Aptos Indexer, providing opinionated
-    access to processed blockchain data. Optimized for querying NFTs, Aptos Objects,
-    token balances, fungible assets, custom Move contract events, and account activities.
-    Available on mainnet and testnet with optional API key from Geomi for elevated
-    rate limits.
+  description: >-
+    High-level GraphQL API backed by the Aptos Indexer, providing opinionated access to processed blockchain
+    data. Optimized for querying NFTs, Aptos Objects, token balances, fungible assets, custom Move contract
+    events, and account activities. Available on mainnet and testnet with optional API key from Geomi
+    for elevated rate limits.
   humanURL: https://aptos.dev/en/build/indexer/indexer-api
   baseURL: https://api.mainnet.aptoslabs.com/v1/graphql
   tags:
@@ -90,10 +71,10 @@ apis:
     type: GraphQL
 - aid: aptos:transaction-stream-api
   name: Aptos Transaction Stream API
-  description: gRPC streaming API that delivers historical and real-time transaction
-    data from the Aptos blockchain. Used to power the Aptos Core Indexer and to build
-    custom app-specific real-time event processors. Available on mainnet, testnet,
-    and devnet via grpc endpoints.
+  description: >-
+    gRPC streaming API that delivers historical and real-time transaction data from the Aptos blockchain.
+    Used to power the Aptos Core Indexer and to build custom app-specific real-time event processors.
+    Available on mainnet, testnet, and devnet via grpc endpoints.
   humanURL: https://aptos.dev/en/build/apis
   baseURL: https://grpc.mainnet.aptoslabs.com
   tags:
@@ -109,9 +90,9 @@ apis:
     url: https://geomi.dev/docs/api-keys
 - aid: aptos:faucet-api
   name: Aptos Faucet API
-  description: Testnet and devnet faucet that distributes APT test tokens for development
-    and testing. Available programmatically on devnet; testnet faucet is accessible
-    via the mint page. Not available on mainnet.
+  description: >-
+    Testnet and devnet faucet that distributes APT test tokens for development and testing. Available
+    programmatically on devnet; testnet faucet is accessible via the mint page. Not available on mainnet.
   humanURL: https://aptos.dev/en/network/nodes/networks
   baseURL: https://faucet.devnet.aptoslabs.com
   tags:
@@ -122,7 +103,149 @@ apis:
   properties:
   - type: Documentation
     url: https://aptos.dev/en/network/nodes/networks
+- aid: aptos:aptos-accounts-api
+  name: Aptos Accounts API
+  description: Access to accounts, resources, and modules
+  humanURL: https://aptos.dev/en/build/apis/fullnode-rest-api
+  baseURL: https://api.mainnet.aptoslabs.com/v1
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/aptos-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://aptos.dev/en/build/apis/fullnode-rest-api
+  - type: APIReference
+    url: https://api.mainnet.aptoslabs.com/v1/spec
+  - type: Authentication
+    url: https://geomi.dev/docs/api-keys
+  - type: Sandbox
+    url: https://api.testnet.aptoslabs.com/v1
+  - type: GraphQL
+    url: graphql/aptos-graphql.md
+- aid: aptos:aptos-blocks-api
+  name: Aptos Blocks API
+  description: Access to blocks
+  humanURL: https://aptos.dev/en/build/apis/fullnode-rest-api
+  baseURL: https://api.mainnet.aptoslabs.com/v1
+  tags:
+  - Blocks
+  properties:
+  - type: OpenAPI
+    url: openapi/aptos-blocks-api-openapi.yml
+  - type: Documentation
+    url: https://aptos.dev/en/build/apis/fullnode-rest-api
+  - type: APIReference
+    url: https://api.mainnet.aptoslabs.com/v1/spec
+  - type: Authentication
+    url: https://geomi.dev/docs/api-keys
+  - type: Sandbox
+    url: https://api.testnet.aptoslabs.com/v1
+  - type: GraphQL
+    url: graphql/aptos-graphql.md
+- aid: aptos:aptos-events-api
+  name: Aptos Events API
+  description: Access to events
+  humanURL: https://aptos.dev/en/build/apis/fullnode-rest-api
+  baseURL: https://api.mainnet.aptoslabs.com/v1
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/aptos-events-api-openapi.yml
+  - type: Documentation
+    url: https://aptos.dev/en/build/apis/fullnode-rest-api
+  - type: APIReference
+    url: https://api.mainnet.aptoslabs.com/v1/spec
+  - type: Authentication
+    url: https://geomi.dev/docs/api-keys
+  - type: Sandbox
+    url: https://api.testnet.aptoslabs.com/v1
+  - type: GraphQL
+    url: graphql/aptos-graphql.md
+- aid: aptos:aptos-general-api
+  name: Aptos General API
+  description: General information
+  humanURL: https://aptos.dev/en/build/apis/fullnode-rest-api
+  baseURL: https://api.mainnet.aptoslabs.com/v1
+  tags:
+  - General
+  properties:
+  - type: OpenAPI
+    url: openapi/aptos-general-api-openapi.yml
+  - type: Documentation
+    url: https://aptos.dev/en/build/apis/fullnode-rest-api
+  - type: APIReference
+    url: https://api.mainnet.aptoslabs.com/v1/spec
+  - type: Authentication
+    url: https://geomi.dev/docs/api-keys
+  - type: Sandbox
+    url: https://api.testnet.aptoslabs.com/v1
+  - type: GraphQL
+    url: graphql/aptos-graphql.md
+- aid: aptos:aptos-tables-api
+  name: Aptos Tables API
+  description: Access to tables
+  humanURL: https://aptos.dev/en/build/apis/fullnode-rest-api
+  baseURL: https://api.mainnet.aptoslabs.com/v1
+  tags:
+  - Tables
+  properties:
+  - type: OpenAPI
+    url: openapi/aptos-tables-api-openapi.yml
+  - type: Documentation
+    url: https://aptos.dev/en/build/apis/fullnode-rest-api
+  - type: APIReference
+    url: https://api.mainnet.aptoslabs.com/v1/spec
+  - type: Authentication
+    url: https://geomi.dev/docs/api-keys
+  - type: Sandbox
+    url: https://api.testnet.aptoslabs.com/v1
+  - type: GraphQL
+    url: graphql/aptos-graphql.md
+- aid: aptos:aptos-transactions-api
+  name: Aptos Transactions API
+  description: Access to transactions
+  humanURL: https://aptos.dev/en/build/apis/fullnode-rest-api
+  baseURL: https://api.mainnet.aptoslabs.com/v1
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/aptos-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://aptos.dev/en/build/apis/fullnode-rest-api
+  - type: APIReference
+    url: https://api.mainnet.aptoslabs.com/v1/spec
+  - type: Authentication
+    url: https://geomi.dev/docs/api-keys
+  - type: Sandbox
+    url: https://api.testnet.aptoslabs.com/v1
+  - type: GraphQL
+    url: graphql/aptos-graphql.md
+- aid: aptos:aptos-view-api
+  name: Aptos View API
+  description: View functions,
+  humanURL: https://aptos.dev/en/build/apis/fullnode-rest-api
+  baseURL: https://api.mainnet.aptoslabs.com/v1
+  tags:
+  - View
+  properties:
+  - type: OpenAPI
+    url: openapi/aptos-view-api-openapi.yml
+  - type: Documentation
+    url: https://aptos.dev/en/build/apis/fullnode-rest-api
+  - type: APIReference
+    url: https://api.mainnet.aptoslabs.com/v1/spec
+  - type: Authentication
+    url: https://geomi.dev/docs/api-keys
+  - type: Sandbox
+    url: https://api.testnet.aptoslabs.com/v1
+  - type: GraphQL
+    url: graphql/aptos-graphql.md
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/aptos/overview
 - type: AgenticAccess
   url: agentic-access/aptos-agentic-access.yml
 - type: DomainSecurity
