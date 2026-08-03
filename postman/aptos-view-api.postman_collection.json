@@ -1,0 +1,1063 @@
+{
+  "info": {
+    "_postman_id": "16846b71-ee75-443f-a9e0-d8bdaa609a59",
+    "name": "Aptos Node Accounts View API",
+    "description": "The Aptos Node API is a RESTful API for client applications to interact with the Aptos blockchain.\n\nContact Support:\n Name: Aptos Labs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:03:53.000Z",
+    "updatedAt": "2026-07-28T01:03:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-16846b71-ee75-443f-a9e0-d8bdaa609a59"
+  },
+  "item": [
+    {
+      "name": "view",
+      "item": [
+        {
+          "name": "Execute view function of a module",
+          "id": "b68d0ff8-2238-4ca9-a41c-82013c666634",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"function\": \"<string>\",\n  \"type_arguments\": [\n    \"i32\",\n    \"u256\"\n  ],\n  \"arguments\": []\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/view?ledger_version=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "view"
+              ],
+              "query": [
+                {
+                  "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version",
+                  "key": "ledger_version",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Execute the Move function with the given parameters and return its execution result.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410."
+          },
+          "response": [
+            {
+              "id": "a2c1b7e0-4efc-4785-9c7f-b3a00a9b3855",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"function\": \"<string>\",\n  \"type_arguments\": [\n    \"i32\",\n    \"u256\"\n  ],\n  \"arguments\": []\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/view?ledger_version=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "view"
+                  ],
+                  "query": [
+                    {
+                      "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version",
+                      "key": "ledger_version",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) Chain ID of the current chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-CHAIN-ID",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) Current ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) Oldest non-pruned ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-OLDEST-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) Current timestamp of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-TIMESTAMPUSEC",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) Current epoch of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-EPOCH",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) Current block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) Oldest non-pruned block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-OLDEST-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The cost of the call in terms of gas",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-GAS-USED",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Cursor to be used for endpoints that support cursor-based\npagination. Pass this to the `start` field of the endpoint\non the next call to get the next page of results.",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-CURSOR",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Per-epoch transaction encryption key (hex-encoded)",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-TXN-ENCRYPTION-KEY",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  \"<integer>\",\n  \"<integer>\"\n]",
+              "createdAt": "2026-07-28T01:03:53.000Z",
+              "updatedAt": "2026-07-28T01:03:53.000Z",
+              "uid": "35240-a2c1b7e0-4efc-4785-9c7f-b3a00a9b3855"
+            },
+            {
+              "id": "a4f7eff9-975d-488f-b032-ba54c712430c",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"function\": \"<string>\",\n  \"type_arguments\": [\n    \"i32\",\n    \"u256\"\n  ],\n  \"arguments\": []\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/view?ledger_version=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "view"
+                  ],
+                  "query": [
+                    {
+                      "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version",
+                      "key": "ledger_version",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Chain ID of the current chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-CHAIN-ID",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-OLDEST-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current timestamp of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-TIMESTAMPUSEC",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current epoch of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-EPOCH",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-OLDEST-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The cost of the call in terms of gas",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-GAS-USED",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Per-epoch transaction encryption key (hex-encoded)",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-TXN-ENCRYPTION-KEY",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"error_code\": \"rate_limited\",\n  \"vm_error_code\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:03:53.000Z",
+              "updatedAt": "2026-07-28T01:03:53.000Z",
+              "uid": "35240-a4f7eff9-975d-488f-b032-ba54c712430c"
+            },
+            {
+              "id": "2a1852ef-62a9-4410-9cb8-262d399feec0",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"function\": \"<string>\",\n  \"type_arguments\": [\n    \"i32\",\n    \"u256\"\n  ],\n  \"arguments\": []\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/view?ledger_version=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "view"
+                  ],
+                  "query": [
+                    {
+                      "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version",
+                      "key": "ledger_version",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Chain ID of the current chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-CHAIN-ID",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-OLDEST-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current timestamp of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-TIMESTAMPUSEC",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current epoch of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-EPOCH",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-OLDEST-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The cost of the call in terms of gas",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-GAS-USED",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Per-epoch transaction encryption key (hex-encoded)",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-TXN-ENCRYPTION-KEY",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"error_code\": \"rate_limited\",\n  \"vm_error_code\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:03:53.000Z",
+              "updatedAt": "2026-07-28T01:03:53.000Z",
+              "uid": "35240-2a1852ef-62a9-4410-9cb8-262d399feec0"
+            },
+            {
+              "id": "f6511688-018d-4a16-bf75-df04c769b1cd",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"function\": \"<string>\",\n  \"type_arguments\": [\n    \"i32\",\n    \"u256\"\n  ],\n  \"arguments\": []\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/view?ledger_version=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "view"
+                  ],
+                  "query": [
+                    {
+                      "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version",
+                      "key": "ledger_version",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Chain ID of the current chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-CHAIN-ID",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-OLDEST-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current timestamp of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-TIMESTAMPUSEC",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current epoch of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-EPOCH",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-OLDEST-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The cost of the call in terms of gas",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-GAS-USED",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Per-epoch transaction encryption key (hex-encoded)",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-TXN-ENCRYPTION-KEY",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"error_code\": \"rate_limited\",\n  \"vm_error_code\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:03:53.000Z",
+              "updatedAt": "2026-07-28T01:03:53.000Z",
+              "uid": "35240-f6511688-018d-4a16-bf75-df04c769b1cd"
+            },
+            {
+              "id": "17136c6b-768e-4924-8dc9-398e8fcf1b28",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"function\": \"<string>\",\n  \"type_arguments\": [\n    \"i32\",\n    \"u256\"\n  ],\n  \"arguments\": []\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/view?ledger_version=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "view"
+                  ],
+                  "query": [
+                    {
+                      "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version",
+                      "key": "ledger_version",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Gone",
+              "code": 410,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Chain ID of the current chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-CHAIN-ID",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-OLDEST-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current timestamp of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-TIMESTAMPUSEC",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current epoch of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-EPOCH",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-OLDEST-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The cost of the call in terms of gas",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-GAS-USED",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Per-epoch transaction encryption key (hex-encoded)",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-TXN-ENCRYPTION-KEY",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"error_code\": \"rate_limited\",\n  \"vm_error_code\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:03:53.000Z",
+              "updatedAt": "2026-07-28T01:03:53.000Z",
+              "uid": "35240-17136c6b-768e-4924-8dc9-398e8fcf1b28"
+            },
+            {
+              "id": "aef56fc7-99d6-4c60-a842-143bdfeb3bce",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"function\": \"<string>\",\n  \"type_arguments\": [\n    \"i32\",\n    \"u256\"\n  ],\n  \"arguments\": []\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/view?ledger_version=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "view"
+                  ],
+                  "query": [
+                    {
+                      "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version",
+                      "key": "ledger_version",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Chain ID of the current chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-CHAIN-ID",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-OLDEST-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current timestamp of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-TIMESTAMPUSEC",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current epoch of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-EPOCH",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-OLDEST-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The cost of the call in terms of gas",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-GAS-USED",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Per-epoch transaction encryption key (hex-encoded)",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-TXN-ENCRYPTION-KEY",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"error_code\": \"rate_limited\",\n  \"vm_error_code\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:03:53.000Z",
+              "updatedAt": "2026-07-28T01:03:53.000Z",
+              "uid": "35240-aef56fc7-99d6-4c60-a842-143bdfeb3bce"
+            },
+            {
+              "id": "fcd7bcd1-33db-48eb-b6b4-4d7404a4082b",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"function\": \"<string>\",\n  \"type_arguments\": [\n    \"i32\",\n    \"u256\"\n  ],\n  \"arguments\": []\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/view?ledger_version=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "view"
+                  ],
+                  "query": [
+                    {
+                      "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version",
+                      "key": "ledger_version",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Chain ID of the current chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-CHAIN-ID",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned ledger version of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-OLDEST-VERSION",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current timestamp of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-LEDGER-TIMESTAMPUSEC",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current epoch of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-EPOCH",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Current block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Oldest non-pruned block height of the chain",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-OLDEST-BLOCK-HEIGHT",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "The cost of the call in terms of gas",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-GAS-USED",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Per-epoch transaction encryption key (hex-encoded)",
+                    "type": "text/plain"
+                  },
+                  "key": "X-APTOS-TXN-ENCRYPTION-KEY",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"error_code\": \"rate_limited\",\n  \"vm_error_code\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:03:53.000Z",
+              "updatedAt": "2026-07-28T01:03:53.000Z",
+              "uid": "35240-fcd7bcd1-33db-48eb-b6b4-4d7404a4082b"
+            }
+          ],
+          "createdAt": "2026-07-28T01:03:53.000Z",
+          "updatedAt": "2026-07-28T01:03:53.000Z",
+          "uid": "35240-b68d0ff8-2238-4ca9-a41c-82013c666634"
+        }
+      ],
+      "id": "9a5dc57d-0b05-45c0-8298-3edac966c504",
+      "createdAt": "2026-07-28T01:03:53.000Z",
+      "updatedAt": "2026-07-28T01:03:53.000Z",
+      "uid": "35240-9a5dc57d-0b05-45c0-8298-3edac966c504"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/v1"
+    }
+  ]
+}

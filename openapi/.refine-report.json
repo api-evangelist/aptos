@@ -1,0 +1,26 @@
+{
+  "provider": "aptos",
+  "sources": [
+    "aptos-accounts-api-openapi.yml",
+    "aptos-blocks-api-openapi.yml",
+    "aptos-events-api-openapi.yml",
+    "aptos-general-api-openapi.yml",
+    "aptos-tables-api-openapi.yml",
+    "aptos-transactions-api-openapi.yml",
+    "aptos-view-api-openapi.yml"
+  ],
+  "outputs": [
+    "aptos-accounts-api-openapi.yml",
+    "aptos-blocks-api-openapi.yml",
+    "aptos-events-api-openapi.yml",
+    "aptos-general-api-openapi.yml",
+    "aptos-tables-api-openapi.yml",
+    "aptos-transactions-api-openapi.yml",
+    "aptos-view-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
