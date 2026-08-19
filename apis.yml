@@ -20,7 +20,7 @@ description: Aptos is a Move-based Layer 1 blockchain platform that exposes a RE
   contracts), and a gRPC Transaction Stream for real-time and historical event feeds.
   Public endpoints are provided by Aptos Labs for mainnet, testnet, and devnet; enhanced
   rate limits are available through Geomi (formerly Aptos Labs Developer Portal).
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 created: '2026-06-13'
 modified: '2026-06-13'
 x-source: manual
