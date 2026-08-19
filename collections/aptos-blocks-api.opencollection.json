@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aptos Node Accounts Blocks API",
+    "version": "1.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blocks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get blocks by height",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/blocks/by_height/:block_height",
+            "params": [
+              {
+                "name": "block_height",
+                "value": "",
+                "type": "path",
+                "description": "Block height to lookup.  Starts at 0"
+              },
+              {
+                "name": "with_transactions",
+                "value": "",
+                "type": "query",
+                "description": "If set to true, include all transactions in the block\n\nIf not provided, no transactions will be retrieved"
+              }
+            ]
+          },
+          "docs": "This endpoint allows you to get the transactions in a block\nand the corresponding block information.\n\nTransactions are limited by max default transactions size.  If not all transactions\nare present, the user will need to query for the rest of the transactions via the\nget transactions API.\n\nIf the block is pruned, it will return a 410"
+        },
+        {
+          "info": {
+            "name": "Get blocks by version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/blocks/by_version/:version",
+            "params": [
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Ledger version to lookup block information for."
+              },
+              {
+                "name": "with_transactions",
+                "value": "",
+                "type": "query",
+                "description": "If set to true, include all transactions in the block\n\nIf not provided, no transactions will be retrieved"
+              }
+            ]
+          },
+          "docs": "This endpoint allows you to get the transactions in a block\nand the corresponding block information given a version in the block.\n\nTransactions are limited by max default transactions size.  If not all transactions\nare present, the user will need to query for the rest of the transactions via the\nget transactions API.\n\nIf the block has been pruned, it will return a 410"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

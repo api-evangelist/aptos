@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aptos Node Accounts General API",
+    "version": "1.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "General",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Show OpenAPI explorer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/spec"
+          },
+          "docs": "Provides a UI that you can use to explore the API. You can also\nretrieve the API directly at `/spec.yaml` and `/spec.json`."
+        },
+        {
+          "info": {
+            "name": "Show some basic info of the node.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/info"
+          },
+          "docs": "Show some basic info of the node."
+        },
+        {
+          "info": {
+            "name": "Check basic node health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/-/healthy",
+            "params": [
+              {
+                "name": "duration_secs",
+                "value": "",
+                "type": "query",
+                "description": "Threshold in seconds that the server can be behind to be considered healthy\n\nIf not provided, the healthcheck will always succeed"
+              }
+            ]
+          },
+          "docs": "By default this endpoint just checks that it can get the latest ledger\ninfo and then returns 200.\n\nIf the duration_secs param is provided, this endpoint will return a\n200 if the following condition is true:\n\n`server_latest_ledger_info_timestamp >= server_current_time_timestamp - duration_secs`"
+        },
+        {
+          "info": {
+            "name": "Get ledger info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/"
+          },
+          "docs": "Get the latest ledger information, including data such as chain ID,\nrole type, ledger versions, epoch, etc."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

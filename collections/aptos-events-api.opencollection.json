@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aptos Node Accounts Events API",
+    "version": "1.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get events by creation number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/accounts/:address/events/:creation_number",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Hex-encoded 32 byte Aptos account, with or without a `0x` prefix, for\nwhich events are queried. This refers to the account that events were\nemitted to, not the account hosting the move module that emits that\nevent type."
+              },
+              {
+                "name": "creation_number",
+                "value": "",
+                "type": "path",
+                "description": "Creation number corresponding to the event stream originating\nfrom the given account."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Starting sequence number of events.\n\nIf unspecified, by default will retrieve the most recent events"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of events to retrieve.\n\nIf unspecified, defaults to default page size"
+              }
+            ]
+          },
+          "docs": "Event types are globally identifiable by an account `address` and\nmonotonically increasing `creation_number`, one per event type emitted\nto the given account. This API returns events corresponding to that\nthat event type."
+        },
+        {
+          "info": {
+            "name": "Get events by event handle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/accounts/:address/events/:event_handle/:field_name",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Hex-encoded 32 byte Aptos account, with or without a `0x` prefix, for\nwhich events are queried. This refers to the account that events were\nemitted to, not the account hosting the move module that emits that\nevent type."
+              },
+              {
+                "name": "event_handle",
+                "value": "",
+                "type": "path",
+                "description": "Name of struct to lookup event handle e.g. `0x1::account::Account`"
+              },
+              {
+                "name": "field_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of field to lookup event handle e.g. `withdraw_events`"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Starting sequence number of events.\n\nIf unspecified, by default will retrieve the most recent"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of events to retrieve.\n\nIf unspecified, defaults to default page size"
+              }
+            ]
+          },
+          "docs": "This API uses the given account `address`, `eventHandle`, and `fieldName`\nto build a key that can globally identify an event types. It then uses this\nkey to return events emitted to the given account matching that event type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,209 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aptos Node Accounts API",
+    "version": "1.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/accounts/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Address of account with or without a `0x` prefix"
+              },
+              {
+                "name": "ledger_version",
+                "value": "",
+                "type": "query",
+                "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version"
+              }
+            ]
+          },
+          "docs": "Return the authentication key and the sequence number for an account\naddress. Optionally, a ledger version can be specified. If the ledger\nversion is not specified in the request, the latest ledger version is used."
+        },
+        {
+          "info": {
+            "name": "Get account resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/accounts/:address/resources",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Address of account with or without a `0x` prefix"
+              },
+              {
+                "name": "ledger_version",
+                "value": "",
+                "type": "query",
+                "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Cursor specifying where to start for pagination\n\nThis cursor cannot be derived manually client-side. Instead, you must\ncall this endpoint once without this query parameter specified, and\nthen use the cursor returned in the X-Aptos-Cursor header in the\nresponse."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of account resources to retrieve\n\nIf not provided, defaults to default page size."
+              }
+            ]
+          },
+          "docs": "Retrieves all account resources for a given account and a specific ledger version.  If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410."
+        },
+        {
+          "info": {
+            "name": "Get account balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/accounts/:address/balance/:asset_type",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Address of account with or without a `0x` prefix"
+              },
+              {
+                "name": "asset_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "ledger_version",
+                "value": "",
+                "type": "query",
+                "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version"
+              }
+            ]
+          },
+          "docs": "Retrieves account balance for coins / fungible asset (only for primary fungible asset store)\nfor a given account, asset type and a specific ledger version.  If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410."
+        },
+        {
+          "info": {
+            "name": "Get account modules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/accounts/:address/modules",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Address of account with or without a `0x` prefix"
+              },
+              {
+                "name": "ledger_version",
+                "value": "",
+                "type": "query",
+                "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Cursor specifying where to start for pagination\n\nThis cursor cannot be derived manually client-side. Instead, you must\ncall this endpoint once without this query parameter specified, and\nthen use the cursor returned in the X-Aptos-Cursor header in the\nresponse."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of account modules to retrieve\n\nIf not provided, defaults to default page size."
+              }
+            ]
+          },
+          "docs": "Retrieves all account modules' bytecode for a given account at a specific ledger version.\nIf the ledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410."
+        },
+        {
+          "info": {
+            "name": "Get account resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/accounts/:address/resource/:resource_type",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Address of account with or without a `0x` prefix"
+              },
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "path",
+                "description": "Name of struct to retrieve e.g. `0x1::account::Account`"
+              },
+              {
+                "name": "ledger_version",
+                "value": "",
+                "type": "query",
+                "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version"
+              }
+            ]
+          },
+          "docs": "Retrieves an individual resource from a given account and at a specific ledger version. If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410."
+        },
+        {
+          "info": {
+            "name": "Get account module",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/accounts/:address/module/:module_name",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Address of account with or without a `0x` prefix"
+              },
+              {
+                "name": "module_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of module to retrieve e.g. `coin`"
+              },
+              {
+                "name": "ledger_version",
+                "value": "",
+                "type": "query",
+                "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version"
+              }
+            ]
+          },
+          "docs": "Retrieves an individual module from a given account and at a specific ledger version. If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

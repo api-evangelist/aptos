@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aptos Node Accounts View API",
+    "version": "1.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "View",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute view function of a module",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/view",
+            "params": [
+              {
+                "name": "ledger_version",
+                "value": "",
+                "type": "query",
+                "description": "Ledger version to get state of account\n\nIf not provided, it will be the latest version"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute the Move function with the given parameters and return its execution result.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

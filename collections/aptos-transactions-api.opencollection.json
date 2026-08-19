@@ -1,0 +1,284 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aptos Node Accounts Transactions API",
+    "version": "1.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/transactions",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Ledger version to start list of transactions\n\nIf not provided, defaults to showing the latest transactions"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of transactions to retrieve.\n\nIf not provided, defaults to default page size"
+              }
+            ]
+          },
+          "docs": "Retrieve on-chain committed transactions. The page size and start ledger version\ncan be provided to get a specific sequence of transactions.\n\nIf the version has been pruned, then a 410 will be returned.\n\nTo retrieve a pending transaction, use /transactions/by_hash."
+        },
+        {
+          "info": {
+            "name": "Submit transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint accepts transaction submissions in two formats.\n\nTo submit a transaction as JSON, you must submit a SubmitTransactionRequest.\nTo build this request, do the following:\n\n1. Encode the transaction as BCS. If you are using a language that has\nnative BCS support, make sure of that library. If not, you may take\nadvantage of /transactions/encode_submission. When using this\nendpoint, make sure you trust the node you're talking to, as it is\npossible they could manipulate your request.\n2. Si"
+        },
+        {
+          "info": {
+            "name": "Get transaction by hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/transactions/by_hash/:txn_hash",
+            "params": [
+              {
+                "name": "txn_hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of transaction to retrieve"
+              }
+            ]
+          },
+          "docs": "Look up a transaction by its hash. This is the same hash that is returned\nby the API when submitting a transaction (see PendingTransaction).\n\nWhen given a transaction hash, the server first looks for the transaction\nin storage (on-chain, committed). If no on-chain transaction is found, it\nlooks the transaction up by hash in the mempool (pending, not yet committed).\n\nTo create a transaction hash by yourself, do the following:\n1. Hash message bytes: \"RawTransaction\" bytes + BCS bytes of [Transacti"
+        },
+        {
+          "info": {
+            "name": "Wait for transaction by hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/transactions/wait_by_hash/:txn_hash",
+            "params": [
+              {
+                "name": "txn_hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of transaction to retrieve"
+              }
+            ]
+          },
+          "docs": "Same as /transactions/by_hash, but will wait for a pending transaction to be committed. To be used as a long\npoll optimization by clients, to reduce latency caused by polling. The \"long\" poll is generally a second or\nless but dictated by the server; the client must deal with the result as if the request was a normal\n/transactions/by_hash request, e.g., by retrying if the transaction is pending."
+        },
+        {
+          "info": {
+            "name": "Get transaction by version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/transactions/by_version/:txn_version",
+            "params": [
+              {
+                "name": "txn_version",
+                "value": "",
+                "type": "path",
+                "description": "Version of transaction to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves a transaction by a given version. If the version has been\npruned, a 410 will be returned."
+        },
+        {
+          "info": {
+            "name": "Get transactions auxiliary info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/transactions/auxiliary_info",
+            "params": [
+              {
+                "name": "start_version",
+                "value": "",
+                "type": "query",
+                "description": "Starting ledger version to retrieve auxiliary info for"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of transactions to retrieve auxiliary info for.\n\nIf not provided, defaults to default page size"
+              }
+            ]
+          },
+          "docs": "Retrieves persisted auxiliary information (such as transaction indices within blocks) for\ntransactions in a given version range.\n\nIf the version range has been pruned, a 410 will be returned."
+        },
+        {
+          "info": {
+            "name": "Get account transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/accounts/:address/transactions",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Address of account with or without a `0x` prefix"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Account sequence number to start list of transactions\n\nIf not provided, defaults to showing the latest transactions"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of transactions to retrieve.\n\nIf not provided, defaults to default page size"
+              }
+            ]
+          },
+          "docs": "Retrieves on-chain committed sequence-number based transactions from an account.\nDoes not retrieve orderless transactions sent from the account.\nIf the start version is too far in the past, a 410 will be returned.\n\nIf no start version is given, it will start at version 0.\n\nTo retrieve a pending transaction, use /transactions/by_hash."
+        },
+        {
+          "info": {
+            "name": "Get account transaction summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/accounts/:address/transaction_summaries",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Address of account with or without a `0x` prefix"
+              },
+              {
+                "name": "start_version",
+                "value": "",
+                "type": "query",
+                "description": "Transaction version to start list of transactions\n\nIf not provided, defaults to showing the latest transactions"
+              },
+              {
+                "name": "end_version",
+                "value": "",
+                "type": "query",
+                "description": "Transaction version to end list of transactions\n\nIf not provided, defaults to showing the latest transactions"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of transactions to retrieve.\n\nIf not provided, defaults to default page size"
+              }
+            ]
+          },
+          "docs": "Retrieves summaries of on-chain committed transactions (both sequence number based\nand orderless transactions) from an account.\nEach transaction summary contains the sender addresss, transaction hash, version, and replay protector.\n\nIf start_version is provided, the output consists of transaction summaries starting form that version.\n\nIf start_version is not provided but the end_version is provided, the output consists of transaction summaries\nending at the end_version.\n\nIf both start_version an"
+        },
+        {
+          "info": {
+            "name": "Submit batch transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/transactions/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This allows you to submit multiple transactions.  The response has three outcomes:\n\n1. All transactions succeed, and it will return a 202\n2. Some transactions succeed, and it will return the failed transactions and a 206\n3. No transactions succeed, and it will also return the failed transactions and a 206\n\nTo submit a transaction as JSON, you must submit a SubmitTransactionRequest.\nTo build this request, do the following:\n\n1. Encode the transaction as BCS. If you are using a language that has\nna"
+        },
+        {
+          "info": {
+            "name": "Simulate transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/transactions/simulate",
+            "params": [
+              {
+                "name": "estimate_max_gas_amount",
+                "value": "",
+                "type": "query",
+                "description": "If set to true, the max gas value in the transaction will be ignored\nand the maximum possible gas will be used"
+              },
+              {
+                "name": "estimate_gas_unit_price",
+                "value": "",
+                "type": "query",
+                "description": "If set to true, the gas unit price in the transaction will be ignored\nand the estimated value will be used"
+              },
+              {
+                "name": "estimate_prioritized_gas_unit_price",
+                "value": "",
+                "type": "query",
+                "description": "If set to true, the transaction will use a higher price than the original\nestimate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The output of the transaction will have the exact transaction outputs and events that running\nan actual signed transaction would have.  However, it will not have the associated state\nhashes, as they are not updated in storage.  This can be used to estimate the maximum gas\nunits for a submitted transaction.\n\nTo use this, you must:\n- Create a SignedTransaction with a zero-padded signature.\n- Submit a SubmitTransactionRequest containing a UserTransactionRequest containing that signature.\n\nTo use th"
+        },
+        {
+          "info": {
+            "name": "Encode submission",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/transactions/encode_submission",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint accepts an EncodeSubmissionRequest, which internally is a\nUserTransactionRequestInner (and optionally secondary signers) encoded\nas JSON, validates the request format, and then returns that request\nencoded in BCS. The client can then use this to create a transaction\nsignature to be used in a SubmitTransactionRequest, which it then\npasses to the /transactions POST endpoint.\n\nTo be clear, this endpoint makes it possible to submit transaction\nrequests to the API from languages that do"
+        },
+        {
+          "info": {
+            "name": "Estimate gas price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/estimate_gas_price"
+          },
+          "docs": "Gives an estimate of the gas unit price required to get a transaction on chain in a\nreasonable amount of time. The gas unit price is the amount that each transaction commits to\npay for each unit of gas consumed in executing the transaction. The estimate is based on\nrecent history: it gives the minimum gas that would have been required to get into recent\nblocks, for blocks that were full. (When blocks are not full, the estimate will match the\nminimum gas unit price.)\n\nThe estimation is given in t"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
