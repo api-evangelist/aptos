@@ -2,23 +2,21 @@
   "repo": "aptos",
   "feeds": [
     {
-      "source": "https://aptoslabs.medium.com/feed",
-      "feed_url": "https://aptoslabs.medium.com/feed",
-      "title": "",
-      "saved": 0,
-      "method": "feed",
-      "nature": "undetermined",
-      "nature_basis": null
-    },
-    {
       "source": "https://aptos.dev/en/network/nodes/networks",
       "feed_url": "https://aptos.dev/en/network/nodes/networks",
       "title": "",
       "saved": 0,
       "method": "none"
+    },
+    {
+      "source": "https://aptoslabs.medium.com/feed",
+      "feed_url": "https://aptoslabs.medium.com/feed",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
     }
   ],
-  "fetched": "2026-08-30T22:33:40Z",
+  "fetched": "2026-09-06T19:17:18Z",
   "post_count": 16,
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
