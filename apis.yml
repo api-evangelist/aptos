@@ -26,15 +26,14 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/aptos.png
-description: Aptos is a Move-based Layer 1 blockchain platform that exposes a REST
-  API for reading on-chain state and submitting transactions, a GraphQL Indexer API
-  for high-level queries over processed blockchain data (NFTs, objects, custom Move
-  contracts), and a gRPC Transaction Stream for real-time and historical event feeds.
-  Public endpoints are provided by Aptos Labs for mainnet, testnet, and devnet; enhanced
+description: Aptos is a Move-based Layer 1 blockchain platform that exposes a REST API for reading on-chain
+  state and submitting transactions, a GraphQL Indexer API for high-level queries over processed blockchain
+  data (NFTs, objects, custom Move contracts), and a gRPC Transaction Stream for real-time and historical
+  event feeds. Public endpoints are provided by Aptos Labs for mainnet, testnet, and devnet; enhanced
   rate limits are available through Geomi (formerly Aptos Labs Developer Portal).
 specificationVersion: '0.23'
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-09-16'
 x-source: manual
 x-category: Blockchain
 x-type: company
@@ -69,11 +68,10 @@ tags_raw:
 apis:
 - aid: aptos:indexer-graphql-api
   name: Aptos Indexer GraphQL API
-  description: >-
-    High-level GraphQL API backed by the Aptos Indexer, providing opinionated access to processed blockchain
-    data. Optimized for querying NFTs, Aptos Objects, token balances, fungible assets, custom Move contract
-    events, and account activities. Available on mainnet and testnet with optional API key from Geomi
-    for elevated rate limits.
+  description: High-level GraphQL API backed by the Aptos Indexer, providing opinionated access to processed
+    blockchain data. Optimized for querying NFTs, Aptos Objects, token balances, fungible assets, custom
+    Move contract events, and account activities. Available on mainnet and testnet with optional API key
+    from Geomi for elevated rate limits.
   humanURL: https://aptos.dev/en/build/indexer/indexer-api
   baseURL: https://api.mainnet.aptoslabs.com/v1/graphql
   tags:
@@ -96,10 +94,9 @@ apis:
     type: GraphQL
 - aid: aptos:transaction-stream-api
   name: Aptos Transaction Stream API
-  description: >-
-    gRPC streaming API that delivers historical and real-time transaction data from the Aptos blockchain.
-    Used to power the Aptos Core Indexer and to build custom app-specific real-time event processors.
-    Available on mainnet, testnet, and devnet via grpc endpoints.
+  description: gRPC streaming API that delivers historical and real-time transaction data from the Aptos
+    blockchain. Used to power the Aptos Core Indexer and to build custom app-specific real-time event
+    processors. Available on mainnet, testnet, and devnet via grpc endpoints.
   humanURL: https://aptos.dev/en/build/apis
   baseURL: https://grpc.mainnet.aptoslabs.com
   tags:
@@ -121,9 +118,9 @@ apis:
     url: https://geomi.dev/docs/api-keys
 - aid: aptos:faucet-api
   name: Aptos Faucet API
-  description: >-
-    Testnet and devnet faucet that distributes APT test tokens for development and testing. Available
-    programmatically on devnet; testnet faucet is accessible via the mint page. Not available on mainnet.
+  description: Testnet and devnet faucet that distributes APT test tokens for development and testing.
+    Available programmatically on devnet; testnet faucet is accessible via the mint page. Not available
+    on mainnet.
   humanURL: https://aptos.dev/en/network/nodes/networks
   baseURL: https://faucet.devnet.aptoslabs.com
   tags:
@@ -284,6 +281,8 @@ apis:
   - type: GraphQL
     url: graphql/aptos-graphql.md
 common:
+- type: Website
+  url: https://aptos.dev
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/aptos/overview
 - type: AgenticAccess
@@ -337,37 +336,33 @@ common:
 - type: Features
   data:
   - name: Move-based smart contracts
-    description: Aptos uses the Move language for safe, resource-oriented smart contracts
-      and on-chain modules.
+    description: Aptos uses the Move language for safe, resource-oriented smart contracts and on-chain
+      modules.
   - name: REST and GraphQL APIs
-    description: Dual API surface — low-level REST for nodes and high-level GraphQL
-      for indexed blockchain data.
+    description: Dual API surface — low-level REST for nodes and high-level GraphQL for indexed blockchain
+      data.
   - name: gRPC transaction streaming
-    description: Real-time and historical transaction event feeds via gRPC for custom
-      indexers and processors.
+    description: Real-time and historical transaction event feeds via gRPC for custom indexers and processors.
   - name: Multi-network support
-    description: Public mainnet, testnet, and devnet endpoints with consistent API
-      surfaces across all three.
+    description: Public mainnet, testnet, and devnet endpoints with consistent API surfaces across all
+      three.
   - name: Usage-based API access via Geomi
-    description: Compute-unit metered access with $10-$100/month free credit; no locked
-      tiers.
+    description: Compute-unit metered access with $10-$100/month free credit; no locked tiers.
 - type: UseCases
   data:
   - name: DeFi protocol development
-    description: Query account balances, fungible asset positions, and submit swap/liquidity
-      transactions on-chain.
+    description: Query account balances, fungible asset positions, and submit swap/liquidity transactions
+      on-chain.
   - name: NFT marketplace integration
-    description: Use the Indexer GraphQL API to surface token collections, ownership
-      history, and transfer events.
+    description: Use the Indexer GraphQL API to surface token collections, ownership history, and transfer
+      events.
   - name: Custom blockchain indexers
-    description: Subscribe to the Transaction Stream gRPC feed to build application-specific
-      event processors.
+    description: Subscribe to the Transaction Stream gRPC feed to build application-specific event processors.
   - name: Wallet and portfolio apps
-    description: Fetch account resources, module states, and transaction history via
-      the Fullnode REST API.
+    description: Fetch account resources, module states, and transaction history via the Fullnode REST
+      API.
   - name: Testing and prototyping
-    description: Use testnet and devnet endpoints with faucet funding before deploying
-      to mainnet.
+    description: Use testnet and devnet endpoints with faucet funding before deploying to mainnet.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
