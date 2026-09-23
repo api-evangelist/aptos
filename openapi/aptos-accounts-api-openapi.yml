@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   title: Aptos Node Accounts API
   description: The Aptos Node API is a RESTful API for client applications to interact with the Aptos blockchain.
@@ -494,7 +494,7 @@ paths:
       tags:
       - Accounts
       summary: Get account resources
-      description: 'Retrieves all account resources for a given account and a specific ledger version.  If the
+      description: 'Retrieves all account resources for a given account and a specific ledger version. If the
 
         ledger version is not specified in the request, the latest ledger version is used.
 
@@ -1004,7 +1004,7 @@ paths:
       summary: Get account balance
       description: 'Retrieves account balance for coins / fungible asset (only for primary fungible asset store)
 
-        for a given account, asset type and a specific ledger version.  If the
+        for a given account, asset type and a specific ledger version. If the
 
         ledger version is not specified in the request, the latest ledger version is used.
 
@@ -2964,21 +2964,21 @@ paths:
       operationId: get_account_module
 components:
   schemas:
-    MoveModuleId:
+    MoveType:
       type: string
-      description: 'Move module id is a string representation of Move module.
-
-
-        Format: `{address}::{module name}`
-
-
-        `address` should be hex-encoded 32 byte account address that is prefixed with `0x`.
-
-
-        Module name is case-sensitive.
-
-        '
-      example: 0x1::aptos_coin
+      description: "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - i8\n      - i16\n      - i32\n      - i64\n      - i128\n      - i256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n"
+      pattern: ^(bool|u8|u16|u32|u64|u128|u256|i8|i16|i32|i64|i128|i256|address|signer|vector<.+>|0x[0-9a-zA-Z:_<, >]+)$
+    MoveStructField:
+      type: object
+      description: Move struct field
+      required:
+      - name
+      - type
+      properties:
+        name:
+          $ref: '#/components/schemas/IdentifierWrapper'
+        type:
+          $ref: '#/components/schemas/MoveType'
     AptosError:
       type: object
       description: 'This is the generic struct we use for all API errors, it contains a string
@@ -2997,47 +2997,38 @@ components:
           type: integer
           format: uint64
           description: A code providing VM error details when submitting transactions to the VM
-    MoveAbility:
+    StateKeyWrapper:
       type: string
-    Address:
-      type: string
-      format: hex
-      description: 'A hex encoded 32 byte Aptos account address.
-
-
-        This is represented in a string as a 64 character hex string, sometimes
-
-        shortened by stripping leading 0s, and adding a 0x.
-
-
-        For example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.
+      description: 'Representation of a StateKey as a hex string. This is used for cursor based pagination.
 
         '
-      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
-    MoveStructField:
+      example: 0000000000000000000000000000000000000000000000000000000000000000012f0000000000000000000000000000000000000000000000000000000000000000010d7374616b696e675f70726f7879
+    MoveModuleId:
+      type: string
+      description: 'Move module id is a string representation of Move module.
+
+
+        Format: `{address}::{module name}`
+
+
+        `address` should be hex-encoded 32 byte account address that is prefixed with `0x`.
+
+
+        Module name is case-sensitive.
+
+        '
+      example: 0x1::aptos_coin
+    MoveFunctionGenericTypeParam:
       type: object
-      description: Move struct field
+      description: Move function generic type param
       required:
-      - name
-      - type
+      - constraints
       properties:
-        name:
-          $ref: '#/components/schemas/IdentifierWrapper'
-        type:
-          $ref: '#/components/schemas/MoveType'
-    MoveStructValue:
-      type: object
-      description: "This is a JSON representation of some data within an account resource. More specifically,\nit is a map of strings to arbitrary JSON values / objects, where the keys are top level\nfields within the given resource.\n\nTo clarify, you might query for 0x1::account::Account and see the example data.\n\nMove `bool` type value is serialized into `boolean`.\n\nMove `u8`, `u16`, `u32`, `i8`, `i16`, and `i32` type value is serialized into `integer`.\n\nMove `u64`, `u128`, `u256`, `i64`, `i128`, and `i256` type value is serialized into `string`.\n\nMove `address` type value (32 byte Aptos account address) is serialized into a HexEncodedBytes string.\nFor example:\n  - `0x1`\n  - `0x1668f6be25668c1a17cd8caf6b8d2f25`\n\nMove `vector` type value is serialized into `array`, except `vector<u8>` which is serialized into a\nHexEncodedBytes string with `0x` prefix.\nFor example:\n  - `vector<u64>{255, 255}` => `[\"255\", \"255\"]`\n  - `vector<u8>{255, 255}` => `0xffff`\n\nMove `struct` type value is serialized into `object` that looks like this (except some Move stdlib types, see the following section):\n  ```json\n  {\n    field1_name: field1_value,\n    field2_name: field2_value,\n    ......\n  }\n  ```\n\nFor example:\n  `{ \"created\": \"0xa550c18\", \"role_id\": \"0\" }`\n\n**Special serialization for Move stdlib types**:\n  - [0x1::string::String](https://github.com/aptos-labs/aptos-core/blob/main/third_party/move/move-stdlib/docs/ascii.md)\n    is serialized into `string`. For example, struct value `0x1::string::String{bytes: b\"Hello World!\"}`\n    is serialized as `\"Hello World!\"` in JSON.\n"
-      example:
-        authentication_key: '0x0000000000000000000000000000000000000000000000000000000000000001'
-        coin_register_events:
-          counter: '0'
-          guid:
-            id:
-              addr: '0x1'
-              creation_num: '0'
-        self_address: '0x1'
-        sequence_number: '0'
+        constraints:
+          type: array
+          description: Move abilities tied to the generic type param and associated with the function that uses it
+          items:
+            $ref: '#/components/schemas/MoveAbility'
     MoveFunction:
       type: object
       description: Move function
@@ -3075,98 +3066,6 @@ components:
           description: Return type of the function
           items:
             $ref: '#/components/schemas/MoveType'
-    AptosErrorCode:
-      type: string
-      description: 'These codes provide more granular error information beyond just the HTTP
-
-        status code of the response.'
-      enum:
-      - account_not_found
-      - resource_not_found
-      - module_not_found
-      - struct_field_not_found
-      - version_not_found
-      - transaction_not_found
-      - table_item_not_found
-      - block_not_found
-      - state_value_not_found
-      - version_pruned
-      - block_pruned
-      - invalid_input
-      - invalid_transaction_update
-      - sequence_number_too_old
-      - vm_error
-      - rejected_by_filter
-      - health_check_failed
-      - mempool_is_full
-      - rate_limited
-      - internal_error
-      - web_framework_error
-      - bcs_not_supported
-      - api_disabled
-    HexEncodedBytes:
-      type: string
-      format: hex
-      description: 'All bytes (Vec<u8>) data is represented as hex-encoded string prefixed with `0x` and fulfilled with
-
-        two hex digits per byte.
-
-
-        Unlike the `Address` type, HexEncodedBytes will not trim any zeros.
-
-        '
-      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
-    MoveStructTag:
-      type: string
-      description: "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n"
-      example: 0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>
-      pattern: ^0x[0-9a-zA-Z:_<>]+$
-    MoveModuleBytecode:
-      type: object
-      description: Move module bytecode along with it's ABI
-      required:
-      - bytecode
-      properties:
-        bytecode:
-          $ref: '#/components/schemas/HexEncodedBytes'
-        abi:
-          $ref: '#/components/schemas/MoveModule'
-    MoveStructVariant:
-      type: object
-      description: A single variant of a Move enum.
-      required:
-      - name
-      - fields
-      properties:
-        name:
-          $ref: '#/components/schemas/IdentifierWrapper'
-        fields:
-          type: array
-          description: Fields associated with the variant, if any.
-          items:
-            $ref: '#/components/schemas/MoveStructField'
-    MoveFunctionGenericTypeParam:
-      type: object
-      description: Move function generic type param
-      required:
-      - constraints
-      properties:
-        constraints:
-          type: array
-          description: Move abilities tied to the generic type param and associated with the function that uses it
-          items:
-            $ref: '#/components/schemas/MoveAbility'
-    MoveResource:
-      type: object
-      description: A parsed Move resource
-      required:
-      - type
-      - data
-      properties:
-        type:
-          $ref: '#/components/schemas/MoveStructTag'
-        data:
-          $ref: '#/components/schemas/MoveStructValue'
     MoveModule:
       type: object
       description: A Move module
@@ -3196,6 +3095,177 @@ components:
           description: Structs of the module
           items:
             $ref: '#/components/schemas/MoveStruct'
+    AccountData:
+      type: object
+      description: 'Account data
+
+
+        A simplified version of the onchain Account resource'
+      required:
+      - sequence_number
+      - authentication_key
+      properties:
+        sequence_number:
+          $ref: '#/components/schemas/U64'
+        authentication_key:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    MoveStructGenericTypeParam:
+      type: object
+      description: Move generic type param
+      required:
+      - constraints
+      properties:
+        constraints:
+          type: array
+          description: Move abilities tied to the generic type param and associated with the type that uses it
+          items:
+            $ref: '#/components/schemas/MoveAbility'
+    MoveStructVariant:
+      type: object
+      description: A single variant of a Move enum.
+      required:
+      - name
+      - fields
+      properties:
+        name:
+          $ref: '#/components/schemas/IdentifierWrapper'
+        fields:
+          type: array
+          description: Fields associated with the variant, if any.
+          items:
+            $ref: '#/components/schemas/MoveStructField'
+    IdentifierWrapper:
+      type: string
+    AssetType:
+      type: string
+      format: hex
+      description: 'A hex encoded 32 byte Aptos account address or a struct tag.
+
+
+        This is represented in a string as a 64 character hex string, sometimes
+
+        shortened by stripping leading 0s, and adding a 0x or
+
+        Format: `{address}::{module name}::{struct name}`
+
+        '
+      example: 0x1::aptos_coin::AptosCoin
+    MoveAbility:
+      type: string
+    MoveModuleBytecode:
+      type: object
+      description: Move module bytecode along with it's ABI
+      required:
+      - bytecode
+      properties:
+        bytecode:
+          $ref: '#/components/schemas/HexEncodedBytes'
+        abi:
+          $ref: '#/components/schemas/MoveModule'
+    U64:
+      type: string
+      format: uint64
+      description: 'A string containing a 64-bit unsigned integer.
+
+
+        We represent u64 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse u64s in JSON natively.
+
+        '
+      example: '32425224034'
+    MoveResource:
+      type: object
+      description: A parsed Move resource
+      required:
+      - type
+      - data
+      properties:
+        type:
+          $ref: '#/components/schemas/MoveStructTag'
+        data:
+          $ref: '#/components/schemas/MoveStructValue'
+    MoveStructValue:
+      type: object
+      description: "This is a JSON representation of some data within an account resource. More specifically,\nit is a map of strings to arbitrary JSON values / objects, where the keys are top level\nfields within the given resource.\n\nTo clarify, you might query for 0x1::account::Account and see the example data.\n\nMove `bool` type value is serialized into `boolean`.\n\nMove `u8`, `u16`, `u32`, `i8`, `i16`, and `i32` type value is serialized into `integer`.\n\nMove `u64`, `u128`, `u256`, `i64`, `i128`, and `i256` type value is serialized into `string`.\n\nMove `address` type value (32 byte Aptos account address) is serialized into a HexEncodedBytes string.\nFor example:\n  - `0x1`\n  - `0x1668f6be25668c1a17cd8caf6b8d2f25`\n\nMove `vector` type value is serialized into `array`, except `vector<u8>` which is serialized into a\nHexEncodedBytes string with `0x` prefix.\nFor example:\n  - `vector<u64>{255, 255}` => `[\"255\", \"255\"]`\n  - `vector<u8>{255, 255}` => `0xffff`\n\nMove `struct` type value is serialized into `object` that looks like this (except some Move stdlib types, see the following section):\n  ```json\n  {\n    field1_name: field1_value,\n    field2_name: field2_value,\n    ......\n  }\n  ```\n\nFor example:\n  `{ \"created\": \"0xa550c18\", \"role_id\": \"0\" }`\n\n**Special serialization for Move stdlib types**:\n  - [0x1::string::String](https://github.com/aptos-labs/aptos-core/blob/main/third_party/move/move-stdlib/docs/ascii.md)\n    is serialized into `string`. For example, struct value `0x1::string::String{bytes: b\"Hello World!\"}`\n    is serialized as `\"Hello World!\"` in JSON.\n"
+      example:
+        authentication_key: '0x0000000000000000000000000000000000000000000000000000000000000001'
+        coin_register_events:
+          counter: '0'
+          guid:
+            id:
+              addr: '0x1'
+              creation_num: '0'
+        self_address: '0x1'
+        sequence_number: '0'
+    AptosErrorCode:
+      type: string
+      description: 'These codes provide more granular error information beyond just the HTTP
+
+        status code of the response.'
+      enum:
+      - account_not_found
+      - resource_not_found
+      - module_not_found
+      - struct_field_not_found
+      - version_not_found
+      - transaction_not_found
+      - table_item_not_found
+      - block_not_found
+      - state_value_not_found
+      - version_pruned
+      - block_pruned
+      - invalid_input
+      - invalid_transaction_update
+      - sequence_number_too_old
+      - vm_error
+      - rejected_by_filter
+      - health_check_failed
+      - mempool_is_full
+      - rate_limited
+      - internal_error
+      - web_framework_error
+      - bcs_not_supported
+      - api_disabled
+    MoveStructTag:
+      type: string
+      description: "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n"
+      example: 0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>
+      pattern: ^0x[0-9a-zA-Z:_<>]+$
+    MoveFunctionVisibility:
+      type: string
+      description: Move function visibility
+      enum:
+      - private
+      - public
+      - friend
+    HexEncodedBytes:
+      type: string
+      format: hex
+      description: 'All bytes (Vec<u8>) data is represented as hex-encoded string prefixed with `0x` and fulfilled with
+
+        two hex digits per byte.
+
+
+        Unlike the `Address` type, HexEncodedBytes will not trim any zeros.
+
+        '
+      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
+    Address:
+      type: string
+      format: hex
+      description: 'A hex encoded 32 byte Aptos account address.
+
+
+        This is represented in a string as a 64 character hex string, sometimes
+
+        shortened by stripping leading 0s, and adding a 0x.
+
+
+        For example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.
+
+        '
+      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
     MoveStruct:
       type: object
       description: A move struct
@@ -3240,75 +3310,5 @@ components:
           description: Variants of the enum. Only populated when `is_enum` is true.
           items:
             $ref: '#/components/schemas/MoveStructVariant'
-    AssetType:
-      type: string
-      format: hex
-      description: 'A hex encoded 32 byte Aptos account address or a struct tag.
-
-
-        This is represented in a string as a 64 character hex string, sometimes
-
-        shortened by stripping leading 0s, and adding a 0x or
-
-        Format: `{address}::{module name}::{struct name}`
-
-        '
-      example: 0x1::aptos_coin::AptosCoin
-    AccountData:
-      type: object
-      description: 'Account data
-
-
-        A simplified version of the onchain Account resource'
-      required:
-      - sequence_number
-      - authentication_key
-      properties:
-        sequence_number:
-          $ref: '#/components/schemas/U64'
-        authentication_key:
-          $ref: '#/components/schemas/HexEncodedBytes'
-    MoveStructGenericTypeParam:
-      type: object
-      description: Move generic type param
-      required:
-      - constraints
-      properties:
-        constraints:
-          type: array
-          description: Move abilities tied to the generic type param and associated with the type that uses it
-          items:
-            $ref: '#/components/schemas/MoveAbility'
-    U64:
-      type: string
-      format: uint64
-      description: 'A string containing a 64-bit unsigned integer.
-
-
-        We represent u64 values as a string to ensure compatibility with languages such
-
-        as JavaScript that do not parse u64s in JSON natively.
-
-        '
-      example: '32425224034'
-    IdentifierWrapper:
-      type: string
-    MoveFunctionVisibility:
-      type: string
-      description: Move function visibility
-      enum:
-      - private
-      - public
-      - friend
-    MoveType:
-      type: string
-      description: "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - i8\n      - i16\n      - i32\n      - i64\n      - i128\n      - i256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n"
-      pattern: ^(bool|u8|u16|u32|u64|u128|u256|i8|i16|i32|i64|i128|i256|address|signer|vector<.+>|0x[0-9a-zA-Z:_<, >]+)$
-    StateKeyWrapper:
-      type: string
-      description: 'Representation of a StateKey as a hex string. This is used for cursor based pagination.
-
-        '
-      example: 0000000000000000000000000000000000000000000000000000000000000000012f0000000000000000000000000000000000000000000000000000000000000000010d7374616b696e675f70726f7879
 externalDocs:
   url: https://github.com/aptos-labs/aptos-core

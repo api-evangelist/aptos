@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Aptos Node Accounts General API
+  title: Aptos Node General API
   description: The Aptos Node API is a RESTful API for client applications to interact with the Aptos blockchain.
   version: 1.2.0
   contact:
@@ -35,7 +35,7 @@ paths:
     get:
       tags:
       - General
-      summary: Show some basic info of the node.
+      summary: Show some basic info of the node
       responses:
         '200':
           description: ''
@@ -612,18 +612,52 @@ paths:
       operationId: get_ledger_info
 components:
   schemas:
-    U64:
+    RoleType:
       type: string
-      format: uint64
-      description: 'A string containing a 64-bit unsigned integer.
+      enum:
+      - validator
+      - full_node
+    IndexResponse:
+      type: object
+      description: 'The struct holding all data returned to the client by the
 
+        index endpoint (i.e., GET "/").  Only for responding in JSON'
+      required:
+      - chain_id
+      - epoch
+      - ledger_version
+      - oldest_ledger_version
+      - ledger_timestamp
+      - node_role
+      - oldest_block_height
+      - block_height
+      properties:
+        chain_id:
+          type: integer
+          format: uint8
+          description: Chain ID of the current chain
+        epoch:
+          $ref: '#/components/schemas/U64'
+        ledger_version:
+          $ref: '#/components/schemas/U64'
+        oldest_ledger_version:
+          $ref: '#/components/schemas/U64'
+        ledger_timestamp:
+          $ref: '#/components/schemas/U64'
+        node_role:
+          $ref: '#/components/schemas/RoleType'
+        oldest_block_height:
+          $ref: '#/components/schemas/U64'
+        block_height:
+          $ref: '#/components/schemas/U64'
+        git_hash:
+          type: string
+          description: 'Git hash of the build of the API endpoint.  Can be used to determine the exact
 
-        We represent u64 values as a string to ensure compatibility with languages such
-
-        as JavaScript that do not parse u64s in JSON natively.
-
-        '
-      example: '32425224034'
+            software version used by the API endpoint.'
+        encryption_key:
+          type: string
+          description: Per-epoch transaction encryption key (hex-encoded)
     AptosErrorCode:
       type: string
       description: 'These codes provide more granular error information beyond just the HTTP
@@ -671,11 +705,18 @@ components:
           type: integer
           format: uint64
           description: A code providing VM error details when submitting transactions to the VM
-    RoleType:
+    U64:
       type: string
-      enum:
-      - validator
-      - full_node
+      format: uint64
+      description: 'A string containing a 64-bit unsigned integer.
+
+
+        We represent u64 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse u64s in JSON natively.
+
+        '
+      example: '32425224034'
     HealthCheckSuccess:
       type: object
       description: Representation of a successful healthcheck
@@ -684,46 +725,5 @@ components:
       properties:
         message:
           type: string
-    IndexResponse:
-      type: object
-      description: 'The struct holding all data returned to the client by the
-
-        index endpoint (i.e., GET "/").  Only for responding in JSON'
-      required:
-      - chain_id
-      - epoch
-      - ledger_version
-      - oldest_ledger_version
-      - ledger_timestamp
-      - node_role
-      - oldest_block_height
-      - block_height
-      properties:
-        chain_id:
-          type: integer
-          format: uint8
-          description: Chain ID of the current chain
-        epoch:
-          $ref: '#/components/schemas/U64'
-        ledger_version:
-          $ref: '#/components/schemas/U64'
-        oldest_ledger_version:
-          $ref: '#/components/schemas/U64'
-        ledger_timestamp:
-          $ref: '#/components/schemas/U64'
-        node_role:
-          $ref: '#/components/schemas/RoleType'
-        oldest_block_height:
-          $ref: '#/components/schemas/U64'
-        block_height:
-          $ref: '#/components/schemas/U64'
-        git_hash:
-          type: string
-          description: 'Git hash of the build of the API endpoint.  Can be used to determine the exact
-
-            software version used by the API endpoint.'
-        encryption_key:
-          type: string
-          description: Per-epoch transaction encryption key (hex-encoded)
 externalDocs:
   url: https://github.com/aptos-labs/aptos-core

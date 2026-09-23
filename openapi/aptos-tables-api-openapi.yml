@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Aptos Node Accounts Tables API
+  title: Aptos Node Tables API
   description: The Aptos Node API is a RESTful API for client applications to interact with the Aptos blockchain.
   version: 1.2.0
   contact:
@@ -997,178 +997,10 @@ paths:
       operationId: get_raw_table_item
 components:
   schemas:
-    I256:
-      type: string
-      format: int256
-      description: 'A string containing a 256-bit signed integer.
-
-
-        We represent i256 values as a string to ensure compatibility with languages such
-
-        as JavaScript that do not parse i256s in JSON natively.
-
-        '
-      example: '-32425224034'
-    U64:
-      type: string
-      format: uint64
-      description: 'A string containing a 64-bit unsigned integer.
-
-
-        We represent u64 values as a string to ensure compatibility with languages such
-
-        as JavaScript that do not parse u64s in JSON natively.
-
-        '
-      example: '32425224034'
-    U128:
-      type: string
-      format: uint128
-      description: 'A string containing a 128-bit unsigned integer.
-
-
-        We represent u128 values as a string to ensure compatibility with languages such
-
-        as JavaScript that do not parse u128s in JSON natively.
-
-        '
-      example: '340282366920938463463374607431768211454'
-    AptosErrorCode:
-      type: string
-      description: 'These codes provide more granular error information beyond just the HTTP
-
-        status code of the response.'
-      enum:
-      - account_not_found
-      - resource_not_found
-      - module_not_found
-      - struct_field_not_found
-      - version_not_found
-      - transaction_not_found
-      - table_item_not_found
-      - block_not_found
-      - state_value_not_found
-      - version_pruned
-      - block_pruned
-      - invalid_input
-      - invalid_transaction_update
-      - sequence_number_too_old
-      - vm_error
-      - rejected_by_filter
-      - health_check_failed
-      - mempool_is_full
-      - rate_limited
-      - internal_error
-      - web_framework_error
-      - bcs_not_supported
-      - api_disabled
-    HexEncodedBytes:
-      type: string
-      format: hex
-      description: 'All bytes (Vec<u8>) data is represented as hex-encoded string prefixed with `0x` and fulfilled with
-
-        two hex digits per byte.
-
-
-        Unlike the `Address` type, HexEncodedBytes will not trim any zeros.
-
-        '
-      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
     MoveType:
       type: string
       description: "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - i8\n      - i16\n      - i32\n      - i64\n      - i128\n      - i256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n"
       pattern: ^(bool|u8|u16|u32|u64|u128|u256|i8|i16|i32|i64|i128|i256|address|signer|vector<.+>|0x[0-9a-zA-Z:_<, >]+)$
-    AptosError:
-      type: object
-      description: 'This is the generic struct we use for all API errors, it contains a string
-
-        message and an Aptos API specific error code.'
-      required:
-      - message
-      - error_code
-      properties:
-        message:
-          type: string
-          description: A message describing the error
-        error_code:
-          $ref: '#/components/schemas/AptosErrorCode'
-        vm_error_code:
-          type: integer
-          format: uint64
-          description: A code providing VM error details when submitting transactions to the VM
-    Address:
-      type: string
-      format: hex
-      description: 'A hex encoded 32 byte Aptos account address.
-
-
-        This is represented in a string as a 64 character hex string, sometimes
-
-        shortened by stripping leading 0s, and adding a 0x.
-
-
-        For example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.
-
-        '
-      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
-    I128:
-      type: string
-      format: int128
-      description: 'A string containing a 128-bit signed integer.
-
-
-        We represent i128 values as a string to ensure compatibility with languages such
-
-        as JavaScript that do not parse i128s in JSON natively.
-
-        '
-      example: '-32425224034'
-    U256:
-      type: string
-      format: uint256
-      description: 'A string containing a 256-bit unsigned integer.
-
-
-        We represent u256 values as a string to ensure compatibility with languages such
-
-        as JavaScript that do not parse u256s in JSON natively.
-
-        '
-      example: '340282366920938463463374607431768211454'
-    I64:
-      type: string
-      format: int64
-      description: 'A string containing a 64-bit signed integer.
-
-
-        We represent i64 values as a string to ensure compatibility with languages such
-
-        as JavaScript that do not parse i64s in JSON natively.
-
-        '
-      example: '-32425224034'
-    RawTableItemRequest:
-      type: object
-      description: Table Item request for the GetTableItemRaw API
-      required:
-      - key
-      properties:
-        key:
-          $ref: '#/components/schemas/HexEncodedBytes'
-    TableItemRequest:
-      type: object
-      description: Table Item request for the GetTableItem API
-      required:
-      - key_type
-      - value_type
-      - key
-      properties:
-        key_type:
-          $ref: '#/components/schemas/MoveType'
-        value_type:
-          $ref: '#/components/schemas/MoveType'
-        key:
-          description: The value of the table item's key
     MoveValue:
       type: object
       description: An enum of the possible Move value types
@@ -1199,6 +1031,52 @@ components:
       - $ref: '#/components/schemas/HexEncodedBytes'
       - $ref: '#/components/schemas/MoveStructValue'
       - type: string
+    RawTableItemRequest:
+      type: object
+      description: Table Item request for the GetTableItemRaw API
+      required:
+      - key
+      properties:
+        key:
+          $ref: '#/components/schemas/HexEncodedBytes'
+    I128:
+      type: string
+      format: int128
+      description: 'A string containing a 128-bit signed integer.
+
+
+        We represent i128 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse i128s in JSON natively.
+
+        '
+      example: '-32425224034'
+    TableItemRequest:
+      type: object
+      description: Table Item request for the GetTableItem API
+      required:
+      - key_type
+      - value_type
+      - key
+      properties:
+        key_type:
+          $ref: '#/components/schemas/MoveType'
+        value_type:
+          $ref: '#/components/schemas/MoveType'
+        key:
+          description: The value of the table item's key
+    U256:
+      type: string
+      format: uint256
+      description: 'A string containing a 256-bit unsigned integer.
+
+
+        We represent u256 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse u256s in JSON natively.
+
+        '
+      example: '340282366920938463463374607431768211454'
     MoveStructValue:
       type: object
       description: "This is a JSON representation of some data within an account resource. More specifically,\nit is a map of strings to arbitrary JSON values / objects, where the keys are top level\nfields within the given resource.\n\nTo clarify, you might query for 0x1::account::Account and see the example data.\n\nMove `bool` type value is serialized into `boolean`.\n\nMove `u8`, `u16`, `u32`, `i8`, `i16`, and `i32` type value is serialized into `integer`.\n\nMove `u64`, `u128`, `u256`, `i64`, `i128`, and `i256` type value is serialized into `string`.\n\nMove `address` type value (32 byte Aptos account address) is serialized into a HexEncodedBytes string.\nFor example:\n  - `0x1`\n  - `0x1668f6be25668c1a17cd8caf6b8d2f25`\n\nMove `vector` type value is serialized into `array`, except `vector<u8>` which is serialized into a\nHexEncodedBytes string with `0x` prefix.\nFor example:\n  - `vector<u64>{255, 255}` => `[\"255\", \"255\"]`\n  - `vector<u8>{255, 255}` => `0xffff`\n\nMove `struct` type value is serialized into `object` that looks like this (except some Move stdlib types, see the following section):\n  ```json\n  {\n    field1_name: field1_value,\n    field2_name: field2_value,\n    ......\n  }\n  ```\n\nFor example:\n  `{ \"created\": \"0xa550c18\", \"role_id\": \"0\" }`\n\n**Special serialization for Move stdlib types**:\n  - [0x1::string::String](https://github.com/aptos-labs/aptos-core/blob/main/third_party/move/move-stdlib/docs/ascii.md)\n    is serialized into `string`. For example, struct value `0x1::string::String{bytes: b\"Hello World!\"}`\n    is serialized as `\"Hello World!\"` in JSON.\n"
@@ -1212,5 +1090,127 @@ components:
               creation_num: '0'
         self_address: '0x1'
         sequence_number: '0'
+    AptosErrorCode:
+      type: string
+      description: 'These codes provide more granular error information beyond just the HTTP
+
+        status code of the response.'
+      enum:
+      - account_not_found
+      - resource_not_found
+      - module_not_found
+      - struct_field_not_found
+      - version_not_found
+      - transaction_not_found
+      - table_item_not_found
+      - block_not_found
+      - state_value_not_found
+      - version_pruned
+      - block_pruned
+      - invalid_input
+      - invalid_transaction_update
+      - sequence_number_too_old
+      - vm_error
+      - rejected_by_filter
+      - health_check_failed
+      - mempool_is_full
+      - rate_limited
+      - internal_error
+      - web_framework_error
+      - bcs_not_supported
+      - api_disabled
+    AptosError:
+      type: object
+      description: 'This is the generic struct we use for all API errors, it contains a string
+
+        message and an Aptos API specific error code.'
+      required:
+      - message
+      - error_code
+      properties:
+        message:
+          type: string
+          description: A message describing the error
+        error_code:
+          $ref: '#/components/schemas/AptosErrorCode'
+        vm_error_code:
+          type: integer
+          format: uint64
+          description: A code providing VM error details when submitting transactions to the VM
+    I64:
+      type: string
+      format: int64
+      description: 'A string containing a 64-bit signed integer.
+
+
+        We represent i64 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse i64s in JSON natively.
+
+        '
+      example: '-32425224034'
+    HexEncodedBytes:
+      type: string
+      format: hex
+      description: 'All bytes (Vec<u8>) data is represented as hex-encoded string prefixed with `0x` and fulfilled with
+
+        two hex digits per byte.
+
+
+        Unlike the `Address` type, HexEncodedBytes will not trim any zeros.
+
+        '
+      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
+    U64:
+      type: string
+      format: uint64
+      description: 'A string containing a 64-bit unsigned integer.
+
+
+        We represent u64 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse u64s in JSON natively.
+
+        '
+      example: '32425224034'
+    I256:
+      type: string
+      format: int256
+      description: 'A string containing a 256-bit signed integer.
+
+
+        We represent i256 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse i256s in JSON natively.
+
+        '
+      example: '-32425224034'
+    Address:
+      type: string
+      format: hex
+      description: 'A hex encoded 32 byte Aptos account address.
+
+
+        This is represented in a string as a 64 character hex string, sometimes
+
+        shortened by stripping leading 0s, and adding a 0x.
+
+
+        For example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.
+
+        '
+      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
+    U128:
+      type: string
+      format: uint128
+      description: 'A string containing a 128-bit unsigned integer.
+
+
+        We represent u128 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse u128s in JSON natively.
+
+        '
+      example: '340282366920938463463374607431768211454'
 externalDocs:
   url: https://github.com/aptos-labs/aptos-core

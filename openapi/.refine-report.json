@@ -1,13 +1,7 @@
 {
   "provider": "aptos",
   "sources": [
-    "aptos-accounts-api-openapi.yml",
-    "aptos-blocks-api-openapi.yml",
-    "aptos-events-api-openapi.yml",
-    "aptos-general-api-openapi.yml",
-    "aptos-tables-api-openapi.yml",
-    "aptos-transactions-api-openapi.yml",
-    "aptos-view-api-openapi.yml"
+    "_original/aptos-fullnode-rest-api-openapi.yaml"
   ],
   "outputs": [
     "aptos-accounts-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "aptos-fullnode-rest-api-openapi.yaml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0; renamed 1 component key(s) illegal in 3.x (e.g. ReplayProtector_string(U64))",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "aptos-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aptos-blocks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aptos-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aptos-general-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aptos-tables-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aptos-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aptos-view-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
