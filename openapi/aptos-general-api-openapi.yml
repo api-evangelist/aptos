@@ -612,19 +612,6 @@ paths:
       operationId: get_ledger_info
 components:
   schemas:
-    HealthCheckSuccess:
-      type: object
-      description: Representation of a successful healthcheck
-      required:
-      - message
-      properties:
-        message:
-          type: string
-    RoleType:
-      type: string
-      enum:
-      - validator
-      - full_node
     U64:
       type: string
       format: uint64
@@ -637,47 +624,11 @@ components:
 
         '
       example: '32425224034'
-    IndexResponse:
-      type: object
-      description: 'The struct holding all data returned to the client by the
-
-        index endpoint (i.e., GET "/").  Only for responding in JSON'
-      required:
-      - chain_id
-      - epoch
-      - ledger_version
-      - oldest_ledger_version
-      - ledger_timestamp
-      - node_role
-      - oldest_block_height
-      - block_height
-      properties:
-        chain_id:
-          type: integer
-          format: uint8
-          description: Chain ID of the current chain
-        epoch:
-          $ref: '#/components/schemas/U64'
-        ledger_version:
-          $ref: '#/components/schemas/U64'
-        oldest_ledger_version:
-          $ref: '#/components/schemas/U64'
-        ledger_timestamp:
-          $ref: '#/components/schemas/U64'
-        node_role:
-          $ref: '#/components/schemas/RoleType'
-        oldest_block_height:
-          $ref: '#/components/schemas/U64'
-        block_height:
-          $ref: '#/components/schemas/U64'
-        git_hash:
-          type: string
-          description: 'Git hash of the build of the API endpoint.  Can be used to determine the exact
-
-            software version used by the API endpoint.'
-        encryption_key:
-          type: string
-          description: Per-epoch transaction encryption key (hex-encoded)
+    RoleType:
+      type: string
+      enum:
+      - validator
+      - full_node
     AptosErrorCode:
       type: string
       description: 'These codes provide more granular error information beyond just the HTTP
@@ -725,5 +676,54 @@ components:
           type: integer
           format: uint64
           description: A code providing VM error details when submitting transactions to the VM
+    HealthCheckSuccess:
+      type: object
+      description: Representation of a successful healthcheck
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    IndexResponse:
+      type: object
+      description: 'The struct holding all data returned to the client by the
+
+        index endpoint (i.e., GET "/").  Only for responding in JSON'
+      required:
+      - chain_id
+      - epoch
+      - ledger_version
+      - oldest_ledger_version
+      - ledger_timestamp
+      - node_role
+      - oldest_block_height
+      - block_height
+      properties:
+        chain_id:
+          type: integer
+          format: uint8
+          description: Chain ID of the current chain
+        epoch:
+          $ref: '#/components/schemas/U64'
+        ledger_version:
+          $ref: '#/components/schemas/U64'
+        oldest_ledger_version:
+          $ref: '#/components/schemas/U64'
+        ledger_timestamp:
+          $ref: '#/components/schemas/U64'
+        node_role:
+          $ref: '#/components/schemas/RoleType'
+        oldest_block_height:
+          $ref: '#/components/schemas/U64'
+        block_height:
+          $ref: '#/components/schemas/U64'
+        git_hash:
+          type: string
+          description: 'Git hash of the build of the API endpoint.  Can be used to determine the exact
+
+            software version used by the API endpoint.'
+        encryption_key:
+          type: string
+          description: Per-epoch transaction encryption key (hex-encoded)
 externalDocs:
   url: https://github.com/aptos-labs/aptos-core
