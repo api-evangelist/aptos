@@ -1033,6 +1033,28 @@ paths:
       operationId: get_events_by_event_handle
 components:
   schemas:
+    AptosError:
+      type: object
+      description: 'This is the generic struct we use for all API errors, it contains a string
+
+        message and an Aptos API specific error code.'
+      required:
+      - message
+      - error_code
+      properties:
+        message:
+          type: string
+          description: A message describing the error
+        error_code:
+          $ref: '#/components/schemas/AptosErrorCode'
+        vm_error_code:
+          type: integer
+          format: uint64
+          description: A code providing VM error details when submitting transactions to the VM
+    MoveType:
+      type: string
+      description: "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - i8\n      - i16\n      - i32\n      - i64\n      - i128\n      - i256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n"
+      pattern: ^(bool|u8|u16|u32|u64|u128|u256|i8|i16|i32|i64|i128|i256|address|signer|vector<.+>|0x[0-9a-zA-Z:_<, >]+)$
     U64:
       type: string
       format: uint64
@@ -1045,6 +1067,23 @@ components:
 
         '
       example: '32425224034'
+    Address:
+      type: string
+      format: hex
+      description: 'A hex encoded 32 byte Aptos account address.
+
+
+        This is represented in a string as a 64 character hex string, sometimes
+
+        shortened by stripping leading 0s, and adding a 0x.
+
+
+        For example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.
+
+        '
+      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
+    IdentifierWrapper:
+      type: string
     EventGuid:
       type: object
       required:
@@ -1055,12 +1094,11 @@ components:
           $ref: '#/components/schemas/U64'
         account_address:
           $ref: '#/components/schemas/Address'
-    MoveType:
+    MoveStructTag:
       type: string
-      description: "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - i8\n      - i16\n      - i32\n      - i64\n      - i128\n      - i256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n"
-      pattern: ^(bool|u8|u16|u32|u64|u128|u256|i8|i16|i32|i64|i128|i256|address|signer|vector<.+>|0x[0-9a-zA-Z:_<, >]+)$
-    IdentifierWrapper:
-      type: string
+      description: "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n"
+      example: 0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>
+      pattern: ^0x[0-9a-zA-Z:_<>]+$
     AptosErrorCode:
       type: string
       description: 'These codes provide more granular error information beyond just the HTTP
@@ -1090,29 +1128,6 @@ components:
       - web_framework_error
       - bcs_not_supported
       - api_disabled
-    AptosError:
-      type: object
-      description: 'This is the generic struct we use for all API errors, it contains a string
-
-        message and an Aptos API specific error code.'
-      required:
-      - message
-      - error_code
-      properties:
-        message:
-          type: string
-          description: A message describing the error
-        error_code:
-          $ref: '#/components/schemas/AptosErrorCode'
-        vm_error_code:
-          type: integer
-          format: uint64
-          description: A code providing VM error details when submitting transactions to the VM
-    MoveStructTag:
-      type: string
-      description: "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n"
-      example: 0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>
-      pattern: ^0x[0-9a-zA-Z:_<>]+$
     VersionedEvent:
       type: object
       description: An event from a transaction with a version
@@ -1133,20 +1148,5 @@ components:
           $ref: '#/components/schemas/MoveType'
         data:
           description: The JSON representation of the event
-    Address:
-      type: string
-      format: hex
-      description: 'A hex encoded 32 byte Aptos account address.
-
-
-        This is represented in a string as a 64 character hex string, sometimes
-
-        shortened by stripping leading 0s, and adding a 0x.
-
-
-        For example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.
-
-        '
-      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
 externalDocs:
   url: https://github.com/aptos-labs/aptos-core
