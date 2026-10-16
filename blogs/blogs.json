@@ -2,11 +2,11 @@
   "repo": "aptos",
   "feeds": [
     {
-      "source": "https://aptos.dev/en/network/nodes/networks",
-      "feed_url": "https://aptos.dev/en/network/nodes/networks",
+      "source": "https://aptoslabs.medium.com",
+      "feed_url": "https://aptoslabs.medium.com/feed/",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "discovered"
     },
     {
       "source": "https://aptoslabs.medium.com/feed",
@@ -14,9 +14,16 @@
       "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://aptos.dev/en/network/nodes/networks",
+      "feed_url": "https://aptos.dev/en/network/nodes/networks",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-10-03T12:30:02Z",
+  "fetched": "2026-10-10T13:15:00Z",
   "post_count": 16,
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
