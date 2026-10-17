@@ -1033,6 +1033,36 @@ paths:
       operationId: get_events_by_event_handle
 components:
   schemas:
+    VersionedEvent:
+      type: object
+      description: An event from a transaction with a version
+      required:
+      - version
+      - guid
+      - sequence_number
+      - type
+      - data
+      properties:
+        version:
+          $ref: '#/components/schemas/U64'
+        guid:
+          $ref: '#/components/schemas/EventGuid'
+        sequence_number:
+          $ref: '#/components/schemas/U64'
+        type:
+          $ref: '#/components/schemas/MoveType'
+        data:
+          description: The JSON representation of the event
+    EventGuid:
+      type: object
+      required:
+      - creation_number
+      - account_address
+      properties:
+        creation_number:
+          $ref: '#/components/schemas/U64'
+        account_address:
+          $ref: '#/components/schemas/Address'
     AptosError:
       type: object
       description: 'This is the generic struct we use for all API errors, it contains a string
@@ -1067,38 +1097,8 @@ components:
 
         '
       example: '32425224034'
-    Address:
-      type: string
-      format: hex
-      description: 'A hex encoded 32 byte Aptos account address.
-
-
-        This is represented in a string as a 64 character hex string, sometimes
-
-        shortened by stripping leading 0s, and adding a 0x.
-
-
-        For example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.
-
-        '
-      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
     IdentifierWrapper:
       type: string
-    EventGuid:
-      type: object
-      required:
-      - creation_number
-      - account_address
-      properties:
-        creation_number:
-          $ref: '#/components/schemas/U64'
-        account_address:
-          $ref: '#/components/schemas/Address'
-    MoveStructTag:
-      type: string
-      description: "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n"
-      example: 0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>
-      pattern: ^0x[0-9a-zA-Z:_<>]+$
     AptosErrorCode:
       type: string
       description: 'These codes provide more granular error information beyond just the HTTP
@@ -1128,25 +1128,25 @@ components:
       - web_framework_error
       - bcs_not_supported
       - api_disabled
-    VersionedEvent:
-      type: object
-      description: An event from a transaction with a version
-      required:
-      - version
-      - guid
-      - sequence_number
-      - type
-      - data
-      properties:
-        version:
-          $ref: '#/components/schemas/U64'
-        guid:
-          $ref: '#/components/schemas/EventGuid'
-        sequence_number:
-          $ref: '#/components/schemas/U64'
-        type:
-          $ref: '#/components/schemas/MoveType'
-        data:
-          description: The JSON representation of the event
+    Address:
+      type: string
+      format: hex
+      description: 'A hex encoded 32 byte Aptos account address.
+
+
+        This is represented in a string as a 64 character hex string, sometimes
+
+        shortened by stripping leading 0s, and adding a 0x.
+
+
+        For example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.
+
+        '
+      example: 61959483996478237799081788855878961092127547100767458402256961684167818091681
+    MoveStructTag:
+      type: string
+      description: "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n"
+      example: 0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>
+      pattern: ^0x[0-9a-zA-Z:_<>]+$
 externalDocs:
   url: https://github.com/aptos-labs/aptos-core

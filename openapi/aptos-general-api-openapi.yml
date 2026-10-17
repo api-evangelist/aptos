@@ -612,49 +612,6 @@ paths:
       operationId: get_ledger_info
 components:
   schemas:
-    AptosError:
-      type: object
-      description: 'This is the generic struct we use for all API errors, it contains a string
-
-        message and an Aptos API specific error code.'
-      required:
-      - message
-      - error_code
-      properties:
-        message:
-          type: string
-          description: A message describing the error
-        error_code:
-          $ref: '#/components/schemas/AptosErrorCode'
-        vm_error_code:
-          type: integer
-          format: uint64
-          description: A code providing VM error details when submitting transactions to the VM
-    U64:
-      type: string
-      format: uint64
-      description: 'A string containing a 64-bit unsigned integer.
-
-
-        We represent u64 values as a string to ensure compatibility with languages such
-
-        as JavaScript that do not parse u64s in JSON natively.
-
-        '
-      example: '32425224034'
-    RoleType:
-      type: string
-      enum:
-      - validator
-      - full_node
-    HealthCheckSuccess:
-      type: object
-      description: Representation of a successful healthcheck
-      required:
-      - message
-      properties:
-        message:
-          type: string
     IndexResponse:
       type: object
       description: 'The struct holding all data returned to the client by the
@@ -696,6 +653,36 @@ components:
         encryption_key:
           type: string
           description: Per-epoch transaction encryption key (hex-encoded)
+    AptosError:
+      type: object
+      description: 'This is the generic struct we use for all API errors, it contains a string
+
+        message and an Aptos API specific error code.'
+      required:
+      - message
+      - error_code
+      properties:
+        message:
+          type: string
+          description: A message describing the error
+        error_code:
+          $ref: '#/components/schemas/AptosErrorCode'
+        vm_error_code:
+          type: integer
+          format: uint64
+          description: A code providing VM error details when submitting transactions to the VM
+    U64:
+      type: string
+      format: uint64
+      description: 'A string containing a 64-bit unsigned integer.
+
+
+        We represent u64 values as a string to ensure compatibility with languages such
+
+        as JavaScript that do not parse u64s in JSON natively.
+
+        '
+      example: '32425224034'
     AptosErrorCode:
       type: string
       description: 'These codes provide more granular error information beyond just the HTTP
@@ -725,5 +712,18 @@ components:
       - web_framework_error
       - bcs_not_supported
       - api_disabled
+    HealthCheckSuccess:
+      type: object
+      description: Representation of a successful healthcheck
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    RoleType:
+      type: string
+      enum:
+      - validator
+      - full_node
 externalDocs:
   url: https://github.com/aptos-labs/aptos-core
