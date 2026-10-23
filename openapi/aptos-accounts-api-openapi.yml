@@ -3312,3 +3312,9 @@ components:
       pattern: ^0x[0-9a-zA-Z:_<>]+$
 externalDocs:
   url: https://github.com/aptos-labs/aptos-core
+x-provenance:
+  method: harvested
+  publisher: Aptos
+  source: https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
