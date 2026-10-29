@@ -1,4 +1,4 @@
-# Aptos (aptos)
+# Aptos
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,145 +66,224 @@
 
 Aptos is a Move-based Layer 1 blockchain platform that exposes a REST API for reading on-chain state and submitting transactions, a GraphQL Indexer API for high-level queries over processed blockchain data (NFTs, objects, custom Move contracts), and a gRPC Transaction Stream for real-time and historical event feeds. Public endpoints are provided by Aptos Labs for mainnet, testnet, and devnet; enhanced rate limits are available through Geomi (formerly Aptos Labs Developer Portal).
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/aptos/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/aptos/refs/heads/main/apis.yml)
+**Areas:** Blockchain · Web3 · Move · Layer 1 · Cryptocurrency · NFT · Smart Contracts · DeFi · Transaction · Account · GraphQL · gRPC
 
-## Tags
+## Aptos on APIs.io
 
-- Blockchain
-- Web3
-- Move
-- Layer 1
-- Cryptocurrency
-- NFT
-- Smart Contracts
-- DeFi
-- Transactions
-- Accounts
-- GraphQL
-- gRPC
+Everything profiled for Aptos is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/aptos/](https://apis.io/providers/aptos/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (10)
 
-- **Created:** 2026-06-13
-- **Modified:** 2026-06-13
+- [Aptos Indexer GraphQL API](https://apis.io/apis/aptos/indexer-graphql-api/) — High-level GraphQL API backed by the Aptos Indexer, providing opinionated access to processed blockchain data. Optimized for querying NFTs, Aptos Objects,…
+- [Aptos Transaction Stream API](https://apis.io/apis/aptos/transaction-stream-api/) — gRPC streaming API that delivers historical and real-time transaction data from the Aptos blockchain. Used to power the Aptos Core Indexer and to build…
+- [Aptos Faucet API](https://apis.io/apis/aptos/faucet-api/) — Testnet and devnet faucet that distributes APT test tokens for development and testing. Available programmatically on devnet; testnet faucet is accessible…
+- [Aptos Accounts API](https://apis.io/apis/aptos/aptos-accounts-api/) — Access to accounts, resources, and modules
+- [Aptos Blocks API](https://apis.io/apis/aptos/aptos-blocks-api/) — Access to blocks
+- [Aptos Events API](https://apis.io/apis/aptos/aptos-events-api/) — Access to events
+- [Aptos General API](https://apis.io/apis/aptos/aptos-general-api/) — General information
+- [Aptos Tables API](https://apis.io/apis/aptos/aptos-tables-api/) — Access to tables
+- [Aptos Transactions API](https://apis.io/apis/aptos/aptos-transactions-api/) — Access to transactions
+- [Aptos View API](https://apis.io/apis/aptos/aptos-view-api/) — View functions,
 
-## APIs
+### Published properties
 
-### Aptos Fullnode REST API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Low-latency REST API for reading on-chain state and submitting transactions to the Aptos blockchain. Endpoints cover accounts (authentication key, sequence number, resources, modules, balances), blocks (by height or ledger version), events, transactions (read, submit, simulate), table items, Move view functions, and node health/info. Available on mainnet, testnet, and devnet.
+#### GraphQL (1)
 
-- **Human URL:** [https://aptos.dev/en/build/apis/fullnode-rest-api](https://aptos.dev/en/build/apis/fullnode-rest-api)
-- **Base URL:** `https://api.mainnet.aptoslabs.com/v1`
+GraphQL schemas.
 
-#### Tags
+- [Aptos GraphQL API](https://apis.io/graphqls/aptos/aptos-graphql/)
 
-- Accounts
-- Transactions
-- Blocks
-- Events
-- Modules
-- Resources
-- Move
-- REST
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://aptos.dev/en/build/apis/fullnode-rest-api)
-- [API Reference](https://api.mainnet.aptoslabs.com/v1/spec)
-- [OpenAPI](https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Authentication](https://geomi.dev/docs/api-keys)
-- [Sandbox](https://api.testnet.aptoslabs.com/v1)
-- [Graph Q L](graphql/aptos-graphql.md)
+- [Aptos Agentic Access](https://apis.io/agentic-access/aptos/aptos-agentic-access/)
 
-### Aptos Indexer GraphQL API
+#### JSON Schema (188)
 
-High-level GraphQL API backed by the Aptos Indexer, providing opinionated access to processed blockchain data. Optimized for querying NFTs, Aptos Objects, token balances, fungible assets, custom Move contract events, and account activities. Available on mainnet and testnet with optional API key from Geomi for elevated rate limits.
+The data models the API reads and writes.
 
-- **Human URL:** [https://aptos.dev/en/build/indexer/indexer-api](https://aptos.dev/en/build/indexer/indexer-api)
-- **Base URL:** `https://api.mainnet.aptoslabs.com/v1/graphql`
+- [AbstractSignature](https://apis.io/schemas/aptos/AbstractSignature/)
+- [AccountData](https://apis.io/schemas/aptos/AccountData/)
+- [AccountSignature](https://apis.io/schemas/aptos/AccountSignature/)
+- [AccountSignature_AbstractSignature](https://apis.io/schemas/aptos/AccountSignature_AbstractSignature/)
+- [AccountSignature_Ed25519Signature](https://apis.io/schemas/aptos/AccountSignature_Ed25519Signature/)
+- [AccountSignature_MultiEd25519Signature](https://apis.io/schemas/aptos/AccountSignature_MultiEd25519Signature/)
+- [AccountSignature_MultiKeySignature](https://apis.io/schemas/aptos/AccountSignature_MultiKeySignature/)
+- [AccountSignature_NoAccountSignature](https://apis.io/schemas/aptos/AccountSignature_NoAccountSignature/)
+- [AccountSignature_SingleKeySignature](https://apis.io/schemas/aptos/AccountSignature_SingleKeySignature/)
+- [Address](https://apis.io/schemas/aptos/Address/)
+- [AptosError](https://apis.io/schemas/aptos/AptosError/)
+- [AptosErrorCode](https://apis.io/schemas/aptos/AptosErrorCode/)
+- [AssetType](https://apis.io/schemas/aptos/AssetType/)
+- [Block](https://apis.io/schemas/aptos/Block/)
+- [BlockEndInfo](https://apis.io/schemas/aptos/BlockEndInfo/)
+- [BlockEpilogueTransaction](https://apis.io/schemas/aptos/BlockEpilogueTransaction/)
+- [BlockMetadataExtension](https://apis.io/schemas/aptos/BlockMetadataExtension/)
+- [BlockMetadataExtensionEmpty](https://apis.io/schemas/aptos/BlockMetadataExtensionEmpty/)
+- [BlockMetadataExtensionRandomness](https://apis.io/schemas/aptos/BlockMetadataExtensionRandomness/)
+- [BlockMetadataExtensionRandomnessAndDecKey](https://apis.io/schemas/aptos/BlockMetadataExtensionRandomnessAndDecKey/)
+- [BlockMetadataExtension_BlockMetadataExtensionEmpty](https://apis.io/schemas/aptos/BlockMetadataExtension_BlockMetadataExtensionEmpty/)
+- [BlockMetadataExtension_BlockMetadataExtensionRandomness](https://apis.io/schemas/aptos/BlockMetadataExtension_BlockMetadataExtensionRandomness/)
+- [BlockMetadataExtension_BlockMetadataExtensionRandomnessAndDecKey](https://apis.io/schemas/aptos/BlockMetadataExtension_BlockMetadataExtensionRandomnessAndDecKey/)
+- [BlockMetadataTransaction](https://apis.io/schemas/aptos/BlockMetadataTransaction/)
+- [ChunkyDKGResultTransaction](https://apis.io/schemas/aptos/ChunkyDKGResultTransaction/)
+- …and 163 more published on APIs.io
 
-#### Tags
+#### JSON-LD (2)
 
-- GraphQL
-- NFT
-- Objects
-- Tokens
-- Fungible Assets
-- Indexer
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Aptos Context](https://apis.io/jsonld/aptos/aptos-context/)
+- [Aptos Schema Context](https://apis.io/jsonld/aptos/aptos-schema/)
 
-- [Documentation](https://aptos.dev/en/build/indexer/indexer-api)
-- [API Reference](https://aptos.dev/en/build/indexer/indexer-api/indexer-reference)
-- [Authentication](https://geomi.dev/docs/api-keys)
-- [Sandbox](https://api.testnet.aptoslabs.com/v1/graphql)
-- [Graph Q L](graphql/aptos-graphql.md)
+#### Examples (29)
 
-### Aptos Transaction Stream API
+Example requests and responses.
 
-gRPC streaming API that delivers historical and real-time transaction data from the Aptos blockchain. Used to power the Aptos Core Indexer and to build custom app-specific real-time event processors. Available on mainnet, testnet, and devnet via grpc endpoints.
+- [Encode_Submission](https://apis.io/examples/aptos/encode_submission/)
+- [Estimate_Gas_Price](https://apis.io/examples/aptos/estimate_gas_price/)
+- [Get_Account](https://apis.io/examples/aptos/get_account/)
+- [Get_Account_Balance](https://apis.io/examples/aptos/get_account_balance/)
+- [Get_Account_Module](https://apis.io/examples/aptos/get_account_module/)
+- [Get_Account_Modules](https://apis.io/examples/aptos/get_account_modules/)
+- [Get_Account_Resource](https://apis.io/examples/aptos/get_account_resource/)
+- [Get_Account_Resources](https://apis.io/examples/aptos/get_account_resources/)
+- [Get_Account_Transaction_Summaries](https://apis.io/examples/aptos/get_account_transaction_summaries/)
+- [Get_Account_Transactions](https://apis.io/examples/aptos/get_account_transactions/)
+- [Get_Block_By_Height](https://apis.io/examples/aptos/get_block_by_height/)
+- [Get_Block_By_Version](https://apis.io/examples/aptos/get_block_by_version/)
+- [Get_Events_By_Creation_Number](https://apis.io/examples/aptos/get_events_by_creation_number/)
+- [Get_Events_By_Event_Handle](https://apis.io/examples/aptos/get_events_by_event_handle/)
+- [Get_Ledger_Info](https://apis.io/examples/aptos/get_ledger_info/)
+- [Get_Raw_Table_Item](https://apis.io/examples/aptos/get_raw_table_item/)
+- [Get_Table_Item](https://apis.io/examples/aptos/get_table_item/)
+- [Get_Transaction_By_Hash](https://apis.io/examples/aptos/get_transaction_by_hash/)
+- [Get_Transaction_By_Version](https://apis.io/examples/aptos/get_transaction_by_version/)
+- [Get_Transactions](https://apis.io/examples/aptos/get_transactions/)
+- [Get_Transactions_Auxiliary_Info](https://apis.io/examples/aptos/get_transactions_auxiliary_info/)
+- [Healthy](https://apis.io/examples/aptos/healthy/)
+- [Info](https://apis.io/examples/aptos/info/)
+- [Simulate_Transaction](https://apis.io/examples/aptos/simulate_transaction/)
+- [Spec](https://apis.io/examples/aptos/spec/)
+- …and 4 more published on APIs.io
 
-- **Human URL:** [https://aptos.dev/en/build/apis](https://aptos.dev/en/build/apis)
-- **Base URL:** `https://grpc.mainnet.aptoslabs.com`
+#### Collections (14)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- gRPC
-- Streaming
-- Transactions
-- Real-time
-- Indexer
+- [Aptos Node Accounts API](https://apis.io/collections/aptos/open-aptos-accounts-api/)
+- [Aptos Node Accounts Blocks API](https://apis.io/collections/aptos/open-aptos-blocks-api/)
+- [Aptos Node Accounts Events API](https://apis.io/collections/aptos/open-aptos-events-api/)
+- [Aptos Node Accounts General API](https://apis.io/collections/aptos/open-aptos-general-api/)
+- [Aptos Node Accounts Tables API](https://apis.io/collections/aptos/open-aptos-tables-api/)
+- [Aptos Node Accounts Transactions API](https://apis.io/collections/aptos/open-aptos-transactions-api/)
+- [Aptos Node Accounts View API](https://apis.io/collections/aptos/open-aptos-view-api/)
+- [Aptos Node Accounts API](https://apis.io/collections/aptos/postman-aptos-accounts-api/)
+- [Aptos Node Accounts Blocks API](https://apis.io/collections/aptos/postman-aptos-blocks-api/)
+- [Aptos Node Accounts Events API](https://apis.io/collections/aptos/postman-aptos-events-api/)
+- [Aptos Node Accounts General API](https://apis.io/collections/aptos/postman-aptos-general-api/)
+- [Aptos Node Accounts Tables API](https://apis.io/collections/aptos/postman-aptos-tables-api/)
+- [Aptos Node Accounts Transactions API](https://apis.io/collections/aptos/postman-aptos-transactions-api/)
+- [Aptos Node Accounts View API](https://apis.io/collections/aptos/postman-aptos-view-api/)
 
-#### Properties
+#### Governance rules (1)
 
+Spectral rulesets for the provider's contracts.
+
+- [Aptos — jsonschema rules](https://apis.io/rules/aptos/aptos-jsonschema-spectral-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Aptos Domain Security](https://apis.io/security/aptos/aptos-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Aptos Plans Pricing](https://apis.io/plans/aptos/aptos-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Aptos Rate Limits](https://apis.io/rate-limits/aptos/aptos-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Aptos Finops](https://apis.io/finops/aptos/aptos-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://aptos.dev)
 - [Documentation](https://aptos.dev/en/build/apis)
-- [Authentication](https://geomi.dev/docs/api-keys)
-
-### Aptos Faucet API
-
-Testnet and devnet faucet that distributes APT test tokens for development and testing. Available programmatically on devnet; testnet faucet is accessible via the mint page. Not available on mainnet.
-
-- **Human URL:** [https://aptos.dev/en/network/nodes/networks](https://aptos.dev/en/network/nodes/networks)
-- **Base URL:** `https://faucet.devnet.aptoslabs.com`
-
-#### Tags
-
-- Faucet
-- Testnet
-- Devnet
-- Test Tokens
-
-#### Properties
-
-- [Documentation](https://aptos.dev/en/network/nodes/networks)
-
-## Common Properties
-
-- [Portal](https://aptos.dev)
-- [Documentation](https://aptos.dev/en/build/apis)
-- [API Reference](https://api.mainnet.aptoslabs.com/v1/spec)
-- [Getting Started](https://aptos.dev/en/build/get-started)
-- [Sign Up](https://geomi.dev/)
+- [Getting started](https://aptos.dev/en/build/get-started)
+- [API reference](https://api.mainnet.aptoslabs.com/v1/spec)
 - [Pricing](https://geomi.dev/pricing)
-- [Rate Limiting](https://geomi.dev/docs/admin/billing)
-- [Networks](https://aptos.dev/en/network/nodes/networks)
 - [Blog](https://aptoslabs.medium.com)
-- [Terms of Service](https://aptoslabs.com/terms)
-- [Privacy Policy](https://aptoslabs.com/privacy)
-- [GitHub Organization](https://github.com/aptos-labs)
-- [OpenAPI](https://raw.githubusercontent.com/aptos-labs/aptos-core/main/api/doc/spec.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [SDK](https://github.com/aptos-labs/aptos-ts-sdk)
-- [SDK](https://github.com/aptos-labs/aptos-python-sdk)
-- [SDK](https://github.com/aptos-labs/aptos-go-sdk)
-- [SDK](https://github.com/aptos-labs/aptos-core/tree/main/sdk)
-- [Plans](plans/aptos-plans-pricing.yml)
-- [Rate Limits](rate-limits/aptos-rate-limits.yml)
-- [Fin Ops](finops/aptos-finops.yml)
-- [Features](undefined)
-- [Use Cases](undefined)
+- [Terms of service](https://aptoslabs.com/terms)
+- [Privacy policy](https://aptoslabs.com/privacy)
+- [GitHub](https://github.com/aptos-labs)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 49.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 54.5 |
+| Contract governance | 9.8 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 77.4 |
+| Access clarity | 52.6 |
+
+**Agent readiness 27.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/aptos/](https://apis.io/providers/aptos/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Aptos: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/aptos/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
